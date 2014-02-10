@@ -1,0 +1,226 @@
+{
+    "integrationUser": {
+        "systemAdmin": false
+    },
+    "tiles" : [
+        {
+            "sampleData": {
+                "title":"Jive SDK (Java) - Jersey - Example Table Tile",
+                "contents":[
+                    {
+                        "name": "Jive Developers",
+                        "value": "Website",
+                        "url" : "https://developers.jivesoftware.com"
+                    },
+                    {
+                        "name": "Jive Developers",
+                        "value": "Community",
+                        "url" : "https://community.jivesoftware.com/community/developer"
+                    }
+                ]
+            },
+            "displayName": "jersey-example-table",
+            "name": "jersey-example-table",
+            "description": "A sample table generated using the Jive SDK (Java) - Jersey Edition",
+            "style": "TABLE",
+            "icons": {
+                "16": "http://jivedev.ryanrutan.com:18099/images/extension-16.png",
+                "48": "http://jivedev.ryanrutan.com:18099/images/extension-48.png",
+                "128": "http://jivedev.ryanrutan.com:18099/images/extension-128.png"
+            },
+            "action": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-table/action.jsp",
+            "id": "2bbb1f41-bcf3-4ab9-b60f-36404f4b7b43",
+            "definitionDirName": "jersey-example-table",
+            "published": "2014-02-28T15:12:16.768-0800",
+            "updated": "2014-02-28T15:12:16.768-0800",
+            "config": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-table/configure.jsp",
+            "unregister": "http://jivedev.ryanrutan.com:18099/example/tile/unregister",
+            "register": "http://jivedev.ryanrutan.com:18099/example/tile/register"
+        },
+        {
+
+            "sampleData": {
+                 "title":"Jive SDK (Java) - Jersey - Example List Tile",
+                 "contents":[
+                     {
+                         "text":"Default Text"
+                     }
+                 ],
+                 "config" : {
+                     "listStyle":"contentList"
+                 }
+             },
+             "displayName": "jersey-example-list",
+             "name": "jersey-example-list",
+             "description": "A sample list generated using the Jive SDK (Java) - Jersey Edition",
+             "style": "LIST",
+             "icons": {
+                 "16": "http://jivedev.ryanrutan.com:18099/images/extension-16.png",
+                 "48": "http://jivedev.ryanrutan.com:18099/images/extension-48.png",
+                 "128": "http://jivedev.ryanrutan.com:18099/images/extension-128.png"
+             },
+             "action": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-list/action.jsp",
+             "id": "2eee1f41-bcf3-4ab9-b60f-36404f4b7b43",
+             "definitionDirName": "jersey-example-list",
+             "published": "2013-02-28T15:12:16.768-0800",
+             "updated": "2013-02-28T15:12:16.768-0800",
+             "config": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-list/configure.jsp",
+             "unregister": "http://jivedev.ryanrutan.com:18099/example/tile/unregister",
+             "register": "http://jivedev.ryanrutan.com:18099/example/tile/register"
+         },
+         {
+            "sampleData": {
+                "title":"Jive SDK (Java) - Jersey - Example Gallery Tile",
+                "contents":[
+                    {
+                        "image": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-gallery/images/photo1.png",
+                        "title": "Photo 1",
+                        "thumb": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-gallery/images/photo1-thumb.png"
+                    }
+                ]
+            },
+            "displayName": "jersey-example-gallery",
+            "name": "jersey-example-gallery",
+            "description": "A sample gallery generated using the Jive SDK (Java) - Jersey Edition",
+            "style": "GALLERY",
+            "icons": {
+                "16": "http://jivedev.ryanrutan.com:18099/images/extension-16.png",
+                "48": "http://jivedev.ryanrutan.com:18099/images/extension-48.png",
+                "128": "http://jivedev.ryanrutan.com:18099/images/extension-128.png"
+            },
+            "action": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-gallery/action.jsp",
+            "id": "2ccc1f41-bcf3-4ab9-b60f-36404f4b7b43",
+            "definitionDirName": "jersey-example-gallery",
+            "published": "2014-02-28T15:12:16.768-0800",
+            "updated": "2014-02-28T15:12:16.768-0800",
+            "config": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-gallery/configure.jsp",
+            "unregister": "http://jivedev.ryanrutan.com:18099/example/tile/unregister",
+            "register": "http://jivedev.ryanrutan.com:18099/example/tile/register"
+        },
+        {
+            "sampleData": {
+                "message": "Waiting on Pulse",
+                "sections": [
+                    { "label": "Hot",		"color": "#ff0000" },
+                    { "label": "Warm",		"color": "#ffb6c1" },
+                    { "label": "Unknown",	"color": "#cecece" },
+                    { "label": "Cool",		"color": "#b0c4de" },
+                    { "label": "Cold",	    "color": "#4169e1" }
+                ],
+                "activeIndex": 2,
+                "status": "Unknown"
+            },
+            "displayName": "jersey-example-gauge",
+            "name": "jersey-example-gauge",
+            "description": "A sample gauge generated using the Jive SDK (Java) - Jersey Edition",
+            "style": "GAUGE",
+            "icons": {
+                "16": "http://jivedev.ryanrutan.com:18099/images/extension-16.png",
+                "48": "http://jivedev.ryanrutan.com:18099/images/extension-48.png",
+                "128": "http://jivedev.ryanrutan.com:18099/images/extension-128.png"
+            },
+            "action": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-gauge/action.jsp",
+            "id": "2aaa1f41-bcf3-4ab9-b60f-36404f4b7b43",
+            "definitionDirName": "jersey-example-gauge",
+            "published": "2014-02-28T15:12:16.768-0800",
+            "updated": "2014-02-28T15:12:16.768-0800",
+            "config": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-gauge/configure.jsp",
+            "unregister": "http://jivedev.ryanrutan.com:18099/example/tile/unregister",
+            "register": "http://jivedev.ryanrutan.com:18099/example/tile/register"
+        },
+        {
+            "sampleData": {
+                "title": "Example Calendar",
+                "events" :  [
+                    {
+                        "title": "Example Title",
+                        "location": "Event Location",
+                        "start": "2013-08-12T07:00:00:000Z",
+                        "description": "Event Description",
+                        "action": {
+                            "url": "https://developers.jivesoftware.com"
+                        }
+                    }
+                ],
+                "action": {
+                    "text": "Developers Community",
+                    "url": "https://developers.jivesoftware.com"
+                }
+            },
+            "displayName": "jersey-example-calendar",
+            "name": "jersey-example-calendar",
+            "description": "A sample calendar generated using the Jive SDK (Java) - Jersey Edition",
+            "style": "CALENDAR",
+            "icons": {
+                "16": "http://jivedev.ryanrutan.com:18099/images/extension-16.png",
+                "48": "http://jivedev.ryanrutan.com:18099/images/extension-48.png",
+                "128": "http://jivedev.ryanrutan.com:18099/images/extension-128.png"
+            },
+            "action": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-calendar/action.jsp",
+            "id": "ffff1f41-bcf3-4ab9-b60f-36404f4b7b43",
+            "definitionDirName": "jersey-example-calendar",
+            "published": "2014-02-28T15:12:16.768-0800",
+            "updated": "2014-02-28T15:12:16.768-0800",
+            "config": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-calendar/configure.jsp",
+            "unregister": "http://jivedev.ryanrutan.com:18099/example/tile/unregister",
+            "register": "http://jivedev.ryanrutan.com:18099/example/tile/register"
+        }
+    ],
+    "templates": [],
+	"osapps": [
+		{
+			"name" : "Twitter OAuth App",
+			"id": "5fa34f29-7bcc-48f5-b9a3-bad9805e8f9e",
+			"appPath": "twitter-oauth1-example",
+			"url": "http://jivedev.ryanrutan.com:18099/apps/twitter/app.xml"
+		},
+        {
+            "name" : "Facebook OAuth2 App",
+            "id": "aaa34f29-7bcc-48f5-b9a3-bad9805e8f9e",
+            "appPath": "facebook-oauth2-example",
+            "url": "http://jivedev.ryanrutan.com:18099/apps/facebook/app.xml"
+        },
+        {
+            "name" : "Google OAuth2 App",
+            "id": "bbb34f29-7bcc-48f5-b9a3-bad9805e8f9e",
+            "appPath": "google-oauth2-example",
+            "url": "http://jivedev.ryanrutan.com:18099/apps/google/app.xml"
+        }
+
+	],
+	"storageDefinitions": [
+        {
+            "name": "fa4ab7ff-ad71-522a-96e9-1c16cff90733",
+            "displayName": "Jive SDK (Java) - Jersey - Example Storage Provider",
+            "description": "An example storage provider implementation",
+            "prefixUrl": "%serviceURL%",
+            "configPlace" : "%serviceURL%/storage/example/place/configure.jsp",
+            "configInstance" : "%serviceURL%/storage/example/configure.jsp",
+            "resolveResources": "%serviceURL%/example/storage/resolveResources",
+            "registerPlace": "%serviceURL%/example/storage/register",
+            "healthCheckURL": "%serviceURL%/example/storage/ping",
+            "userMappingOptions": [
+                "EMAIL"
+            ],
+            "supportedResourceNames": [
+                "uploadFile",
+                "downloadFile"
+            ],
+            "icons": {
+                "16": "extension-16.png",
+                "48": "extension-48.png",
+                "128": "extension-128.png"
+            }
+        }
+	],
+    "jabCartridges": [
+        {
+            "name": "Jive SDK (Java) - Jersey - Example",
+            "displayName": "Google Drive",
+            "patterns": [
+                "drive.google.com"
+            ],
+            "zipFileName": "jive-addon-example-cartridge.zip"
+        }
+    ]
+}

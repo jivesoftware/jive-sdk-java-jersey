@@ -1,0 +1,140 @@
+html, body, div, span, p, pre, a, img {
+    border: 0 none;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+html, body, div, span, p, pre, a, img, textarea {
+    font-family: inherit;
+    font-size: 100%;
+}
+
+.clearfix:after {
+    clear: both;
+    content: "\'";
+    display: block;
+    font-size: 0;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.clearfix {
+    min-height: 0;
+}
+
+body {
+    background-color: #FDFDFD;
+    color: #575757;
+    font: 13px/1.22 "Helvetica Neue", Arial, Helvetica, sans-serif;
+    text-align: left;
+}
+
+.app-form > p {
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.app-form > p:last-child {
+    margin-bottom: 0;
+}
+
+.icon-header * {
+    display: inline-block;
+    float: left;
+    margin: 0 1ex 0 0;
+    position: relative;
+    vertical-align: middle;
+    white-space: normal;
+    z-index: 1;
+}
+
+.container {
+    padding: 10px 10px 0 10px;
+}
+
+.app-form {
+    clear: both;
+    width: 100%;
+    margin: 0;
+}
+
+.app-form-buttons {
+    background: none repeat scroll 0 0 #EDF4EF;
+    margin: 1em 0;
+    padding: 1ex 0;
+    text-align: center;
+}
+
+.app-form-buttons button {
+    background: none repeat scroll 0 0 #74AEAF;
+    border: 1px solid #444444;
+    color: #FFFFFF;
+    text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    float: left;
+    margin-right: 1ex;
+}
+
+#approval > p, #waiting > p {
+    padding-left: 54px;
+    min-height: 48px;
+}
+
+#myprofile {
+    float: right;
+    margin: 0;
+}
+
+#myprofile * {
+    display: inline;
+}
+
+#myprofile img {
+    float: right;
+    margin: 0;
+}
+
+#main {
+    clear: both;
+    position: relative;
+}
+
+#main .app-form-buttons {
+    background-color: transparent;
+    margin: 0;
+}
+
+#main form > * {
+    display: block;
+    width: 100%;
+}
+
+#status {
+    clear: both;
+    margin-bottom: 5px;
+    font-size: small;
+    font-weight: bold;
+}
+
+#friends {
+    overflow: auto;
+    padding: 10px 0;
+}
+
+#friends > div {
+    min-height: 35px;
+    overflow: hidden;
+    padding: 5px 10px;
+}
+
+#friends div h4, .friend-text {
+    margin: 0 0 0 45px;
+}
+
+#friends div img {
+    float: left;
+    padding: 0 1ex 0 3px;
+}

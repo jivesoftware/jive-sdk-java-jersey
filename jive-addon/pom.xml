@@ -1,0 +1,132 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>jive-sdk-java-jersey</groupId>
+    <artifactId>jive-sdk-java-jersey-webapp</artifactId>
+    <version>1.0.0.0-SNAPSHOT</version>
+    <name>Jive SDK - Java - Jersey - Jive Add-On</name>
+    <packaging>war</packaging>
+
+    <parent>
+        <groupId>com.jivesoftware.sdk</groupId>
+        <artifactId>jive-sdk-java-jersey</artifactId>
+        <version>1.0.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <properties>
+        <!-- #### THIS IS YOUR CLIENT CONFIGURATION FOR JETTY WHEN RUNNING LOCALLY ### -->
+        <clientUrl>jivedev.ryanrutan.com</clientUrl>
+        <port>18099</port>
+        <!-- ######################################################################### -->
+        <development>true</development>
+    </properties>
+
+    <build>
+        <finalName>jive-addon-example</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                  <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <!-- TODO:  GENERATE RANDOM UUIDS FOR ALL COMPONENTS -->
+            <!-- TODO:  FILTER jive-addon-webapp/src/main/extension/meta.json -->
+            <!-- TODO:  FILTER jive-addon-webapp/src/main/extension/definition.json -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>load-configuration</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <loadproperties srcFile="src/main/resources/jiveclientconfiguration.properties"/>
+
+                                <scriptdef name="generateguid" language="javascript">
+                                    <attribute name="property" />
+                                    <![CDATA[
+                                    importClass( java.util.UUID );
+
+                                    project.setProperty( attributes.get( "property" ), UUID.randomUUID() );
+                                    ]]>
+                                </scriptdef>
+
+                                <generateguid property="guid1" />
+                                <echo message="${guid1}" />
+                            </target>
+                            <exportAntProperties>true</exportAntProperties>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>bundle-addon</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <!--- CREATE CARTRIDGE ZIP FILES -->
+                                <zip destfile="src/main/extension/data/${project.build.finalName}-cartridge.zip" basedir="src/main/cartridge" update="true" whenempty="skip" />
+                                <zip destfile="./extension-${project.build.finalName}.zip" basedir="src/main/extension" update="true" />
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jetty-version}</version>
+                <configuration>
+                    <stopKey></stopKey>
+                    <stopPort></stopPort>
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>
+                    <webAppConfig>
+                        <!-- <overrideDescriptor>src/main/webapp/WEB-INF/web.xml</overrideDescriptor> -->
+                        <jettyEnvXml>src/main/webapp/WEB-INF/jetty-env.xml</jettyEnvXml>
+                        <contextPath>/</contextPath>
+                    </webAppConfig>
+                    <contextXml>src/main/webapp/WEB-INF/jetty-context.xml</contextXml>
+                    <httpConnector>
+                        <name>${clientUrl}</name>
+                        <port>${port}</port>
+                        <idleTimeout>60000</idleTimeout>
+                    </httpConnector>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>com.jivesoftware.sdk</groupId>
+            <artifactId>jive-sdk-java-jersey-api</artifactId>
+            <version>1.0.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jivesoftware.sdk</groupId>
+            <artifactId>jive-sdk-java-jersey</artifactId>
+            <version>1.0.0.0-SNAPSHOT</version>
+            <type>pom</type>
+        </dependency>
+
+        <!-- NEEDED FOR WELD IMPLEMENTATION WHEN RUNNING LOCAL -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>${jetty-version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+    </dependencies>
+</project>

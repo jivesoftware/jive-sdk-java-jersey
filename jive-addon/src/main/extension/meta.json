@@ -1,0 +1,35 @@
+{
+    "package_version": "1.0",
+    "id": "3582cc85-cba4-4f73-ac1c-b7ceee6ed751",
+    "uuid": "3582cc85-cba4-4f73-ac1c-b7ceee6ed751",
+    "type": "client-app",
+    "name": "Jive SDK (Java) - Jersey Example",
+    "description": "This extension is test extension for the Jive SDK (Java) - Jersey Add-On",
+
+    "author" : "Ryan Rutan",
+    "author_affiliation" : "Jive Software",
+    "author_email" : "ryan.rutan@jivesoftware.com",
+
+    "icon_16": "extension-16.png",
+    "icon_48": "extension-48.png",
+    "icon_128": "extension-128.png",
+
+    "service_url": "http://jivedev.ryanrutan.com:18099",
+
+    "config_url" : "%serviceURL%/addon/example/configure.jsp",
+    "preinstall" : "%serviceURL%/addon/example/preinstall.jsp",
+
+    "register_url": "%serviceURL%/example/instance/register",
+    "unregister_url": "%serviceURL%/example/instance/unregister",
+
+    "redirect_url": "%serviceURL%/example/oauth2/callback",
+    "health_url" : "http://jivedev.ryanrutan.com:18099/example/health/ping",
+
+    "website_url" : "http://www.jivesoftware.com/social-business-platform/add-ons/",
+    "community_url" : "https://community.jivesoftware.com",
+    "info_email" : "jivedev@jivesoftware.com",
+
+    "minimum_version": "0000",
+    "status": "available",
+    "released_on": "2014-02-06T19:11:11.234Z"
+}

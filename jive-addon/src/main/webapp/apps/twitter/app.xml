@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module specificationVersion="1">
+
+    <ModulePrefs title="Twitter - OAuth1 App Example"
+                 description="Uses OAuth1 in an App with an OAuth Access Token Proxy"
+                 author="Ryan Rutan"
+                 authoraffiliation="Jive Software"
+                 authoremail="ryan.rutan@jivesoftware.com">
+
+        <Link rel="favicon"    href="images/icon16.png" />
+        <Link rel="Icon"       href="images/icon16.png" />
+        <Link rel="MediumIcon" href="images/icon48.png" />
+        <Link rel="LargeIcon"  href="images/icon128.png" />
+
+        <!-- Commonly used features -->
+        <Require feature="dynamic-height" />
+        <Require feature="dynamic-width" />
+        <Require feature="jive-core-v2" />
+        <Require feature="jquery-1.6" />
+        <Require feature="osapi"/>
+        <Require feature="settitle"/>
+        <Require feature="views" />
+        <Require feature="setprefs" />
+        <Require feature="embedded-experiences"/>
+        <Require feature="selection" />
+        <Require feature="oauthpopup" />
+        <Require feature="jive-core-v2" />
+        <Require feature="jive-core-v3"/>
+        <Require feature="minimessage"/>
+        <Require feature="jive-connects-v1">
+            <Param name="alias:twitter-oauth-example|title:Twitter OAuth Example">jive:service://developers.jivesoftware.com/examples/oauth/1/twitter?version=1</Param>
+        </Require>
+
+        <!--
+        <OAuth>
+            <Service name="twitter">
+                <Access url="https://api.twitter.com/oauth/access_token" method="POST" />
+                <Request url="https://api.twitter.com/oauth/request_token" method="POST" />
+                <Authorization url="http://jivedev.ryanrutan.com:18099/oauth/twitter/authorize" />
+            </Service>
+        </OAuth>
+        -->
+
+    </ModulePrefs>
+
+    <Content type="html" view="canvas" href="canvas.jsp" preferred_height="200" />
+
+</Module>
+
+ 
+ 

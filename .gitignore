@@ -1,0 +1,7 @@
+jive-addon/target
+jive-sdk/target
+.DS_Store
+*.iml
+*.ipr
+*.iws
+*.zip
