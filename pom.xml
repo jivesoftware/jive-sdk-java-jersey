@@ -40,6 +40,10 @@
                 <configuration>
                     <source>1.7</source>
                     <target>1.7</target>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                    <executable>${env.JAVA_HOME}/bin/javac</executable>
+                    <fork>true</fork>
                 </configuration>
             </plugin>
         </plugins>
@@ -133,5 +137,33 @@
             <version>3.1.0</version>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>MavenCentral</id>
+            <name>Maven repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+                <id>MavenCentral</id>
+                <name>Maven repository</name>
+                <url>http://repo1.maven.org/maven2</url>
+                <releases>
+                        <enabled>true</enabled>
+                </releases>
+                <snapshots>
+                        <enabled>false</enabled>
+                </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
 </project>

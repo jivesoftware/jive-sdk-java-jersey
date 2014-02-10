@@ -61,7 +61,7 @@
                                 </scriptdef>
 
                                 <generateguid property="guid1" />
-                                <echo message="${guid1}" />
+                                <!-- <echo message="${guid1}" /> -->
                             </target>
                             <exportAntProperties>true</exportAntProperties>
                         </configuration>
