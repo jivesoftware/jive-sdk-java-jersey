@@ -16,7 +16,7 @@ This SDK is more of a boiler plate application that gets your up and running and
 2. **cd jive-sdk-java-jersey; mvn clean install**
   * note: see: [pom.xml](https://github.com/jivesoftware/jive-sdk-java-jersey/blob/master/jive-addon/pom.xml#L19 ) to configure host / port information before running this step
   * Make sure that your Java Runtime is Java 7, and not an earlier version. (see Mac Commands below for possible help)
-5. **cd jive-addon; mvn jetty:run**
+5. **cd jive-addon; mvn -DclientUrl=your.resolvable.host.name -Dport=8090 jetty:run**
   * Make sure that your Java Runtime is Java 7, and not an earlier version. (see Mac Commands below for possible help)
 
 ---
