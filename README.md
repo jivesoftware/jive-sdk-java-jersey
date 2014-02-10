@@ -13,10 +13,10 @@ This document is a work in progress, so please ignore the clutter
 This SDK is more of a boiler plate application that gets your up and running and FAST.  To get started, simply 
 
 1. **git clone https://github.com/jivesoftware/jive-sdk-java-jersey.git**
-2. **mvn -f jive-sdk-java-jersey/pom.xml clean install**
+2. **cd jive-sdk-java-jersey; mvn clean install**
   * note: see: [pom.xml](https://github.com/jivesoftware/jive-sdk-java-jersey/blob/master/jive-addon/pom.xml#L19 ) to configure host / port information before running this step
   * Make sure that your Java Runtime is Java 7, and not an earlier version. (see Mac Commands below for possible help)
-5. **mvn -f jive-sdk-java-jersey/jive-addon/pom.xml jetty:run**
+5. **cd jive-sdk-java-jersey; mvn jetty:run**
   * Make sure that your Java Runtime is Java 7, and not an earlier version. (see Mac Commands below for possible help)
 
 ---
