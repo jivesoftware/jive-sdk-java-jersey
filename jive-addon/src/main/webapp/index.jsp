@@ -1,8 +1,25 @@
 <%@ include file="/WEB-INF/include/environment.jsp"%>
 <%@ page import="java.util.UUID" %>
-<%@ page import="com.jivesoftware.sdk.JiveAddOnConfig" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
+<%--
+  ~ /*
+  ~  * Copyright 2013 Jive Software
+  ~  *
+  ~  *    Licensed under the Apache License, Version 2.0 (the "License");
+  ~  *    you may not use this file except in compliance with the License.
+  ~  *    You may obtain a copy of the License at
+  ~  *
+  ~  *       http://www.apache.org/licenses/LICENSE-2.0
+  ~  *
+  ~  *    Unless required by applicable law or agreed to in writing, software
+  ~  *    distributed under the License is distributed on an "AS IS" BASIS,
+  ~  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  *    See the License for the specific language governing permissions and
+  ~  *    limitations under the License.
+  ~  */
+  --%>
+
 <html>
 <head>
     <style type="text/css">
@@ -16,8 +33,12 @@
     String serverURL = request.getScheme() + "://" + request.getServerName() + request.getServerPort();
     String updatedDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date());
     String releasedOn = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").format(new Date())+"Z";
-    boolean hasServiceSignature = (JiveAddOnConfig.getApplicationServiceSignature() != null);
-    boolean hasRunAsStrategy = (JiveAddOnConfig.getApplicationRunAsStrategy() != null && JiveAddOnConfig.getApplicationRunAsStrategy().length() > 0 );
+    String applicationID = "TODO";
+    String applicationName = "jive-sdk-jersey-java example";
+    String applicationServiceSignature = "TODO"; // JiveAddOnConfig.getApplicationServiceSignature()
+    String applicationRunAsStrategy = "TODO"; //TODO:
+    boolean hasServiceSignature = false; //(JiveAddOnConfig.getApplicationServiceSignature() != null);
+    boolean hasRunAsStrategy = false; // (JiveAddOnConfig.getApplicationRunAsStrategy() != null && JiveAddOnConfig.getApplicationRunAsStrategy().length() > 0 );
     String appContext = (request.getParameter("appContext") != null) ? request.getParameter("appContext") : "example";
     String tileName = (request.getParameter("tileName") != null) ? request.getParameter("tileName") : "example-tile";
     String appName = (request.getParameter("appName") != null) ? request.getParameter("appName") : "example-app";
@@ -27,6 +48,7 @@
 %>
 <body>
 <h1>Jive SDK (Java) - Jersey Implementation</h1>
+<p>Coming Soon, a tool to help generate definition.json</p>
 <!--
 <strong>Jive Add-On - Sample Files</strong><br/>
 <p>You can use these templates to help you create your extension configuration files in <strong>/src/main/extension</strong>.<br/>
@@ -45,11 +67,11 @@
 <p>Values pulled from @annotations on your sub-class of <strong>JiveAddOnApplication</strong> and request params specified above</p>
 <pre>{
     "package_version": "1.0",
-    "id": "<%= JiveAddOnConfig.getApplicationId() %>",
-    "uuid": "<%= JiveAddOnConfig.getApplicationId() %>",
+    "id": "",
+    "uuid": "",
     "type": "client-app",
-    "name": "<%= JiveAddOnConfig.getApplicationName() %>",
-    "description": "<%= JiveAddOnConfig.getApplicationDescription() %>",
+    "name": "",
+    "description": "",
     "minimum_version": "0000",
     "icon_16": "extension-16.png",
     "icon_48": "extension-48.png",
@@ -76,8 +98,8 @@
 <pre>{
 "integrationUser": {
     "systemAdmin": <% if (hasServiceSignature) { %>true,<% } else { %>false<% } %>
-    <% if (hasServiceSignature) { %>"jiveServiceSignature" : "<%=JiveAddOnConfig.getApplicationServiceSignature()%>" <% } %> <% if (hasRunAsStrategy) { %>,<% } %> <%
-        if (hasRunAsStrategy) { %>"runAsStrategy" : "<%= JiveAddOnConfig.getApplicationRunAsStrategy() %>" <% } %>
+    <% if (hasServiceSignature) { %>"jiveServiceSignature" : "<%= applicationServiceSignature %>" <% } %> <% if (hasRunAsStrategy) { %>,<% } %> <%
+        if (hasRunAsStrategy) { %>"runAsStrategy" : "<%= applicationRunAsStrategy %>" <% } %>
 },
 "tiles": [
     {
@@ -93,8 +115,8 @@
             }
         },
         "displayName": "<%= tileName %>",
-        "name": "<%= JiveAddOnConfig.getApplicationName() %> - <%= tileName %>",
-        "description": "A description for <%= JiveAddOnConfig.getApplicationName() %> - <%= tileName %>",
+        "name": "<%= applicationName %> - <%= tileName %>",
+        "description": "A description for <%= applicationName %> - <%= tileName %>",
         "style": "LIST",
         "icons": {
             "16": "<%= serverURL %>/images/extension-16.png",
@@ -114,8 +136,8 @@
 "templates": [
     {
         "name": "defaultTemplate",
-        "displayName": "<%= JiveAddOnConfig.getApplicationName() %> - Example Template",
-        "description": "<%= JiveAddOnConfig.getApplicationName() %> - Example Template Description",
+        "displayName": "<%= applicationName %> - Example Template",
+        "description": "<%= applicationName %> - Example Template Description",
         "tiles": [
             "<%= tileName %>"
         ]
@@ -123,7 +145,7 @@
 ],
 "osapps": [
     {
-        "name": "<%= JiveAddOnConfig.getApplicationName() %> - Example App",
+        "name": "<%= applicationName %> - Example App",
         "id": "<%= randomUUID2 %>",
         "appPath": "<%= randomUUID2 %>",
         "url": "<%= serverURL %>/apps/<%= appName %>/app.xml"
