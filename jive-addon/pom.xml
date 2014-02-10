@@ -16,8 +16,8 @@
 
     <properties>
         <!-- #### THIS IS YOUR CLIENT CONFIGURATION FOR JETTY WHEN RUNNING LOCALLY ### -->
-        <clientUrl>jivedev.ryanrutan.com</clientUrl>
-        <port>18099</port>
+        <clientUrl>your.externally.public.hostname.com</clientUrl>
+        <port>8090</port>
         <!-- ######################################################################### -->
         <development>true</development>
     </properties>
