@@ -19,7 +19,6 @@ This SDK is more of a boiler plate application that gets your up and running and
 3. **cd jive-addon; mvn -DclientUrl=http://your.resolvable.host.name -Dport=8090 jetty:run**
   * Make sure that your Java Runtime is Java 7, and not an earlier version. (see Mac Commands below for possible help)
 
-At this point, you server should be up and running you'll need to 
 ---
 
 #### Mac Help
@@ -36,6 +35,10 @@ Instructions for deploying on JBoss
 Instructions for deploying on Oracle BEA (compatible)?
 
 #### Need:
+- Support for Activity Stream Tiles
+- Support for Jive API Client (Generic API Tool)
+- Support for Jive Analytics Client
+- Support ESF Storage Events and Proxy Discussions to Add-On
 - Unit Tests that can be run to insure that services haven't changed between versions
 
 #### Ideas:
