@@ -24,18 +24,18 @@
             "description": "A sample table generated using the Jive SDK (Java) - Jersey Edition",
             "style": "TABLE",
             "icons": {
-                "16": "http://jivedev.ryanrutan.com:18099/images/extension-16.png",
-                "48": "http://jivedev.ryanrutan.com:18099/images/extension-48.png",
-                "128": "http://jivedev.ryanrutan.com:18099/images/extension-128.png"
+                "16": "[[serviceURL]]/images/extension-16.png",
+                "48": "[[serviceURL]]/images/extension-48.png",
+                "128": "[[serviceURL]]/images/extension-128.png"
             },
-            "action": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-table/action.jsp",
+            "action": "[[serviceURL]]/tiles/jersey-example-table/action.jsp",
             "id": "2bbb1f41-bcf3-4ab9-b60f-36404f4b7b43",
             "definitionDirName": "jersey-example-table",
             "published": "2014-02-28T15:12:16.768-0800",
             "updated": "2014-02-28T15:12:16.768-0800",
-            "config": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-table/configure.jsp",
-            "unregister": "http://jivedev.ryanrutan.com:18099/example/tile/unregister",
-            "register": "http://jivedev.ryanrutan.com:18099/example/tile/register"
+            "config": "[[serviceURL]]/tiles/jersey-example-table/configure.jsp",
+            "unregister": "[[serviceURL]]/[[serviceContext]]/tile/unregister",
+            "register": "[[serviceURL]]/[[serviceContext]]/tile/register"
         },
         {
 
@@ -55,27 +55,27 @@
              "description": "A sample list generated using the Jive SDK (Java) - Jersey Edition",
              "style": "LIST",
              "icons": {
-                 "16": "http://jivedev.ryanrutan.com:18099/images/extension-16.png",
-                 "48": "http://jivedev.ryanrutan.com:18099/images/extension-48.png",
-                 "128": "http://jivedev.ryanrutan.com:18099/images/extension-128.png"
+                 "16": "[[serviceURL]]/images/extension-16.png",
+                 "48": "[[serviceURL]]/images/extension-48.png",
+                 "128": "[[serviceURL]]/images/extension-128.png"
              },
-             "action": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-list/action.jsp",
+             "action": "[[serviceURL]]/tiles/jersey-example-list/action.jsp",
              "id": "2eee1f41-bcf3-4ab9-b60f-36404f4b7b43",
              "definitionDirName": "jersey-example-list",
              "published": "2013-02-28T15:12:16.768-0800",
              "updated": "2013-02-28T15:12:16.768-0800",
-             "config": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-list/configure.jsp",
-             "unregister": "http://jivedev.ryanrutan.com:18099/example/tile/unregister",
-             "register": "http://jivedev.ryanrutan.com:18099/example/tile/register"
+             "config": "[[serviceURL]]/tiles/jersey-example-list/configure.jsp",
+             "unregister": "[[serviceURL]]/[[serviceContext]]/tile/unregister",
+             "register": "[[serviceURL]]/[[serviceContext]]/tile/register"
          },
          {
             "sampleData": {
                 "title":"Jive SDK (Java) - Jersey - Example Gallery Tile",
                 "contents":[
                     {
-                        "image": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-gallery/images/photo1.png",
+                        "image": "[[serviceURL]]/tiles/jersey-example-gallery/images/photo1.png",
                         "title": "Photo 1",
-                        "thumb": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-gallery/images/photo1-thumb.png"
+                        "thumb": "[[serviceURL]]/tiles/jersey-example-gallery/images/photo1-thumb.png"
                     }
                 ]
             },
@@ -84,18 +84,18 @@
             "description": "A sample gallery generated using the Jive SDK (Java) - Jersey Edition",
             "style": "GALLERY",
             "icons": {
-                "16": "http://jivedev.ryanrutan.com:18099/images/extension-16.png",
-                "48": "http://jivedev.ryanrutan.com:18099/images/extension-48.png",
-                "128": "http://jivedev.ryanrutan.com:18099/images/extension-128.png"
+                "16": "[[serviceURL]]/images/extension-16.png",
+                "48": "[[serviceURL]]/images/extension-48.png",
+                "128": "[[serviceURL]]/images/extension-128.png"
             },
-            "action": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-gallery/action.jsp",
+            "action": "[[serviceURL]]/tiles/jersey-example-gallery/action.jsp",
             "id": "2ccc1f41-bcf3-4ab9-b60f-36404f4b7b43",
             "definitionDirName": "jersey-example-gallery",
             "published": "2014-02-28T15:12:16.768-0800",
             "updated": "2014-02-28T15:12:16.768-0800",
-            "config": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-gallery/configure.jsp",
-            "unregister": "http://jivedev.ryanrutan.com:18099/example/tile/unregister",
-            "register": "http://jivedev.ryanrutan.com:18099/example/tile/register"
+            "config": "[[serviceURL]]/tiles/jersey-example-gallery/configure.jsp",
+            "unregister": "[[serviceURL]]/[[serviceContext]]/tile/unregister",
+            "register": "[[serviceURL]]/[[serviceContext]]/tile/register"
         },
         {
             "sampleData": {
@@ -115,18 +115,18 @@
             "description": "A sample gauge generated using the Jive SDK (Java) - Jersey Edition",
             "style": "GAUGE",
             "icons": {
-                "16": "http://jivedev.ryanrutan.com:18099/images/extension-16.png",
-                "48": "http://jivedev.ryanrutan.com:18099/images/extension-48.png",
-                "128": "http://jivedev.ryanrutan.com:18099/images/extension-128.png"
+                "16": "[[serviceURL]]/images/extension-16.png",
+                "48": "[[serviceURL]]/images/extension-48.png",
+                "128": "[[serviceURL]]/images/extension-128.png"
             },
-            "action": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-gauge/action.jsp",
+            "action": "[[serviceURL]]/tiles/jersey-example-gauge/action.jsp",
             "id": "2aaa1f41-bcf3-4ab9-b60f-36404f4b7b43",
             "definitionDirName": "jersey-example-gauge",
             "published": "2014-02-28T15:12:16.768-0800",
             "updated": "2014-02-28T15:12:16.768-0800",
-            "config": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-gauge/configure.jsp",
-            "unregister": "http://jivedev.ryanrutan.com:18099/example/tile/unregister",
-            "register": "http://jivedev.ryanrutan.com:18099/example/tile/register"
+            "config": "[[serviceURL]]/tiles/jersey-example-gauge/configure.jsp",
+            "unregister": "[[serviceURL]]/[[serviceContext]]/tile/unregister",
+            "register": "[[serviceURL]]/[[serviceContext]]/tile/register"
         },
         {
             "sampleData": {
@@ -152,18 +152,18 @@
             "description": "A sample calendar generated using the Jive SDK (Java) - Jersey Edition",
             "style": "CALENDAR",
             "icons": {
-                "16": "http://jivedev.ryanrutan.com:18099/images/extension-16.png",
-                "48": "http://jivedev.ryanrutan.com:18099/images/extension-48.png",
-                "128": "http://jivedev.ryanrutan.com:18099/images/extension-128.png"
+                "16": "[[serviceURL]]/images/extension-16.png",
+                "48": "[[serviceURL]]/images/extension-48.png",
+                "128": "[[serviceURL]]/images/extension-128.png"
             },
-            "action": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-calendar/action.jsp",
+            "action": "[[serviceURL]]/tiles/jersey-example-calendar/action.jsp",
             "id": "ffff1f41-bcf3-4ab9-b60f-36404f4b7b43",
             "definitionDirName": "jersey-example-calendar",
             "published": "2014-02-28T15:12:16.768-0800",
             "updated": "2014-02-28T15:12:16.768-0800",
-            "config": "http://jivedev.ryanrutan.com:18099/tiles/jersey-example-calendar/configure.jsp",
-            "unregister": "http://jivedev.ryanrutan.com:18099/example/tile/unregister",
-            "register": "http://jivedev.ryanrutan.com:18099/example/tile/register"
+            "config": "[[serviceURL]]/tiles/jersey-example-calendar/configure.jsp",
+            "unregister": "[[serviceURL]]/[[serviceContext]]/tile/unregister",
+            "register": "[[serviceURL]]/[[serviceContext]]/tile/register"
         }
     ],
     "templates": [],
@@ -172,19 +172,19 @@
 			"name" : "Twitter OAuth App",
 			"id": "5fa34f29-7bcc-48f5-b9a3-bad9805e8f9e",
 			"appPath": "twitter-oauth1-example",
-			"url": "http://jivedev.ryanrutan.com:18099/apps/twitter/app.xml"
+			"url": "[[serviceURL]]/apps/twitter/app.xml"
 		},
         {
             "name" : "Facebook OAuth2 App",
             "id": "aaa34f29-7bcc-48f5-b9a3-bad9805e8f9e",
             "appPath": "facebook-oauth2-example",
-            "url": "http://jivedev.ryanrutan.com:18099/apps/facebook/app.xml"
+            "url": "[[serviceURL]]/apps/facebook/app.xml"
         },
         {
             "name" : "Google OAuth2 App",
             "id": "bbb34f29-7bcc-48f5-b9a3-bad9805e8f9e",
             "appPath": "google-oauth2-example",
-            "url": "http://jivedev.ryanrutan.com:18099/apps/google/app.xml"
+            "url": "[[serviceURL]]/apps/google/app.xml"
         }
 
 	],
@@ -194,11 +194,11 @@
             "displayName": "Jive SDK (Java) - Jersey - Example Storage Provider",
             "description": "An example storage provider implementation",
             "prefixUrl": "%serviceURL%",
-            "configPlace" : "%serviceURL%/storage/example/place/configure.jsp",
-            "configInstance" : "%serviceURL%/storage/example/configure.jsp",
-            "resolveResources": "%serviceURL%/example/storage/resolveResources",
-            "registerPlace": "%serviceURL%/example/storage/register",
-            "healthCheckURL": "%serviceURL%/example/storage/ping",
+            "configPlace" : "%serviceURL%/storage/[[serviceContext]]/place/configure.jsp",
+            "configInstance" : "%serviceURL%/storage/[[serviceContext]]/configure.jsp",
+            "resolveResources": "%serviceURL%/[[serviceContext]]/storage/resolveResources",
+            "registerPlace": "%serviceURL%/[[serviceContext]]/storage/register",
+            "healthCheckURL": "%serviceURL%/[[serviceContext]]/storage/ping",
             "userMappingOptions": [
                 "EMAIL"
             ],

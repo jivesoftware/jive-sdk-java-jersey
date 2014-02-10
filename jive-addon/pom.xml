@@ -34,8 +34,9 @@
 
     <properties>
         <!-- #### THIS IS YOUR CLIENT CONFIGURATION FOR JETTY WHEN RUNNING LOCALLY ### -->
-        <clientUrl>your.externally.public.hostname.com</clientUrl>
+        <clientUrl>localhost</clientUrl>
         <port>8090</port>
+        <appContext>example</appContext>
         <!-- ######################################################################### -->
         <development>true</development>
     </properties>
@@ -80,22 +81,21 @@
 
                                 <generateguid property="guid1" />
                                 <!-- <echo message="${guid1}" /> -->
-                            </target>
-                            <exportAntProperties>true</exportAntProperties>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>bundle-addon</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
+
+                                <delete file="src/main/extension/definition.json" />
+                                <delete file="src/main/extension/meta.json" />
+                                <copy file="src/main/templates/definition.template" tofile="src/main/extension/definition.json"/>
+                                <copy file="src/main/templates/meta.template" tofile="src/main/extension/meta.json"/>
+                                <replace file="src/main/extension/definition.json" token="[[serviceURL]]" value="${clientUrl}:${port}"/>
+                                <replace file="src/main/extension/definition.json" token="[[serviceContext]]" value="${appContext}"/>
+                                <replace file="src/main/extension/meta.json" token="[[serviceURL]]" value="${clientUrl}:${port}"/>
+                                <replace file="src/main/extension/meta.json" token="[[serviceContext]]" value="${appContext}"/>
+
                                 <!--- CREATE CARTRIDGE ZIP FILES -->
                                 <zip destfile="src/main/extension/data/${project.build.finalName}-cartridge.zip" basedir="src/main/cartridge" update="true" whenempty="skip" />
                                 <zip destfile="./extension-${project.build.finalName}.zip" basedir="src/main/extension" update="true" />
                             </target>
+                            <exportAntProperties>true</exportAntProperties>
                         </configuration>
                     </execution>
                 </executions>

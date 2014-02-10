@@ -6,28 +6,28 @@
     "name": "Jive SDK (Java) - Jersey Example",
     "description": "This extension is test extension for the Jive SDK (Java) - Jersey Add-On",
 
-    "author" : "Ryan Rutan",
-    "author_affiliation" : "Jive Software",
-    "author_email" : "ryan.rutan@jivesoftware.com",
+    "author" : "Jive Add-On Developer",
+    "author_affiliation" : "My Company",
+    "author_email" : "your.email.address@devnull",
 
     "icon_16": "extension-16.png",
     "icon_48": "extension-48.png",
     "icon_128": "extension-128.png",
 
-    "service_url": "http://jivedev.ryanrutan.com:18099",
+    "service_url": "[[serviceURL]]",
 
-    "config_url" : "%serviceURL%/addon/example/configure.jsp",
-    "preinstall" : "%serviceURL%/addon/example/preinstall.jsp",
+    "config_url" : "%serviceURL%/addon/[[serviceContext]]/configure.jsp",
+    "preinstall" : "%serviceURL%/addon/[[serviceContext]]/preinstall.jsp",
 
-    "register_url": "%serviceURL%/example/instance/register",
-    "unregister_url": "%serviceURL%/example/instance/unregister",
+    "register_url": "%serviceURL%/[[serviceContext]]/instance/register",
+    "unregister_url": "%serviceURL%/[[serviceContext]]/instance/unregister",
 
-    "redirect_url": "%serviceURL%/example/oauth2/callback",
-    "health_url" : "http://jivedev.ryanrutan.com:18099/example/health/ping",
+    "redirect_url": "%serviceURL%/[[serviceContext]]/oauth2/callback",
+    "health_url" : "[[serviceURL]]/[[serviceContext]]/health/ping",
 
     "website_url" : "http://www.jivesoftware.com/social-business-platform/add-ons/",
     "community_url" : "https://community.jivesoftware.com",
-    "info_email" : "jivedev@jivesoftware.com",
+    "info_email" : "your.email.address@devnull",
 
     "minimum_version": "0000",
     "status": "available",
