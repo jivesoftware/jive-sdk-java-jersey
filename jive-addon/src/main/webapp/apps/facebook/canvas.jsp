@@ -19,8 +19,6 @@
 
 <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
 
-
-
 <script type="text/javascript">
 
     var ALIAS = "facebook-oauth2-example";

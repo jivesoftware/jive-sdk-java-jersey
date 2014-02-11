@@ -215,6 +215,7 @@
                                 <!--- CREATE CARTRIDGE ZIP FILES -->
                                 <zip destfile="src/main/extension/data/${project.build.finalName}-cartridge.zip" basedir="src/main/cartridge" update="true" whenempty="skip" />
                                 <zip destfile="./extension-${project.build.finalName}.zip" basedir="src/main/extension" update="true" />
+
                             </target>
 
                             <!-- NEEDED IN THE EVENT A PROPERTY IS USED ELSE-WHERE IN THE POM -->
