@@ -1,14 +1,14 @@
 {
-    "package_version": "1.0",
-    "id": "3582cc85-cba4-4f73-ac1c-b7ceee6ed751",
-    "uuid": "3582cc85-cba4-4f73-ac1c-b7ceee6ed751",
+    "package_version": "[[jive.addon.package.version]]",
+    "id": "[[UUID1]]",
+    "uuid": "[[UUID1]]",
     "type": "client-app",
-    "name": "Jive SDK (Java) - Jersey Example",
-    "description": "This extension is test extension for the Jive SDK (Java) - Jersey Add-On",
+    "name": "[[jive.addon.name]]",
+    "description": "[[jive.addon.description]]",
 
-    "author" : "Jive Add-On Developer",
-    "author_affiliation" : "My Company",
-    "author_email" : "your.email.address@devnull",
+    "author" : "[[jive.addon.developer.name]]",
+    "author_affiliation" : "[[jive.addon.developer.company]]",
+    "author_email" : "[[jive.addon.developer.email]]",
 
     "icon_16": "extension-16.png",
     "icon_48": "extension-48.png",
@@ -25,11 +25,11 @@
     "redirect_url": "%serviceURL%/[[serviceContext]]/oauth2/callback",
     "health_url" : "[[serviceURL]]/[[serviceContext]]/health/ping",
 
-    "website_url" : "http://www.jivesoftware.com/social-business-platform/add-ons/",
-    "community_url" : "https://community.jivesoftware.com",
-    "info_email" : "your.email.address@devnull",
+    "website_url" : "[[jive.addon.company.website.url]]",
+    "community_url" : "[[jive.addon.company.community.url]]",
+    "info_email" : "[[jive.addon.company.email]]",
 
     "minimum_version": "0000",
     "status": "available",
-    "released_on": "2014-02-06T19:11:11.234Z"
+    "released_on": "[[jive.addon.build.timestamp]]"
 }

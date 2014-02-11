@@ -1,4 +1,6 @@
 jive-addon/target
+jive-addon/src/main/extension/definition.json
+jive-addon/src/main/extension/meta.json
 jive-sdk/target
 .DS_Store
 *.iml

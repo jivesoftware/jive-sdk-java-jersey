@@ -33,16 +33,78 @@
     </parent>
 
     <properties>
-        <!-- #### THIS IS YOUR CLIENT CONFIGURATION FOR JETTY WHEN RUNNING LOCALLY ### -->
-        <clientUrl>localhost</clientUrl>
+        <!--
+        ###############################################################################################################
+        #  ANY CHANGES MADE TO THESE PROJECT PROPERTIES SHOULD WARRANT THE MANUAL DELETION OF THE FOLLOWING FILES
+        #
+        #  jive-sdk-java-jersey/jive-addon/src/main/extension/definition.json
+        #  jive-sdk-java-jersey/jive-addon/src/main/extension/definition.json
+        #
+        #  THE NEXT BUILD WILL AUTOMATICALLY RE-GENERATE THIS FILE
+        ###############################################################################################################
+        -->
+
+        <!--
+        ############## SERVICE CONFIGURATION ##########################################################################
+        #### NOTE: YOU CANSET THESE PROPERTIES VIA THE COMMAND LINE VIA -DclientUrl=yyy -Dport=8080 ...  ##############
+        ###############################################################################################################
+        -->
+        <clientUrl>http://localhost</clientUrl>
         <port>8090</port>
         <appContext>example</appContext>
-        <!-- ######################################################################### -->
-        <development>true</development>
+
+        <!--
+        ############## ADD-ON CONFIGURATION ###########################################################################
+        -->
+        <jive.addon.package.version>1.0</jive.addon.package.version>
+        <jive.addon.build.name>jive-sdk-jersey-example</jive.addon.build.name>
+        <jive.addon.name>Jive SDK (Java) - Jersey Add-On</jive.addon.name>
+        <jive.addon.description>This extension is test extension for the Jive SDK (Java) - Jersey Add-On</jive.addon.description>
+
+        <!--
+        ############## ADD-ON DEVELOPER PROFILE #######################################################################
+        -->
+        <jive.addon.developer.name>Your Name</jive.addon.developer.name>
+        <jive.addon.developer.company>Your Company</jive.addon.developer.company>
+        <jive.addon.developer.email>your.name@yourcompany.com</jive.addon.developer.email>
+
+        <!--
+        ############## ADD-ON COMPANY PROFILE #########################################################################
+        -->
+        <jive.addon.company.website.url>http://www.jivesoftware.com/social-business-platform/add-ons/</jive.addon.company.website.url>
+        <jive.addon.company.community.url>https://community.jivesoftware.com/community/developer</jive.addon.company.community.url>
+        <jive.addon.company.email>your.name@yourcompany.com</jive.addon.company.email>
+
+        <!--
+        ############## ADD-ON TILE CONFIGURATION ######################################################################
+        -->
+        <jive.addon.tile.calendar.displayName>Example Jive SDK (Java) Jersey - Calendar Tile</jive.addon.tile.calendar.displayName>
+        <jive.addon.tile.calendar.description>An example Calendar Tile that pushes updates for 1 minute after configuration is saved.</jive.addon.tile.calendar.description>
+
+        <jive.addon.tile.gallery.displayName>Example Jive SDK (Java) Jersey - Gallery Tile</jive.addon.tile.gallery.displayName>
+        <jive.addon.tile.gallery.description>An example Gallery Tile that pushes updates for 1 minute after configuration is saved.</jive.addon.tile.gallery.description>
+
+        <jive.addon.tile.gauge.displayName>Example Jive SDK (Java) Jersey - Gauge Tile</jive.addon.tile.gauge.displayName>
+        <jive.addon.tile.gauge.description>An example Gauge Tile that pushes updates for 1 minute after configuration is saved.</jive.addon.tile.gauge.description>
+
+        <jive.addon.tile.list.displayName>Example Jive SDK (Java) Jersey - List Tile</jive.addon.tile.list.displayName>
+        <jive.addon.tile.list.description>An example List Tile that pushes updates for 1 minute after configuration is saved.</jive.addon.tile.list.description>
+
+        <jive.addon.tile.table.displayName>Example Jive SDK (Java) Jersey - Table Tile</jive.addon.tile.table.displayName>
+        <jive.addon.tile.table.description>An example Table Tile that pushes updates for 1 minute after configuration is saved.</jive.addon.tile.table.description>
+
+        <!--
+        ############## ADD-ON STORAGE / CARTRIDGE CONFIGURATION ########################################################
+        -->
+        <jive.addon.storage.displayName>Example Jive SDK (Java) - Storage Provider</jive.addon.storage.displayName>
+        <jive.addon.storage.description>An example External Storage Provider using the Jive SDK (Java) - Jersey Edition</jive.addon.storage.description>
+
+        <jive.addon.cartridge.displayName>Example Jive SDK (Java) - Google Drive Cartridge</jive.addon.cartridge.displayName>
+
     </properties>
 
     <build>
-        <finalName>jive-addon-example</finalName>
+        <finalName>${jive.addon.build.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -52,13 +114,17 @@
                   <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- TODO:  GENERATE RANDOM UUIDS FOR ALL COMPONENTS -->
-            <!-- TODO:  FILTER jive-addon-webapp/src/main/extension/meta.json -->
-            <!-- TODO:  FILTER jive-addon-webapp/src/main/extension/definition.json -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <version>1.7</version>
+                <dependencies>
+                    <dependency>
+                    	<groupId>org.codehaus.groovy</groupId>
+                    	<artifactId>groovy-all</artifactId>
+                    	<version>2.2.1</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>load-configuration</id>
@@ -68,34 +134,88 @@
                         </goals>
                         <configuration>
                             <target>
+                                <!-- CREATES A BUILD TIME FOR THE ADD-ON -->
+                                <tstamp>
+                                     <format property="jive.addon.build.timestamp" pattern="yyyy-MM-dd'T'HH:mm:ss.SSSZ"/>
+                                </tstamp>
+
+                                <!-- LOADS IN PROPERTIES FROM PROPERTIES FILE (IF NEEDED) -->
                                 <loadproperties srcFile="src/main/resources/jiveclientconfiguration.properties"/>
 
-                                <scriptdef name="generateguid" language="javascript">
-                                    <attribute name="property" />
+                                <!-- GENERATES 10 RANDOM UUIDS FOR INJECTION LATER IN THE SCRIPT (IF NEEDED) -->
+                                <script language="javascript">
                                     <![CDATA[
-                                    importClass( java.util.UUID );
+                                        importClass( java.util.UUID );
+                                        project.setProperty( "jive.random.UUID1" , UUID.randomUUID().toString() );
+                                        project.setProperty( "jive.random.UUID2" , UUID.randomUUID().toString() );
+                                        project.setProperty( "jive.random.UUID3" , UUID.randomUUID().toString() );
+                                        project.setProperty( "jive.random.UUID4" , UUID.randomUUID().toString() );
+                                        project.setProperty( "jive.random.UUID5" , UUID.randomUUID().toString() );
+                                        project.setProperty( "jive.random.UUID6" , UUID.randomUUID().toString() );
+                                        project.setProperty( "jive.random.UUID7" , UUID.randomUUID().toString() );
+                                        project.setProperty( "jive.random.UUID8" , UUID.randomUUID().toString() );
+                                        project.setProperty( "jive.random.UUID9" , UUID.randomUUID().toString() );
+                                        project.setProperty( "jive.random.UUID10" , UUID.randomUUID().toString() );
 
-                                    project.setProperty( attributes.get( "property" ), UUID.randomUUID() );
+                                        // ADD MORE CUSTOM PROPS / LOGIC IF NECESSARY
                                     ]]>
-                                </scriptdef>
+                                </script>
 
-                                <generateguid property="guid1" />
-                                <!-- <echo message="${guid1}" /> -->
+                                <!-- IF FILE DOESN'T EXIST, CREATE.  DO NOT RE-COPY (THIS IS HOW WE LOCK IDs) -->
+                                <copy file="src/main/templates/definition.template" tofile="src/main/extension/definition.json" overwrite="false" />
+                                <copy file="src/main/templates/meta.template" tofile="src/main/extension/meta.json" overwrite="false" />
 
-                                <delete file="src/main/extension/definition.json" />
-                                <delete file="src/main/extension/meta.json" />
-                                <copy file="src/main/templates/definition.template" tofile="src/main/extension/definition.json"/>
-                                <copy file="src/main/templates/meta.template" tofile="src/main/extension/meta.json"/>
+                                <!-- SEEDING definition.json CONFIGURATION VALUES -->
                                 <replace file="src/main/extension/definition.json" token="[[serviceURL]]" value="${clientUrl}:${port}"/>
                                 <replace file="src/main/extension/definition.json" token="[[serviceContext]]" value="${appContext}"/>
+                                <replace file="src/main/extension/definition.json" token="[[UUID2]]" value="${jive.random.UUID2}"/>
+                                <replace file="src/main/extension/definition.json" token="[[UUID3]]" value="${jive.random.UUID3}"/>
+                                <replace file="src/main/extension/definition.json" token="[[UUID4]]" value="${jive.random.UUID4}"/>
+                                <replace file="src/main/extension/definition.json" token="[[UUID5]]" value="${jive.random.UUID5}"/>
+                                <replace file="src/main/extension/definition.json" token="[[UUID6]]" value="${jive.random.UUID6}"/>
+                                <replace file="src/main/extension/definition.json" token="[[UUID7]]" value="${jive.random.UUID7}"/>
+                                <replace file="src/main/extension/definition.json" token="[[UUID8]]" value="${jive.random.UUID8}"/>
+                                <replace file="src/main/extension/definition.json" token="[[UUID9]]" value="${jive.random.UUID9}"/>
+                                <replace file="src/main/extension/definition.json" token="[[UUID10]]" value="${jive.random.UUID10}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.build.timestamp]]" value="${jive.addon.build.timestamp}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.name]]" value="${jive.addon.name}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.tile.calendar.displayName]]" value="${jive.addon.tile.calendar.displayName}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.tile.calendar.description]]" value="${jive.addon.tile.calendar.description}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.tile.gallery.displayName]]" value="${jive.addon.tile.gallery.displayName}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.tile.gallery.description]]" value="${jive.addon.tile.gallery.description}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.tile.gauge.displayName]]" value="${jive.addon.tile.gauge.displayName}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.tile.gauge.description]]" value="${jive.addon.tile.gauge.description}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.tile.list.displayName]]" value="${jive.addon.tile.list.displayName}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.tile.list.description]]" value="${jive.addon.tile.list.description}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.tile.table.displayName]]" value="${jive.addon.tile.table.displayName}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.tile.table.description]]" value="${jive.addon.tile.table.description}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.storage.displayName]]" value="${jive.addon.storage.displayName}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.storage.description]]" value="${jive.addon.storage.description}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.cartridge.displayName]]" value="${jive.addon.cartridge.displayName}"/>
+
+                                <!-- SEEDING meta.json CONFIGURATION VALUES -->
                                 <replace file="src/main/extension/meta.json" token="[[serviceURL]]" value="${clientUrl}:${port}"/>
                                 <replace file="src/main/extension/meta.json" token="[[serviceContext]]" value="${appContext}"/>
+                                <replace file="src/main/extension/meta.json" token="[[UUID1]]" value="${jive.random.UUID1}"/>
+                                <replace file="src/main/extension/meta.json" token="[[jive.addon.build.timestamp]]" value="${jive.addon.build.timestamp}"/>
+                                <replace file="src/main/extension/meta.json" token="[[jive.addon.developer.name]]" value="${jive.addon.developer.name}"/>
+                                <replace file="src/main/extension/meta.json" token="[[jive.addon.developer.company]]" value="${jive.addon.developer.company}"/>
+                                <replace file="src/main/extension/meta.json" token="[[jive.addon.developer.email]]" value="${jive.addon.developer.email}"/>
+                                <replace file="src/main/extension/meta.json" token="[[jive.addon.company.website.url]]" value="${jive.addon.company.website.url}"/>
+                                <replace file="src/main/extension/meta.json" token="[[jive.addon.company.community.url]]" value="${jive.addon.company.community.url}"/>
+                                <replace file="src/main/extension/meta.json" token="[[jive.addon.company.email]]" value="${jive.addon.company.email}"/>
+                                <replace file="src/main/extension/meta.json" token="[[jive.addon.package.version]]" value="${jive.addon.package.version}"/>
+                                <replace file="src/main/extension/meta.json" token="[[jive.addon.name]]" value="${jive.addon.name}"/>
+                                <replace file="src/main/extension/meta.json" token="[[jive.addon.description]]" value="${jive.addon.description}"/>
 
                                 <!--- CREATE CARTRIDGE ZIP FILES -->
                                 <zip destfile="src/main/extension/data/${project.build.finalName}-cartridge.zip" basedir="src/main/cartridge" update="true" whenempty="skip" />
                                 <zip destfile="./extension-${project.build.finalName}.zip" basedir="src/main/extension" update="true" />
                             </target>
+
+                            <!-- NEEDED IN THE EVENT A PROPERTY IS USED ELSE-WHERE IN THE POM -->
                             <exportAntProperties>true</exportAntProperties>
+
                         </configuration>
                     </execution>
                 </executions>
