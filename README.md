@@ -18,7 +18,7 @@ You can execute **java -version** to confirm.   (see Mac Commands below for poss
 To get started, simply perform the following steps:
 
 1. **git clone https://github.com/jivesoftware/jive-sdk-java-jersey.git**
-2. **cd jive-sdk-java-jersey; mvn clean install**
+2. **cd jive-sdk-java-jersey; mvn -DclientUrl=http://your.resolvable.host.name -Dport=8090 clean install**
 3. **cd jive-addon; mvn -DclientUrl=http://your.resolvable.host.name -Dport=8090 jetty:run**
 
 Congrats, your Jive Add-On Service is should now be running!  Now we just need to link a Jive Instance to it!  Here's how you do that!
