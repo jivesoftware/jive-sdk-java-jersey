@@ -184,19 +184,19 @@
 		{
 			"name" : "Twitter OAuth App",
 			"id": "[[UUID7]]",
-			"appPath": "twitter-oauth1-example",
+			"appPath": "twitter-oauth1-[[jive.random.seed]]",
 			"url": "[[serviceURL]]/apps/twitter/app.xml"
 		},
         {
             "name" : "Facebook OAuth2 App",
             "id": "[[UUID8]]",
-            "appPath": "facebook-oauth2-example",
+            "appPath": "facebook-oauth2-[[jive.random.seed]]",
             "url": "[[serviceURL]]/apps/facebook/app.xml"
         },
         {
             "name" : "Google OAuth2 App",
             "id": "[[UUID9]]",
-            "appPath": "google-oauth2-example",
+            "appPath": "google-oauth2-[[jive.random.seed]]",
             "url": "[[serviceURL]]/apps/google/app.xml"
         }
 

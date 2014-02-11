@@ -146,6 +146,8 @@
                                 <script language="javascript">
                                     <![CDATA[
                                         importClass( java.util.UUID );
+                                        importClass( java.lang.System );
+
                                         project.setProperty( "jive.random.UUID1" , UUID.randomUUID().toString() );
                                         project.setProperty( "jive.random.UUID2" , UUID.randomUUID().toString() );
                                         project.setProperty( "jive.random.UUID3" , UUID.randomUUID().toString() );
@@ -156,6 +158,7 @@
                                         project.setProperty( "jive.random.UUID8" , UUID.randomUUID().toString() );
                                         project.setProperty( "jive.random.UUID9" , UUID.randomUUID().toString() );
                                         project.setProperty( "jive.random.UUID10" , UUID.randomUUID().toString() );
+                                        project.setProperty( "jive.random.seed" , System.currentTimeMillis() );
 
                                         // ADD MORE CUSTOM PROPS / LOGIC IF NECESSARY
                                     ]]>
@@ -192,6 +195,7 @@
                                 <replace file="src/main/extension/definition.json" token="[[jive.addon.storage.displayName]]" value="${jive.addon.storage.displayName}"/>
                                 <replace file="src/main/extension/definition.json" token="[[jive.addon.storage.description]]" value="${jive.addon.storage.description}"/>
                                 <replace file="src/main/extension/definition.json" token="[[jive.addon.cartridge.displayName]]" value="${jive.addon.cartridge.displayName}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.random.seed]]" value="${jive.random.seed}"/>
 
                                 <!-- SEEDING meta.json CONFIGURATION VALUES -->
                                 <replace file="src/main/extension/meta.json" token="[[serviceURL]]" value="${clientUrl}:${port}"/>
