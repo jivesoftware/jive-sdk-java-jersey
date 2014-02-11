@@ -18,8 +18,7 @@
 
 package com.jivesoftware.addon.example;
 
-import com.jivesoftware.addon.example.tile.MyExampleListTile;
-import com.jivesoftware.addon.example.tile.MyExampleTableTile;
+import com.jivesoftware.addon.example.tile.*;
 import com.jivesoftware.sdk.JiveAddOnApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,8 +38,11 @@ public class MyExampleAddOn extends JiveAddOnApplication {
         //*** NEED TO REGISTER ANY CLASSES THAT YOU WILL USE CDI INJECTIONS
         //*** THIS INCLUDES FOR @Inject, Events, @Context, @Observes ...
         registerInjectables(
-                MyExampleListTile.class,
-                MyExampleTableTile.class
+            MyExampleListTile.class,
+            MyExampleTableTile.class,
+            MyExampleCalendarTile.class,
+            MyExampleGaugeTile.class,
+            MyExampleGalleryTile.class
         );
 
     } // end constructor
