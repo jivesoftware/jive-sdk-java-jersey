@@ -80,3 +80,5 @@ TODO:
 - Better definition.json generation support
 - Decoupling Events to @Stateless + @Asynchronous EJB w/OpenEJB - http://tomee.apache.org/
 - Implementing More Future Driven Calls
+- Continue to look for ways to improve/speed-up development:
+  http://www.benoitschweblin.com/2013/03/run-jetty-in-maven-life-cycle.html
