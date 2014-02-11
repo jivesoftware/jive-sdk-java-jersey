@@ -29,18 +29,45 @@ At this point, you client service is running with a Jive Instance connected to i
 
 ---
 
-#### Mac Help
+#### Java Environment Tip & Tricks
 
-To switch your terminal Java Runtime back to Java 7, use:
+##### Mac Tricks
+To switch your Terminal Java Runtime back to Java 7, use:
 >export JAVA_HOME=\`/usr/libexec/java_home -v 1.7\`
 
-To switch your terminal Java Runtime back to Java 6, use:
+To switch your Terminal Java Runtime back to Java 6, use:
 >export JAVA_HOME=\`/usr/libexec/java_home -v 1.6\`
 
-Instructions for deploying to Heroku
-Instructions for deploying on Tomcat
-Instructions for deploying on JBoss
-Instructions for deploying on Oracle BEA (compatible)?
+##### Windows Tricks
+TODO:
+
+
+##### Linux (Ubuntu/CentOS/RHEL/SUSE/etc..) Tricks
+TODO: 
+
+---
+
+#### Deployment Instructions
+
+**Instructions for deploying on Tomcat**
+* TODO - Instructions
+
+**Instructions for deploying on JBoss**
+* TODO - Instructions
+
+**Instructions for deploying on Weblogic**
+* TODO - Confirm Compatibility
+* TODO - Instructions
+
+**Instructions for deploying on Websphere**
+* TODO - Confirm Compatibility
+* TODO - Instructions
+
+**Instructions for deploying to Heroku**
+* TODO:  See: [Procfile](/jivesoftware/jive-sdk-java-jersey/blob/master/jive-addon/Procfile)
+* TODO - Instructions
+
+---
 
 #### Need:
 - Support for Activity Stream Tiles
