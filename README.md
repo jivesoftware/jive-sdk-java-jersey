@@ -10,14 +10,22 @@ This document is a work in progress, so please ignore the clutter
 3. Install [Java 7](http://java.com/en/download/index.jsp) (see [help center](http://java.com/en/download/help/index_installing.xml) for assistance)
 
 #### Getting Started
-This SDK is more of a boiler plate application that gets your up and running and FAST.  To get started, simply 
+This SDK is more of a boiler plate application that gets your up and running and FAST.
+
+>Before you get started, make sure your default Java Runtime is Java 7. 
+You can execute **java -version** to confirm.   (see Mac Commands below for possible help)
+
+To get started, simply perform the following steps:
 
 1. **git clone https://github.com/jivesoftware/jive-sdk-java-jersey.git**
 2. **cd jive-sdk-java-jersey; mvn clean install**
-  * note: see: [pom.xml](https://github.com/jivesoftware/jive-sdk-java-jersey/blob/master/jive-addon/pom.xml#L19 ) to configure host / port information before running this step
-  * Make sure that your Java Runtime is Java 7, and not an earlier version. (see Mac Commands below for possible help)
 3. **cd jive-addon; mvn -DclientUrl=http://your.resolvable.host.name -Dport=8090 jetty:run**
-  * Make sure that your Java Runtime is Java 7, and not an earlier version. (see Mac Commands below for possible help)
+
+Congrats, your Jive Add-On Service is should now be running!  Now we just need to link a Jive Instance to it!  Here's how you do that!
+
+* **Upload ZIP file** generated for you in **jive-sdk-java-jersey/jive-addon/extension-jive-addon-example.zip** in the Add-On Services > Upload Packages section of your Jive Instance (must have admin privileges)
+
+At this point, you client service is running with a Jive Instance connected to it.  Be sure to check the [Jive Developer Community](https://community.jivesoftware.com/community/developer) for more updates about this project.  We look forward to your feedback and contributions.
 
 ---
 
