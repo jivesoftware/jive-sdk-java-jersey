@@ -74,30 +74,34 @@ public class JiveSDKUtils {
 
         Properties props = new Properties();
         InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
-        try {
-            props.load(is);
-            for (String key : props.stringPropertyNames()) {
-                try {
-                    BeanUtils.setProperty(bean, key, props.getProperty(key));
-                    if (log.isTraceEnabled()) { log.trace("Sucessfully set ["+key+"] to ["+props.getProperty(key)); }
-                } catch(IllegalAccessException iae) {
-                    log.error("Unable to Set Field["+key+"] on ["+bean.getClass().getSimpleName()+"], continuing on but may be problematic.  Check your ["+fileName+"]",iae);
-                } catch (InvocationTargetException ite) {
-                    log.error("Unable to Set Field["+key+"] on ["+bean.getClass().getSimpleName()+"], continuing on but may be problematic.  Check your ["+fileName+"]",ite);
-                } // end try/catch
-            } // end for key
-        } catch (IOException ioe) {
-            log.error("Unable to Read File["+fileName+".properties] file",ioe);
-        } finally {
+        if (is != null) {
             try {
-                is.close();
+                props.load(is);
+                for (String key : props.stringPropertyNames()) {
+                    try {
+                        BeanUtils.setProperty(bean, key, props.getProperty(key));
+                        if (log.isTraceEnabled()) { log.trace("Sucessfully set ["+key+"] to ["+props.getProperty(key)); }
+                    } catch(IllegalAccessException iae) {
+                        log.error("Unable to Set Field["+key+"] on ["+bean.getClass().getSimpleName()+"], continuing on but may be problematic.  Check your ["+fileName+"]",iae);
+                    } catch (InvocationTargetException ite) {
+                        log.error("Unable to Set Field["+key+"] on ["+bean.getClass().getSimpleName()+"], continuing on but may be problematic.  Check your ["+fileName+"]",ite);
+                    } // end try/catch
+                } // end for key
             } catch (IOException ioe) {
-                /** NOOP **/
-                if (log.isDebugEnabled()) { log.debug("Error Closing Property File Stream, unexpected",ioe); }
+                log.error("Unable to Read File["+fileName+".properties] file",ioe);
+            } finally {
+                try {
+                    if (is != null) {
+                        is.close();
+                    } // end if
+                } catch (IOException ioe) {
+                    /** NOOP **/
+                    if (log.isDebugEnabled()) { log.debug("Error Closing Property File Stream, unexpected",ioe); }
+                } // end try/catch
+                is = null;
             } // end try/catch
-            is = null;
-        } // end try/catch
-        props = null;
+            props = null;
+        } // end if
 
     } // end initConfig
 
