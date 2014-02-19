@@ -76,8 +76,7 @@ public class TileRegisterAction {
         this.config = config;
         this.tileInstanceID = tileInstanceID;
 
-        // Workaround to external stream url
-        this.jivePushUrl = JiveSDKUtils.normalizeItemUrl(jivePushUrl);
+        this.jivePushUrl = jivePushUrl;
         this.jiveUrl = jiveInstanceUrl;
         this.tenantID = tenantID;
 
