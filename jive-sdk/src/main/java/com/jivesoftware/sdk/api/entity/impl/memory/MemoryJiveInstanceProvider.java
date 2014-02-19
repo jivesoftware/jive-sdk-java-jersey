@@ -45,6 +45,11 @@ public class MemoryJiveInstanceProvider implements JiveInstanceProvider {
         return instance;
     } // end getInstance
 
+    @Override
+    public void init() throws JiveInstanceProviderException {
+        if (log.isTraceEnabled()) { log.trace("init called..."); }
+    } // end init
+
     public void addInstance(JiveInstance jiveInstance) {
         if (log.isDebugEnabled()) { log.debug("Adding Instance ["+jiveInstance.getTenantId()+"] ..."); }
         MemoryJiveInstanceStore.getInstance().getMap().put(jiveInstance.getTenantId(),jiveInstance);

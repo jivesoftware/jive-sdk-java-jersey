@@ -1,0 +1,6 @@
+{
+    "integrationUser": {
+        "systemAdmin": true,
+        "jiveServiceSignature" : "[[jive.addon.serviceSignature]]",
+        "runAsStrategy" : "[[jive.addon.runAsStrategy]]"
+    }

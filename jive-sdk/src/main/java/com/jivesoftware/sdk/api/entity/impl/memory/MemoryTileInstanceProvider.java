@@ -41,6 +41,12 @@ public class MemoryTileInstanceProvider implements TileInstanceProvider {
         if (log.isTraceEnabled()) { log.trace("constructor called..."); }
     } // end constructor
 
+
+    @Override
+    public void init() throws TileInstanceProviderException {
+        if (log.isTraceEnabled()) { log.trace("init called..."); }
+    } // end init
+
     public static MemoryTileInstanceProvider getInstance() {
         if (instance == null) {
             instance = new MemoryTileInstanceProvider();

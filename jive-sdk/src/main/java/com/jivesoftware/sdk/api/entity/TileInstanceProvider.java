@@ -23,6 +23,8 @@ package com.jivesoftware.sdk.api.entity;
  */
 public interface TileInstanceProvider extends BaseProvider {
 
+    public void init() throws TileInstanceProviderException;
+
     public TileInstance getTileInstanceByPushURL(String url);
 
     public void remove(TileInstance tileInstance) throws TileInstanceProviderException;

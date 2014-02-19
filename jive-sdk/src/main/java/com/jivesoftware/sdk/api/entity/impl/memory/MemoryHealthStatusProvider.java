@@ -47,6 +47,11 @@ public class MemoryHealthStatusProvider implements HealthStatusProvider {
     } // end getInstance
 
     @Override
+    public void init() throws HealthStatusProviderException {
+        if (log.isTraceEnabled()) { log.trace("init called..."); }
+    }  // end init
+
+    @Override
     public HealthStatus getStatus() {
 
         HealthStatus status = new HealthStatus();

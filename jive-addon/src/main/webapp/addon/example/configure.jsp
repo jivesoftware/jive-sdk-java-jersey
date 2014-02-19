@@ -53,6 +53,7 @@
 </head>
 
 <body>
+
 <div class="j-card">
     <h2>Configure - AddOn</h2>
 
@@ -65,6 +66,7 @@
     <button id="btn_submit">Submit</button>
 
 </div>
+
 
 </body>
 </html>

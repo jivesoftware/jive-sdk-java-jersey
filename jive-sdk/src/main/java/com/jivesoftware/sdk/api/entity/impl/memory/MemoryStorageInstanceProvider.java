@@ -42,6 +42,11 @@ public class MemoryStorageInstanceProvider implements StorageInstanceProvider {
     } // end getInstance
 
     @Override
+    public void init() throws StorageInstanceProviderException {
+        if (log.isTraceEnabled()) { log.trace("init called..."); }
+    } // end init
+
+    @Override
     public void dispose() {
         if (log.isTraceEnabled()) { log.trace("dispose called..."); }
     } // end dispose

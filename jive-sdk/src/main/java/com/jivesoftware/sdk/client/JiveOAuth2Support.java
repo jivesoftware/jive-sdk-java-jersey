@@ -16,18 +16,13 @@
  *
  */
 
-package com.jivesoftware.sdk.client.oauth;
-
-import com.jivesoftware.sdk.client.JiveAuthorizationSupport;
-import com.jivesoftware.sdk.client.JiveOAuth2Support;
-import com.jivesoftware.sdk.client.oauth.OAuthCredentials;
+package com.jivesoftware.sdk.client;
 
 /**
- * Created by rrutan on 2/5/14.
+ * Created by rrutan on 2/13/14.
  */
-public interface OAuthCredentialsSupport {
+public interface JiveOAuth2Support extends JiveAuthorizationSupport {
 
-    public OAuthCredentials getCredentials();
-    public void setCredentials(OAuthCredentials credentials);
+    public static final String AUTHORIZATION_OAUTH_PREFIX = "Bearer ";
 
-} // end interface
+}

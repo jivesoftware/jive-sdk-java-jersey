@@ -15,7 +15,12 @@
   ~  *    limitations under the License.
   ~  */
   --%>
+<%@ page import="java.util.Enumeration" %>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
     String serviceURL = request.getScheme() + "://" + request.getServerName();
     if (
@@ -25,3 +30,17 @@
         serviceURL += ":" + request.getServerPort();
     } // end if
 %>
+
+
+<%--
+    // USEFUL FOR DEBUGGING HEADERS ON ACTION/CONFIGURATION SCREENS, CAN ALSO USE CHROME/FIREFOX DEBUGGER NATIVELY
+    Enumeration requestHeaders = request.getHeaderNames();
+    if (requestHeaders != null && requestHeaders.hasMoreElements()) {
+        %><script type="text/javascript"><%
+        while (requestHeaders.hasMoreElements()) {
+            String requestHeaderName = (String)requestHeaders.nextElement();
+            %>console.log('Header: [<%= requestHeaderName %>] : <%= request.getHeader(requestHeaderName) %>');<%
+        } // end for header
+        %></script><%
+    } // end if
+--%>

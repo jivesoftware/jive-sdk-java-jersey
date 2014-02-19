@@ -1,7 +1,4 @@
-{
-    "integrationUser": {
-        "systemAdmin": false
-    },
+,
     "tiles" : [
         {
             "sampleData": {

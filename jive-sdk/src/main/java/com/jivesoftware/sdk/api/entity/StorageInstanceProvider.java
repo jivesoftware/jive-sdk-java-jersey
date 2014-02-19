@@ -22,4 +22,27 @@ package com.jivesoftware.sdk.api.entity;
  * Created by rrutan on 2/6/14.
  */
 public interface StorageInstanceProvider extends BaseProvider {
+
+    public void init() throws StorageInstanceProviderException;
+
+    class StorageInstanceProviderException extends Exception {
+        public StorageInstanceProviderException() {
+        }
+
+        public StorageInstanceProviderException(String message) {
+            super(message);
+        }
+
+        public StorageInstanceProviderException(String message, Throwable cause) {
+            super(message, cause);
+        }
+
+        public StorageInstanceProviderException(Throwable cause) {
+            super(cause);
+        }
+
+        public StorageInstanceProviderException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+            super(message, cause, enableSuppression, writableStackTrace);
+        }
+    }
 }

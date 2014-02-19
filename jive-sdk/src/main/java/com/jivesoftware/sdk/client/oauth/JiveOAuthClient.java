@@ -19,6 +19,7 @@
 package com.jivesoftware.sdk.client.oauth;
 
 import com.jivesoftware.sdk.api.entity.*;
+import com.jivesoftware.sdk.client.BaseJiveClient;
 import com.jivesoftware.sdk.client.filter.DebugClientResponseFilter;
 import com.jivesoftware.sdk.utils.JiveSDKUtils;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
@@ -38,7 +39,7 @@ import java.util.concurrent.Future;
  * This code will refresh an oauth token after it expires.
  */
 @Singleton
-public class JiveOAuthClient {
+public class JiveOAuthClient extends BaseJiveClient {
     private static final Logger log = LoggerFactory.getLogger(JiveOAuthClient.class);
 
     @Context
@@ -64,7 +65,7 @@ public class JiveOAuthClient {
 
         //TODO: ADD LOGIC TO EXIT IF ACCESS TOKENS ARE STILL VALID
 
-        Client client = getClient();
+        Client client = buildClient();
         client.register(HttpAuthenticationFeature.basic(jiveInstance.getClientId(), jiveInstance.getClientSecret()));
         WebTarget target = client.target(jiveInstance.getJiveUrl()).path("/oauth2/token");
         Form form = new Form("grant_type", "refresh_token");
@@ -115,7 +116,7 @@ public class JiveOAuthClient {
         } // end if
 
         if (log.isDebugEnabled()) { log.debug("Retrieving Access Tokesn..."); }
-        Client client = getClient();
+        Client client = buildClient();
         client.register(HttpAuthenticationFeature.basic(jiveInstance.getClientId(), jiveInstance.getClientSecret()));
         WebTarget target = client.target(jiveInstance.getJiveUrl()).path("/oauth2/token");
         Form form = new Form("grant_type", "authorization_code");
@@ -146,7 +147,7 @@ public class JiveOAuthClient {
             return;
         } // end if
 
-        Client client = getClient();
+        Client client = buildClient();
         client.register(HttpAuthenticationFeature.basic(jiveInstance.getClientId(), jiveInstance.getClientSecret()));
         WebTarget target = client.target(jiveInstance.getJiveUrl()).path("/oauth2/token");
         Form form = new Form("grant_type", "refresh_token");
@@ -164,7 +165,7 @@ public class JiveOAuthClient {
         JiveInstance jiveInstance = jiveInstanceProvider.getInstanceByTenantId(tile.getTenantID());
         TileInstance tileInstance = tileInstanceProvider.getTileInstanceByPushURL(tile.getJivePushUrl());
 
-        Client client = getClient();
+        Client client = buildClient();
         client.register(HttpAuthenticationFeature.basic(jiveInstance.getClientId(), jiveInstance.getClientSecret()));
         WebTarget target = client.target(jiveInstance.getJiveUrl()).path("/oauth2/token");
         Form form = new Form("grant_type", "authorization_code");
@@ -180,19 +181,6 @@ public class JiveOAuthClient {
 
         return credentials;
     } // end refreshToken
-
-    private Client getClient() {
-
-        Client client = ClientBuilder.newClient();
-
-        if (log.isDebugEnabled()) {
-            client.register(DebugClientResponseFilter.class);
-        } // end if
-
-        client.register(JacksonFeature.class);
-
-        return client;
-    } // end getClient
 
 // FOR REFERENCE
 //var accessTokenRefresher = function(operationContext, oauth) {

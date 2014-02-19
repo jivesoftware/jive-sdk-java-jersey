@@ -45,7 +45,7 @@ import java.util.concurrent.Future;
  */
 
 @Singleton
-public class JiveTileClient {
+public class JiveTileClient extends BaseJiveClient {
     private static final Logger log = LoggerFactory.getLogger(JiveTileClient.class);
 
     @Context
@@ -191,68 +191,5 @@ public class JiveTileClient {
         } // end if
 
     } // end initAccessTokens
-    
-    private Client buildClient() {
-        Client client = ClientBuilder.newClient();
-
-        if (log.isDebugEnabled()) {
-            client.register(DebugClientResponseFilter.class);
-        } // end if
-        client.register(JacksonFeature.class);
-
-        return client;
-    } // end buildClient
-
-    class DataBlock {
-        @JsonProperty("data")
-        private Object data;
-        @JsonProperty("message")
-        private Map<String,Object> message;
-        @JsonProperty("status")
-        private Map<String,Object> status;
-
-        DataBlock() {
-            this.message = Maps.newHashMap();
-            this.status = Maps.newHashMap();
-        }
-
-        DataBlock(Object data) {
-            this();
-            this.data = data;
-        } // end constructor
-
-        public Object getData() {
-            return data;
-        }
-
-        public void setData(Object data) {
-            this.data = data;
-        }
-
-        public Map<String, Object> getMessage() {
-            return message;
-        }
-
-        public void setMessage(Map<String, Object> message) {
-            this.message = message;
-        }
-
-        public Map<String, Object> getStatus() {
-            return status;
-        }
-
-        public void setStatus(Map<String, Object> status) {
-            this.status = status;
-        }
-
-        @Override
-        public String toString() {
-            return "DataBlock{" +
-                    "data=" + data +
-                    ", message=" + message +
-                    ", status=" + status +
-                    '}';
-        }
-    } // end class
 
 } // end JiveTileClient

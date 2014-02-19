@@ -25,6 +25,28 @@ import com.jivesoftware.sdk.api.health.data.HealthStatus;
  */
 public interface HealthStatusProvider extends BaseProvider {
 
+    public void init() throws HealthStatusProviderException;
+
     public HealthStatus getStatus();
 
+    class HealthStatusProviderException extends Exception {
+        public HealthStatusProviderException() {
+        }
+
+        public HealthStatusProviderException(String message) {
+            super(message);
+        }
+
+        public HealthStatusProviderException(String message, Throwable cause) {
+            super(message, cause);
+        }
+
+        public HealthStatusProviderException(Throwable cause) {
+            super(cause);
+        }
+
+        public HealthStatusProviderException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+            super(message, cause, enableSuppression, writableStackTrace);
+        }
+    }
 } // end interface

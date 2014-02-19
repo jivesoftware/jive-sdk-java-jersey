@@ -190,4 +190,5 @@ public class JiveInstance implements OAuthCredentialsSupport, Serializable {
                 ", credentials=" + credentials +
                 '}';
     }
+
 }

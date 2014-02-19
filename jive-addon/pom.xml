@@ -61,6 +61,21 @@
         <jive.addon.name>Jive SDK (Java) - Jersey Add-On</jive.addon.name>
         <jive.addon.description>This extension is test extension for the Jive SDK (Java) - Jersey Add-On</jive.addon.description>
 
+        <!-- VALID VALUES ARE ANY unsigned AND signed -->
+        <!-- SEE: /src/main/templates/definition.[unsigned|signed].header.template -->
+        <!-- NOTE: MOST ADD-ONS ARE NOT SIGNED, BUT IF YOU THINK YOU NEED ONE, PLEASE SEE SIGNED ADD-ONS ARE ONLY VALID ON A PER INSTANCE BASIS -->
+        <jive.addon.definition.template>unsigned</jive.addon.definition.template>
+
+        <!-- ONLY APPLICABLE FOR definition.signed.template (see above) -->
+        <!-- FOLLOW INSTRUCTIONS ON HOW TO OBTAIN A SERVICE SIGNATURE -->
+        <!-- SEE: https://community.jivesoftware.com/docs/DOC-110343 -->
+        <jive.addon.serviceSignature>TODO</jive.addon.serviceSignature>
+
+        <!-- ONLY APPLICABLE FOR definition.signed.template (see above) -->
+        <!-- FOLLOW INSTRUCTIONS ON HOW TO CONFIGURE THE RUN-AS STRATEGY CAN BE ONE OF: email, userid, username, uri -->
+        <!-- SEE: https://community.jivesoftware.com/docs/DOC-110343 -->
+        <jive.addon.runAsStrategy>userid</jive.addon.runAsStrategy>
+
         <!--
         ############## ADD-ON DEVELOPER PROFILE #######################################################################
         -->
@@ -165,7 +180,10 @@
                                 </script>
 
                                 <!-- IF FILE DOESN'T EXIST, CREATE.  DO NOT RE-COPY (THIS IS HOW WE LOCK IDs) -->
-                                <copy file="src/main/templates/definition.template" tofile="src/main/extension/definition.json" overwrite="false" />
+                                <copy file="src/main/templates/definition.${jive.addon.definition.template}.header.template" tofile="src/main/extension/definition.json" overwrite="false" />
+                                <concat destFile="src/main/extension/definition.json" append="true">
+                                    <filelist dir="src/main/templates" files="definition.template"/>
+                                </concat>
                                 <copy file="src/main/templates/meta.template" tofile="src/main/extension/meta.json" overwrite="false" />
 
                                 <!-- SEEDING definition.json CONFIGURATION VALUES -->
@@ -196,6 +214,8 @@
                                 <replace file="src/main/extension/definition.json" token="[[jive.addon.storage.description]]" value="${jive.addon.storage.description}"/>
                                 <replace file="src/main/extension/definition.json" token="[[jive.addon.cartridge.displayName]]" value="${jive.addon.cartridge.displayName}"/>
                                 <replace file="src/main/extension/definition.json" token="[[jive.random.seed]]" value="${jive.random.seed}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.serviceSignature]]" value="${jive.addon.serviceSignature}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.runAsStrategy]]" value="${jive.addon.runAsStrategy}"/>
 
                                 <!-- SEEDING meta.json CONFIGURATION VALUES -->
                                 <replace file="src/main/extension/meta.json" token="[[serviceURL]]" value="${clientUrl}:${port}"/>

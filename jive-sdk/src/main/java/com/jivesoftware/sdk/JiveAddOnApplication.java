@@ -23,6 +23,7 @@ import com.google.common.collect.Sets;
 import com.jivesoftware.sdk.api.entity.*;
 import com.jivesoftware.sdk.api.entity.impl.memory.*;
 import com.jivesoftware.sdk.client.JiveAPIClient;
+import com.jivesoftware.sdk.client.JiveAnalyticsClient;
 import com.jivesoftware.sdk.client.JiveTileClient;
 import com.jivesoftware.sdk.client.oauth.JiveOAuthClient;
 import com.jivesoftware.sdk.client.oauth.JiveOAuthEventListener;
@@ -112,6 +113,7 @@ public abstract class JiveAddOnApplication extends ResourceConfig {
         beanClasses.add(JiveOAuthClient.class);
         beanClasses.add(JiveTileClient.class);
         beanClasses.add(JiveAPIClient.class);
+        beanClasses.add(JiveAnalyticsClient.class);
 
         /** ALLOWS FOR EVENTS INJECTION INTO ALL SERVICES **/
         beanClasses.add(InstanceService.class);

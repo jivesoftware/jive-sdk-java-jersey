@@ -23,6 +23,8 @@ package com.jivesoftware.sdk.api.entity;
  */
 public interface JiveInstanceProvider extends BaseProvider {
 
+    public void init() throws JiveInstanceProviderException;
+
     public JiveInstance getInstanceByTenantId(String tenantId);
 
     public void remove(JiveInstance jiveInstance) throws JiveInstanceProviderException;
