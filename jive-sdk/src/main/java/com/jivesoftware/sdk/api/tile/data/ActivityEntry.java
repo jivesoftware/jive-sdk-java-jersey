@@ -18,8 +18,39 @@
 
 package com.jivesoftware.sdk.api.tile.data;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 /**
+ * Tile activity entry data
  * Created by rrutan on 2/9/14.
  */
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class ActivityEntry {
+    private ActivityAction action; // required
+    private ActivityActor actor;
+    private ActivityObject object; // required
+
+    public ActivityAction getAction() {
+        return action;
+    }
+
+    public void setAction(ActivityAction action) {
+        this.action = action;
+    }
+
+    public ActivityActor getActor() {
+        return actor;
+    }
+
+    public void setActor(ActivityActor actor) {
+        this.actor = actor;
+    }
+
+    public ActivityObject getObject() {
+        return object;
+    }
+
+    public void setObject(ActivityObject object) {
+        this.object = object;
+    }
 }
