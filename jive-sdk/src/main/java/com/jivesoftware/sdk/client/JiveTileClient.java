@@ -173,6 +173,45 @@ public class JiveTileClient extends BaseJiveClient {
         return null;
     } // end fetchData
 
+    public void pushActivity(TileInstance tileInstance, Object data) throws JiveClientException {
+        if (log.isTraceEnabled()) { log.trace("pushActivity called..."); }
+        if (log.isDebugEnabled()) { log.debug("pushActivity => ["+tileInstance.getJivePushUrl()+"]"); }
+
+        initAccessTokens(tileInstance);
+        Client client = buildClient();
+        WebTarget target = client.target(tileInstance.getJivePushUrl());
+
+        AsyncInvoker asyncInvoker = target.request(MediaType.APPLICATION_JSON_TYPE)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + tileInstance.getCredentials().getAccessToken()).async();
+
+        // Note that this needs to be a POST and we are not using the same DataBlock class as data push
+        Future<Response> responseFuture = asyncInvoker.post(Entity.entity(data, MediaType.APPLICATION_JSON_TYPE));
+
+        Response response = null;
+        try {
+            response = responseFuture.get();
+            if (response.getStatus() == 204) {
+                if (log.isInfoEnabled()) { log.info("Successful Activity Push ["+tileInstance.getJivePushUrl()+"]"); }
+            } // end if
+        } catch (BadRequestException bre) {
+            //TODO:  CHECK FOR REFRESH OAUTH ... REFRESH...AND RE-EXECUTE
+            log.error("Error Pushing Activity to Tile [" + tileInstance.getJivePushUrl() + "]", bre);
+            throw JiveClientException.buildException("Error Pushing Activity to Tile [" + tileInstance.getJivePushUrl() + "]",bre,tileInstance,data,data.getClass());
+        } catch (InterruptedException ie) {
+            log.error("Error Pushing Activity to Tile [" + tileInstance.getJivePushUrl() + "]", ie);
+            throw JiveClientException.buildException("Error Pushing Activity to Tile [" + tileInstance.getJivePushUrl() + "]",ie,tileInstance,data,data.getClass());
+        } catch (ExecutionException ee) {
+            log.error("Error Pushing Activity to Tile [" + tileInstance.getJivePushUrl() + "]", ee);
+            throw JiveClientException.buildException("Error Pushing Activity to Tile [" + tileInstance.getJivePushUrl() + "]",ee,tileInstance,data,data.getClass());
+        } finally {
+            if (response != null ) {
+                response.close();
+            }
+        }
+        client.close();
+        client = null;
+    }
+
     private void initAccessTokens(TileInstance tileInstance) {
         if (log.isTraceEnabled()) { log.trace("Initializing OAuth Access Tokens"); }
         if (!JiveSDKUtils.isAllExist(tileInstance.getCredentials().getRefreshToken())) {
