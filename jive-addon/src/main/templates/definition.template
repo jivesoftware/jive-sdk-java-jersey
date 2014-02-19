@@ -164,19 +164,40 @@
             "config": "[[serviceURL]]/tiles/jersey-example-calendar/configure.jsp",
             "unregister": "[[serviceURL]]/[[serviceContext]]/tile/unregister",
             "register": "[[serviceURL]]/[[serviceContext]]/tile/register"
+        },
+        {
+            "sampleData": {},
+            "displayName": "[[jive.addon.tile.activity.displayName]]",
+            "name": "jersey-example-activity",
+            "description": "[[jive.addon.tile.activity.description]]",
+            "style": "ACTIVITY",
+            "icons": {
+                "16": "[[serviceURL]]/images/extension-16.png",
+                "48": "[[serviceURL]]/images/extension-48.png",
+                "128": "[[serviceURL]]/images/extension-128.png"
+            },
+            "action": "[[serviceURL]]/tiles/jersey-example-activity/action.jsp",
+            "id": "[[UUID6]]",
+            "definitionDirName": "jersey-example-activity",
+            "published": "[[jive.addon.build.timestamp]]",
+            "updated": "[[jive.addon.build.timestamp]]",
+            "config": "[[serviceURL]]/tiles/jersey-example-activity/configure.jsp",
+            "unregister": "[[serviceURL]]/[[serviceContext]]/tile/unregister",
+            "register": "[[serviceURL]]/[[serviceContext]]/tile/register"
         }
     ],
     "templates": [
      {
          "name": "[[jive.addon.name]] - All Tiles",
          "displayName": "[[jive.addon.name]] - All Tiles",
-         "description": "This template has all the add-on tiles (minus activity)",
+         "description": "This template has all the add-on tiles",
          "tiles": [
              "jersey-example-calendar",
              "jersey-example-gallery",
              "jersey-example-gauge",
              "jersey-example-list",
-             "jersey-example-table"
+             "jersey-example-table",
+             "jersey-example-activity"
          ]
      }
     ],
