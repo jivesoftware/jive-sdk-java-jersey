@@ -20,9 +20,7 @@ package com.jivesoftware.addon.example.tile;
 
 import com.jivesoftware.sdk.api.entity.TileInstance;
 import com.jivesoftware.sdk.api.tile.JiveActivityTile;
-import com.jivesoftware.sdk.api.tile.data.ActivityTile;
-import com.jivesoftware.sdk.api.tile.data.GalleryImage;
-import com.jivesoftware.sdk.api.tile.data.GalleryTile;
+import com.jivesoftware.sdk.api.tile.data.*;
 import com.jivesoftware.sdk.client.JiveClientException;
 import com.jivesoftware.sdk.client.JiveTileClient;
 import com.jivesoftware.sdk.event.TileInstanceEvent;
@@ -90,7 +88,7 @@ public class MyExampleActivityTile extends JiveActivityTile {
                 if (log.isDebugEnabled()) { log.debug("pushing data"); }
                 /*** PUSH DATA TO TILE ***/
                 try {
-                    pushData(tileInstance, getBogusPush(tileInstance,(x+1)));
+                    pushActivity(tileInstance, getBogusPush(tileInstance,(x+1)));
                 } catch (JiveClientException jce) {
                     log.error("Unable to Post to Tile",jce);
                 } // end try/catch
@@ -106,13 +104,32 @@ public class MyExampleActivityTile extends JiveActivityTile {
 
     } // end class
 
-    private ActivityTile getBogusPush(TileInstance tileInstance, int index) {
-        ActivityTile activityTile = new ActivityTile();
+    private ActivityPushTile getBogusPush(TileInstance tileInstance, int index) {
+        ActivityAction action = new ActivityAction();
+        action.setName("posted");
 
+        // This object can be used to define the user completing the activity
+        // If not defined, user will be the one who installed the add-on
+        //ActivityActor actor = new ActivityActor();
+        //actor.setName("Test User");
+        //actor.setEmail("some.email@test.com");
 
-        return activityTile;
+        ActivityObject object = new ActivityObject();
+        object.setType("jersey-example-activity");
+        object.setImage("http://placehold.it/102x102");
+        object.setUrl("http://developers.jivesoftware.com");
+        object.setTitle("My title");
+        object.setDescription("Test activity " + index);
 
-    } // end getBogusPush
+        ActivityEntry activity = new ActivityEntry();
+        activity.setAction(action);
+        //activity.setActor(actor);
+        activity.setObject(object);
+
+        ActivityPushTile tileData = new ActivityPushTile();
+        tileData.setActivity(activity);
+        return tileData;
+    }
 
     private ActivityTile getBogusFetch(TileInstance tileInstance) {
         return getBogusPush(tileInstance,1);

@@ -19,8 +19,17 @@
 package com.jivesoftware.sdk.api.tile.data;
 
 /**
+ * Data class for tile activity data push to Jive
  * Created by rrutan on 2/9/14.
  */
 public class ActivityPushTile extends ActivityTile {
+    private ActivityEntry activity;
 
+    public ActivityEntry getActivity() {
+        return activity;
+    }
+
+    public void setActivity(ActivityEntry activity) {
+        this.activity = activity;
+    }
 }
