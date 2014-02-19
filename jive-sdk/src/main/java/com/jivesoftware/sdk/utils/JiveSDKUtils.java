@@ -80,7 +80,7 @@ public class JiveSDKUtils {
                 for (String key : props.stringPropertyNames()) {
                     try {
                         BeanUtils.setProperty(bean, key, props.getProperty(key));
-                        if (log.isTraceEnabled()) { log.trace("Sucessfully set ["+key+"] to ["+props.getProperty(key)); }
+                        if (log.isTraceEnabled()) { log.trace("Sucessfully set ["+key+"] to ["+props.getProperty(key)+"]"); }
                     } catch(IllegalAccessException iae) {
                         log.error("Unable to Set Field["+key+"] on ["+bean.getClass().getSimpleName()+"], continuing on but may be problematic.  Check your ["+fileName+"]",iae);
                     } catch (InvocationTargetException ite) {
