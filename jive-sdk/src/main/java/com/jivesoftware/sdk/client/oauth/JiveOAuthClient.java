@@ -18,6 +18,7 @@
 
 package com.jivesoftware.sdk.client.oauth;
 
+import com.jivesoftware.sdk.JiveAddOnApplication;
 import com.jivesoftware.sdk.api.entity.*;
 import com.jivesoftware.sdk.client.filter.DebugClientResponseFilter;
 import com.jivesoftware.sdk.utils.JiveSDKUtils;
@@ -44,8 +45,12 @@ public class JiveOAuthClient {
     @Context
     Application application;
 
+    // ambiguous reference when multiple implementations exist
+    //@Inject
+    //private JiveInstanceProvider jiveInstanceProvider;
+
     @Inject
-    private JiveInstanceProvider jiveInstanceProvider;
+    private JiveAddOnApplication jiveAddOnApplication;
 
     @Inject
     private TileInstanceProvider tileInstanceProvider;
@@ -137,7 +142,8 @@ public class JiveOAuthClient {
 
     public void refreshTileInstanceAccessToken(TileInstance tile) throws BadRequestException {
 
-        JiveInstance jiveInstance = jiveInstanceProvider.getInstanceByTenantId(tile.getTenantID());
+        //JiveInstance jiveInstance = jiveInstanceProvider.getInstanceByTenantId(tile.getTenantID());
+        JiveInstance jiveInstance = jiveAddOnApplication.getJiveInstanceProvider().getInstanceByTenantId(tile.getTenantID());
         TileInstance tileInstance = tileInstanceProvider.getTileInstanceByPushURL(tile.getJivePushUrl());
 
         if (!JiveSDKUtils.isAllExist(tile.getCredentials().getRefreshToken())) {
@@ -161,7 +167,8 @@ public class JiveOAuthClient {
 
     public OAuthCredentials getTileInstanceAccessToken(TileInstance tile) throws BadRequestException {
 
-        JiveInstance jiveInstance = jiveInstanceProvider.getInstanceByTenantId(tile.getTenantID());
+        //JiveInstance jiveInstance = jiveInstanceProvider.getInstanceByTenantId(tile.getTenantID());
+        JiveInstance jiveInstance = jiveAddOnApplication.getJiveInstanceProvider().getInstanceByTenantId(tile.getTenantID());
         TileInstance tileInstance = tileInstanceProvider.getTileInstanceByPushURL(tile.getJivePushUrl());
 
         Client client = getClient();
