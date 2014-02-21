@@ -19,6 +19,7 @@
 package com.jivesoftware.sdk.service.instance;
 
 import com.google.common.collect.Maps;
+import com.jivesoftware.sdk.JiveAddOnApplication;
 import com.jivesoftware.sdk.api.entity.JiveInstance;
 import com.jivesoftware.sdk.api.entity.JiveInstanceProvider;
 import com.jivesoftware.sdk.event.JiveInstanceEvent;
@@ -52,8 +53,12 @@ import java.util.Map;
 public class InstanceService extends BaseAddOnService {
     private static final Logger log = LoggerFactory.getLogger(InstanceService.class);
 
+    // ambiguous reference when multiple implementations exist
+    //@Inject
+    //private JiveInstanceProvider jiveInstanceProvider;
+
     @Inject
-    private JiveInstanceProvider jiveInstanceProvider;
+    private JiveAddOnApplication jiveAddOnApplication;
 
     @Inject @InstanceRegisterSuccess
     Event<JiveInstanceEvent> jiveInstanceRegisterSuccess;
@@ -63,6 +68,10 @@ public class InstanceService extends BaseAddOnService {
 
     @Inject @InstanceUnregister
     Event<JiveInstanceEvent> jiveInstanceUnregister;
+
+    private JiveInstanceProvider getJiveInstanceProvider() {
+        return jiveAddOnApplication.getJiveInstanceProvider();
+    }
 
     private void fireJiveInstanceEvent(JiveInstanceEvent.Type type, JiveInstance context, Throwable error) {
         if (log.isTraceEnabled()) { log.trace("fireJiveInstanceEvent called..."); }
@@ -89,7 +98,8 @@ public class InstanceService extends BaseAddOnService {
         JiveInstance jiveInstance = new JiveInstance(instanceRegisterAction);
 
         try {
-            jiveInstanceProvider.update(jiveInstance);
+            //jiveInstanceProvider.update(jiveInstance);
+            getJiveInstanceProvider().update(jiveInstance);
             if (log.isDebugEnabled()) { log.debug("Successfully Saved jiveInstance!"); }
         } catch (JiveInstanceProvider.JiveInstanceProviderException jipe) {
             log.error("Unable to update jiveInstanceProvider");
@@ -107,7 +117,8 @@ public class InstanceService extends BaseAddOnService {
     @JiveSignatureValidation
     public Response unregister(@Context UriInfo uriInfo, @Context ContainerRequestContext containerRequestContext, InstanceUnregisterAction instanceUnregisterAction) {
         if (log.isTraceEnabled()) { log.trace("unregister called..."); }
-        JiveInstance jiveInstance = jiveInstanceProvider.getInstanceByTenantId(instanceUnregisterAction.getTenantId());
+        //JiveInstance jiveInstance = jiveInstanceProvider.getInstanceByTenantId(instanceUnregisterAction.getTenantId());
+        JiveInstance jiveInstance = getJiveInstanceProvider().getInstanceByTenantId(instanceUnregisterAction.getTenantId());
 
         if (jiveInstance != null ) {
             fireJiveInstanceEvent(JiveInstanceEvent.Type.Unregister, jiveInstance,null);
