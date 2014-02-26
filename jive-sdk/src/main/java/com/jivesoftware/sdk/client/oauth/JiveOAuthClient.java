@@ -45,15 +45,8 @@ public class JiveOAuthClient {
     @Context
     Application application;
 
-    // ambiguous reference when multiple implementations exist
-    //@Inject
-    //private JiveInstanceProvider jiveInstanceProvider;
-
     @Inject
     private JiveAddOnApplication jiveAddOnApplication;
-
-    @Inject
-    private TileInstanceProvider tileInstanceProvider;
 
     public JiveOAuthClient() {
         if (log.isTraceEnabled()) { log.trace("constructor called..."); }
@@ -140,36 +133,28 @@ public class JiveOAuthClient {
 
     } // requestAccessTokens
 
-    public void refreshTileInstanceAccessToken(TileInstance tile) throws BadRequestException {
-
-        //JiveInstance jiveInstance = jiveInstanceProvider.getInstanceByTenantId(tile.getTenantID());
+    public OAuthCredentials refreshTileInstanceAccessToken(TileInstance tile) throws BadRequestException {
         JiveInstance jiveInstance = jiveAddOnApplication.getJiveInstanceProvider().getInstanceByTenantId(tile.getTenantID());
-        TileInstance tileInstance = tileInstanceProvider.getTileInstanceByPushURL(tile.getJivePushUrl());
-
-        if (!JiveSDKUtils.isAllExist(tile.getCredentials().getRefreshToken())) {
-            if (log.isDebugEnabled()) { log.debug("Refresh Credentials Exist, Refreshing..."); }
-            getTileInstanceAccessToken(tile);
-            return;
-        } // end if
+        TileInstance tileInstance = jiveAddOnApplication.getTileInstanceProvider().getTileInstanceByPushURL(tile.getJivePushUrl());
 
         Client client = getClient();
         client.register(HttpAuthenticationFeature.basic(jiveInstance.getClientId(), jiveInstance.getClientSecret()));
         WebTarget target = client.target(jiveInstance.getJiveUrl()).path("/oauth2/token");
         Form form = new Form("grant_type", "refresh_token");
         form.param("refresh_token",tileInstance.getCredentials().getRefreshToken());
+        form.param("client_id",jiveInstance.getClientId());
 
-        //TODO:  IMPLEMENT FUTURES
-        JiveOAuthResponse response = target.request(MediaType.APPLICATION_JSON_TYPE).post(Entity.entity(form, MediaType.APPLICATION_JSON_TYPE),JiveOAuthResponse.class);
+        JiveOAuthResponse response = target.request().post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED), JiveOAuthResponse.class);
 
-
-
+        OAuthCredentials credentials = new OAuthCredentials();
+        credentials.setAccessToken(response.getAccessToken());
+        credentials.setRefreshToken(response.getRefreshToken());
+        return credentials;
     }
 
     public OAuthCredentials getTileInstanceAccessToken(TileInstance tile) throws BadRequestException {
-
-        //JiveInstance jiveInstance = jiveInstanceProvider.getInstanceByTenantId(tile.getTenantID());
         JiveInstance jiveInstance = jiveAddOnApplication.getJiveInstanceProvider().getInstanceByTenantId(tile.getTenantID());
-        TileInstance tileInstance = tileInstanceProvider.getTileInstanceByPushURL(tile.getJivePushUrl());
+        TileInstance tileInstance = jiveAddOnApplication.getTileInstanceProvider().getTileInstanceByPushURL(tile.getJivePushUrl());
 
         Client client = getClient();
         client.register(HttpAuthenticationFeature.basic(jiveInstance.getClientId(), jiveInstance.getClientSecret()));
