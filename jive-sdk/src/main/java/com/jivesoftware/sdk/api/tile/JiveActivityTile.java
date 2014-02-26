@@ -44,9 +44,9 @@ public abstract class JiveActivityTile extends BaseJiveTile implements JiveTile<
         getTileClient().pushData(tileInstance,data);
     } // end pushData
 
-    public  void pushActivity(TileInstance tileInstance, ActivityPushTile data) throws JiveClientException {
+    public ActivityEntry pushActivity(TileInstance tileInstance, ActivityPushTile data) throws JiveClientException {
         if (log.isTraceEnabled()) { log.trace("pushActivity called ..."); }
-        getTileClient().pushActivity(tileInstance,data);
+        return getTileClient().pushActivity(tileInstance,data);
     } // end fetchExtendedProperties
 
     public void pushComment(TileInstance tileInstance, ActivityCommentTile data) {
