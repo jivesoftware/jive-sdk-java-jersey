@@ -21,13 +21,21 @@ package com.jivesoftware.sdk.api.entity;
 import com.jivesoftware.sdk.client.oauth.OAuthCredentials;
 import com.jivesoftware.sdk.client.oauth.OAuthCredentialsSupport;
 import com.jivesoftware.sdk.service.instance.action.InstanceRegisterAction;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
+ * Represents a Jive instance where this add-on has been installed
  * Created by rrutan on 1/30/14.
  */
+@Entity
 public class JiveInstance implements OAuthCredentialsSupport, Serializable {
+    @Id
+    @GeneratedValue
+    @Column(name = "jive_instance_id")
+    private Long id;
 
     private String tenantId = null;
     private String jiveSignatureURL = null;
@@ -38,6 +46,7 @@ public class JiveInstance implements OAuthCredentialsSupport, Serializable {
     private String clientId = null;
     private String code = null;
     private String scope = null;
+    @Embedded
     private OAuthCredentials credentials = null;
 
     public JiveInstance() {
@@ -56,6 +65,14 @@ public class JiveInstance implements OAuthCredentialsSupport, Serializable {
         this.code = instance.getCode();
         this.scope = instance.getScope();
     } // end constructor
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTenantId() {
         return tenantId;
