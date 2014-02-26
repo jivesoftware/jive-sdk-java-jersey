@@ -201,36 +201,6 @@ public class JiveTileClient {
                 if (log.isInfoEnabled()) { log.info("Successful Activity Push ["+tileInstance.getJivePushUrl()+"]"); }
             } // end if
             created = response.readEntity(ActivityEntry.class);
-
-            //////// jussi testing update  ////////////////////
-
-            Thread.currentThread().sleep(120000);
-
-            ActivityObject object = new ActivityObject();
-            object.setType("jersey-example-activity");
-            object.setImage("http://placehold.it/102x102");
-            object.setUrl("http://developers.jivesoftware.com");
-            object.setTitle("Updated title");
-            object.setDescription("Updated description");
-
-            ActivityEntry updateEntry = new ActivityEntry();
-            updateEntry.setAction(created.getAction());
-            updateEntry.setActor(created.getActor());
-            updateEntry.setId(created.getId());
-            //updateEntry.setStatus(created.getStatus());
-            updateEntry.setObject(object);
-
-            ActivityPushTile updateData = new ActivityPushTile();
-            updateData.setActivity(updateEntry);
-
-            WebTarget updateTarget = client.target(created.getResources().getSelf().getRef());
-            AsyncInvoker updateInvoker = updateTarget.request(MediaType.APPLICATION_JSON_TYPE)
-                    .header(HttpHeaders.AUTHORIZATION, "Bearer " + tileInstance.getCredentials().getAccessToken()).async();
-            Future<Response> updateFuture = updateInvoker.put(Entity.entity(updateData, MediaType.APPLICATION_JSON_TYPE));
-            updateFuture.get();
-
-            ///////////////////////////
-
         } catch (BadRequestException bre) {
             //TODO:  CHECK FOR REFRESH OAUTH ... REFRESH...AND RE-EXECUTE
             log.error("Error Pushing Activity to Tile [" + tileInstance.getJivePushUrl() + "]", bre);
