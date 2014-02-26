@@ -19,8 +19,12 @@
 package com.jivesoftware.sdk.client;
 
 import com.google.common.collect.Maps;
+import com.jivesoftware.sdk.JiveAddOnApplication;
 import com.jivesoftware.sdk.api.entity.TileInstance;
 import com.jivesoftware.sdk.api.entity.TileInstanceProvider;
+import com.jivesoftware.sdk.api.tile.data.ActivityEntry;
+import com.jivesoftware.sdk.api.tile.data.ActivityObject;
+import com.jivesoftware.sdk.api.tile.data.ActivityPushTile;
 import com.jivesoftware.sdk.client.filter.DebugClientResponseFilter;
 import com.jivesoftware.sdk.client.oauth.JiveOAuthClient;
 import com.jivesoftware.sdk.utils.JiveSDKUtils;
@@ -32,8 +36,10 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.BadRequestException;
+import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.*;
+import java.net.URI;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -52,7 +58,7 @@ public class JiveTileClient {
     Application application;
 
     @Inject
-    private TileInstanceProvider tileInstanceProvider;
+    private JiveAddOnApplication jiveAddOnApplication;
 
     @Inject
     private JiveOAuthClient jiveOAuthClient;
@@ -102,10 +108,11 @@ public class JiveTileClient {
             if (response.getStatus() == 204) {
                 if (log.isInfoEnabled()) { log.info("Successful Push ["+tileInstance.getJivePushUrl()+"]"); }
             } // end if
-        } catch (BadRequestException bre) {
-            //TODO:  CHECK FOR REFRESH OAUTH ... REFRESH...AND RE-EXECUTE
-            log.error("Error Pushing Data to Tile [" + tileInstance.getJivePushUrl() + "]", bre);
-            throw JiveClientException.buildException("Error Pushing Data to Tile [" + tileInstance.getJivePushUrl() + "]",bre,tileInstance,data,data.getClass());
+        } catch (ForbiddenException fe) {
+            log.info("403 response when pushing data to tile [" + tileInstance.getJivePushUrl() + "]");
+            refreshAccessTokens(tileInstance);
+            pushData(tileInstance, data); // recursive call to retry
+            return;
         } catch (InterruptedException ie) {
             log.error("Error Pushing Data to Tile [" + tileInstance.getJivePushUrl() + "]", ie);
             throw JiveClientException.buildException("Error Pushing Data to Tile [" + tileInstance.getJivePushUrl() + "]",ie,tileInstance,data,data.getClass());
@@ -115,17 +122,16 @@ public class JiveTileClient {
         } finally {
             if (response != null ) {
                 response.close();
-            } // end if
+            }
             response = null;
             responseFuture = null;
-        } // end try/catch
+        }
         asyncInvoker = null;
         target = null;
         dataBlock = null;
         client.close();
         client = null;
-
-    } // end pushData
+    }
 
     public Object fetchData(TileInstance tileInstance, Class clazz) throws JiveClientException {
 
@@ -173,7 +179,7 @@ public class JiveTileClient {
         return null;
     } // end fetchData
 
-    public void pushActivity(TileInstance tileInstance, Object data) throws JiveClientException {
+    public ActivityEntry pushActivity(TileInstance tileInstance, Object data) throws JiveClientException {
         if (log.isTraceEnabled()) { log.trace("pushActivity called..."); }
         if (log.isDebugEnabled()) { log.debug("pushActivity => ["+tileInstance.getJivePushUrl()+"]"); }
 
@@ -188,11 +194,43 @@ public class JiveTileClient {
         Future<Response> responseFuture = asyncInvoker.post(Entity.entity(data, MediaType.APPLICATION_JSON_TYPE));
 
         Response response = null;
+        ActivityEntry created;
         try {
             response = responseFuture.get();
-            if (response.getStatus() == 204) {
+            if (response.getStatus() == 201) {
                 if (log.isInfoEnabled()) { log.info("Successful Activity Push ["+tileInstance.getJivePushUrl()+"]"); }
             } // end if
+            created = response.readEntity(ActivityEntry.class);
+
+            //////// jussi testing update  ////////////////////
+
+            Thread.currentThread().sleep(120000);
+
+            ActivityObject object = new ActivityObject();
+            object.setType("jersey-example-activity");
+            object.setImage("http://placehold.it/102x102");
+            object.setUrl("http://developers.jivesoftware.com");
+            object.setTitle("Updated title");
+            object.setDescription("Updated description");
+
+            ActivityEntry updateEntry = new ActivityEntry();
+            updateEntry.setAction(created.getAction());
+            updateEntry.setActor(created.getActor());
+            updateEntry.setId(created.getId());
+            //updateEntry.setStatus(created.getStatus());
+            updateEntry.setObject(object);
+
+            ActivityPushTile updateData = new ActivityPushTile();
+            updateData.setActivity(updateEntry);
+
+            WebTarget updateTarget = client.target(created.getResources().getSelf().getRef());
+            AsyncInvoker updateInvoker = updateTarget.request(MediaType.APPLICATION_JSON_TYPE)
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer " + tileInstance.getCredentials().getAccessToken()).async();
+            Future<Response> updateFuture = updateInvoker.put(Entity.entity(updateData, MediaType.APPLICATION_JSON_TYPE));
+            updateFuture.get();
+
+            ///////////////////////////
+
         } catch (BadRequestException bre) {
             //TODO:  CHECK FOR REFRESH OAUTH ... REFRESH...AND RE-EXECUTE
             log.error("Error Pushing Activity to Tile [" + tileInstance.getJivePushUrl() + "]", bre);
@@ -210,6 +248,17 @@ public class JiveTileClient {
         }
         client.close();
         client = null;
+        return created;
+    }
+
+    private void refreshAccessTokens(TileInstance tileInstance) {
+        tileInstance.setCredentials(jiveOAuthClient.refreshTileInstanceAccessToken(tileInstance));
+        try {
+            jiveAddOnApplication.getTileInstanceProvider().update(tileInstance);
+            if (log.isDebugEnabled()) { log.debug("Successfully Updated Tile Instance!"); }
+        } catch (TileInstanceProvider.TileInstanceProviderException tipe) {
+            log.error("Unable to save credential information",tipe);
+        }
     }
 
     private void initAccessTokens(TileInstance tileInstance) {
@@ -221,7 +270,7 @@ public class JiveTileClient {
             //TODO: SHOULD I SAVE EXPIRES TIME / CALCULATE AND REFRESH PROACTIVELY?
 
             try {
-                tileInstanceProvider.update(tileInstance);
+                jiveAddOnApplication.getTileInstanceProvider().update(tileInstance);
                 if (log.isDebugEnabled()) { log.debug("Successfully Updated Tile Instance!"); }
             } catch (TileInstanceProvider.TileInstanceProviderException tipe) {
                 log.error("Unable to save credential information",tipe);
