@@ -37,6 +37,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.ForbiddenException;
+import javax.ws.rs.HttpMethod;
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
@@ -107,7 +108,16 @@ public class JiveTileClient {
             response = responseFuture.get();
             if (response.getStatus() == 204) {
                 if (log.isInfoEnabled()) { log.info("Successful Push ["+tileInstance.getJivePushUrl()+"]"); }
-            } // end if
+            }
+            else if (response.getStatus() == Response.Status.GONE.getStatusCode()) {
+                log.info("Received 410 from data push request, assuming tile deleted in Jive and removing it, instance url: " + tileInstance.getJivePushUrl());
+                try {
+                    jiveAddOnApplication.getTileInstanceProvider().remove(tileInstance);
+                }
+                catch (TileInstanceProvider.TileInstanceProviderException e) {
+                    log.error("Failed to remove tile instance", e);
+                }
+            }
         } catch (ForbiddenException fe) {
             log.info("403 response when pushing data to tile [" + tileInstance.getJivePushUrl() + "]");
             refreshAccessTokens(tileInstance);
@@ -219,6 +229,56 @@ public class JiveTileClient {
         client.close();
         client = null;
         return created;
+    }
+
+    /**
+     * Make http request to url, with given method and content. Tile instance is used to insert
+     * auth headers into the request.
+     *
+     * @throws TargetGoneException Thrown when jive responds with 410, meaning the object identified by url has been removed
+     */
+    public ActivityEntry makeRequest(TileInstance tileInstance, String url, String methodName, Object content) throws TargetGoneException {
+        initAccessTokens(tileInstance);
+        Client client = buildClient();
+        AsyncInvoker asyncInvoker = client
+                .target(url)
+                .request(MediaType.APPLICATION_JSON_TYPE)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + tileInstance.getCredentials().getAccessToken()).async();
+
+        Entity contentEntity = Entity.entity(content, MediaType.APPLICATION_JSON_TYPE);
+        Future<Response> responseFuture = asyncInvoker.method(methodName, contentEntity);
+        Response response = null;
+        try {
+            response = responseFuture.get();
+            if (response.getStatus() == Response.Status.GONE.getStatusCode()) {
+                // target (tile instance, external stream object, etc..) has been removed from Jive
+                // throw a checked exception so that caller can react accordingly
+                throw new TargetGoneException("", tileInstance);
+            }
+            // todo how can I make this generic
+            //return response.readEntity(new GenericType<T>() {});   // this does not work
+            return response.readEntity(ActivityEntry.class);
+        }
+        catch (ForbiddenException fe) {
+            log.debug("403 response from a " + methodName + " to " + url);
+            refreshAccessTokens(tileInstance);
+            return makeRequest(tileInstance, url, methodName, content); // recursive call to retry
+        }
+        catch (InterruptedException e) {
+            // todo useless to catch these... refactor somehow
+            log.error("Error when making a " + methodName + " to " + url, e);
+            throw new RuntimeException("Failed to make a request to jive");
+        }
+        catch (ExecutionException e) {
+            log.error("Error when making a " + methodName + " to " + url, e);
+            throw new RuntimeException("Failed to make a request to jive");
+        }
+        finally {
+            if (response != null ) {
+                response.close();
+            }
+            client.close();
+        }
     }
 
     private void refreshAccessTokens(TileInstance tileInstance) {
