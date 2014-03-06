@@ -1,1 +1,1 @@
-web: java -jar jive-addon/target/dependency/jetty-runner.jar jive-addon/target/jive-sdk-jersey-example.war
+web: java $JAVA_OPTS -jar jive-addon/target/dependency/jetty-runner.jar --port $PORT jive-addon/target/*.war
