@@ -116,6 +116,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- NEEDED FOR WELD IN SOME ENVIRONMENTS TO RUN, IE LOCAL / Heroku -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
+
         <!-- MORE STUFF -->
         <dependency>
             <groupId>commons-lang</groupId>
