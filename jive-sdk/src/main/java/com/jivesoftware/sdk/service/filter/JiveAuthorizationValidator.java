@@ -79,6 +79,9 @@ public class JiveAuthorizationValidator {
 
     public void authenticate(ContainerRequestContext request) {
         String authorization = request.getHeaderString(HttpHeaders.AUTHORIZATION);
+        if (authorization == null) {
+            throw UNAUTHORIZED;
+        }
 
         if (log.isTraceEnabled()) { log.trace("Authz Header:\n"+authorization); }
 
