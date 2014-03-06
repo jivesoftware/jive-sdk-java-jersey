@@ -335,7 +335,6 @@
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
             <version>${jetty-version}</version>
-            <scope>runtime</scope>
         </dependency>
 
     </dependencies>
