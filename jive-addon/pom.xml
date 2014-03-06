@@ -332,7 +332,7 @@
             <type>pom</type>
         </dependency>
 
-        <!-- NEEDED FOR WELD IMPLEMENTATION WHEN RUNNING LOCAL -->
+        <!-- NEEDED FOR WELD IMPLEMENTATION WHEN RUNNING LOCAL AND ON HEROKU -->
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
