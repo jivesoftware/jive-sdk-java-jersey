@@ -308,8 +308,10 @@
                     </webAppConfig>
                     <contextXml>src/main/webapp/WEB-INF/jetty-context.xml</contextXml>
                     <httpConnector>
+                        <!--
                         <name>${clientUrl}</name>
                         <port>${port}</port>
+                        -->
                         <idleTimeout>60000</idleTimeout>
                     </httpConnector>
                 </configuration>
