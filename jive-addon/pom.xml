@@ -50,7 +50,7 @@
         ###############################################################################################################
         -->
         <clientUrl>http://localhost</clientUrl>
-        <port>8090</port>
+        <port>8080</port>
         <appContext>example</appContext>
 
         <!--
