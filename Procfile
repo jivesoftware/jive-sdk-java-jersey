@@ -1,1 +1,1 @@
-web: java -jar target/dependency/jetty-runner.jar target/jive-sdk-jersey-example.war
+web: java -jar jive-addon/target/dependency/jetty-runner.jar jive-addon/target/jive-sdk-jersey-example.war
