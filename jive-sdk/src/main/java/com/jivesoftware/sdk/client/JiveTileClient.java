@@ -87,60 +87,23 @@ public class JiveTileClient {
 //    } // end inner-class
 //    /***************************************************************/
 
+    /**
+     * Update data in tile instance.
+     */
     public void pushData(TileInstance tileInstance, Object data) throws JiveClientException {
-        if (log.isTraceEnabled()) { log.trace("pushData called..."); }
-        if (log.isDebugEnabled()) { log.debug("pushData => ["+tileInstance.getJivePushUrl()+"]"); }
-
-        initAccessTokens(tileInstance);
-
-        Client client = buildClient();
-        WebTarget target = client.target(tileInstance.getJivePushUrl());
-
-        DataBlock dataBlock = new DataBlock(data);
-
-        AsyncInvoker asyncInvoker = target.request(MediaType.APPLICATION_JSON_TYPE)
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + tileInstance.getCredentials().getAccessToken()).async();
-
-        Future<Response> responseFuture = asyncInvoker.put(Entity.entity(dataBlock, MediaType.APPLICATION_JSON_TYPE));
-
-        Response response = null;
         try {
-            response = responseFuture.get();
-            if (response.getStatus() == 204) {
-                if (log.isInfoEnabled()) { log.info("Successful Push ["+tileInstance.getJivePushUrl()+"]"); }
-            }
-            else if (response.getStatus() == Response.Status.GONE.getStatusCode()) {
-                log.info("Received 410 from data push request, assuming tile deleted in Jive and removing it, instance url: " + tileInstance.getJivePushUrl());
-                try {
-                    jiveAddOnApplication.getTileInstanceProvider().remove(tileInstance);
-                }
-                catch (TileInstanceProvider.TileInstanceProviderException e) {
-                    log.error("Failed to remove tile instance", e);
-                }
-            }
-        } catch (ForbiddenException fe) {
-            log.info("403 response when pushing data to tile [" + tileInstance.getJivePushUrl() + "]");
-            refreshAccessTokens(tileInstance);
-            pushData(tileInstance, data); // recursive call to retry
-            return;
-        } catch (InterruptedException ie) {
-            log.error("Error Pushing Data to Tile [" + tileInstance.getJivePushUrl() + "]", ie);
-            throw JiveClientException.buildException("Error Pushing Data to Tile [" + tileInstance.getJivePushUrl() + "]",ie,tileInstance,data,data.getClass());
-        } catch (ExecutionException ee) {
-            log.error("Error Pushing Data to Tile [" + tileInstance.getJivePushUrl() + "]", ee);
-            throw JiveClientException.buildException("Error Pushing Data to Tile [" + tileInstance.getJivePushUrl() + "]",ee,tileInstance,data,data.getClass());
-        } finally {
-            if (response != null ) {
-                response.close();
-            }
-            response = null;
-            responseFuture = null;
+            DataBlock dataBlock = new DataBlock(data);
+            makeRequest(tileInstance, tileInstance.getJivePushUrl(), HttpMethod.PUT, dataBlock, String.class);
         }
-        asyncInvoker = null;
-        target = null;
-        dataBlock = null;
-        client.close();
-        client = null;
+        catch (TargetGoneException e) {
+            log.info("Received 410 from data push request, assuming tile deleted in Jive and removing it, instance url: " + tileInstance.getJivePushUrl());
+            try {
+                jiveAddOnApplication.getTileInstanceProvider().remove(tileInstance);
+            }
+            catch (TileInstanceProvider.TileInstanceProviderException pe) {
+                log.error("Failed to remove tile instance", pe);
+            }
+        }
     }
 
     public Object fetchData(TileInstance tileInstance, Class clazz) throws JiveClientException {
@@ -189,55 +152,54 @@ public class JiveTileClient {
         return null;
     } // end fetchData
 
-    public ActivityEntry pushActivity(TileInstance tileInstance, Object data) throws JiveClientException {
-        if (log.isTraceEnabled()) { log.trace("pushActivity called..."); }
-        if (log.isDebugEnabled()) { log.debug("pushActivity => ["+tileInstance.getJivePushUrl()+"]"); }
-
-        initAccessTokens(tileInstance);
-        Client client = buildClient();
-        WebTarget target = client.target(tileInstance.getJivePushUrl());
-
-        AsyncInvoker asyncInvoker = target.request(MediaType.APPLICATION_JSON_TYPE)
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + tileInstance.getCredentials().getAccessToken()).async();
-
-        // Note that this needs to be a POST and we are not using the same DataBlock class as data push
-        Future<Response> responseFuture = asyncInvoker.post(Entity.entity(data, MediaType.APPLICATION_JSON_TYPE));
-
-        Response response = null;
-        ActivityEntry created;
+    /**
+     * Post new external activity object into activity tile stream. Returns the created ActivityEntry.
+     *
+     * @param tileInstance Instance of activity tile stream
+     * @param data External activity object content
+     */
+    public ActivityEntry pushActivity(TileInstance tileInstance, ActivityPushTile data) throws JiveClientException {
+        ActivityEntry created = null;
         try {
-            response = responseFuture.get();
-            if (response.getStatus() == 201) {
-                if (log.isInfoEnabled()) { log.info("Successful Activity Push ["+tileInstance.getJivePushUrl()+"]"); }
-            } // end if
-            created = response.readEntity(ActivityEntry.class);
-        } catch (BadRequestException bre) {
-            //TODO:  CHECK FOR REFRESH OAUTH ... REFRESH...AND RE-EXECUTE
-            log.error("Error Pushing Activity to Tile [" + tileInstance.getJivePushUrl() + "]", bre);
-            throw JiveClientException.buildException("Error Pushing Activity to Tile [" + tileInstance.getJivePushUrl() + "]",bre,tileInstance,data,data.getClass());
-        } catch (InterruptedException ie) {
-            log.error("Error Pushing Activity to Tile [" + tileInstance.getJivePushUrl() + "]", ie);
-            throw JiveClientException.buildException("Error Pushing Activity to Tile [" + tileInstance.getJivePushUrl() + "]",ie,tileInstance,data,data.getClass());
-        } catch (ExecutionException ee) {
-            log.error("Error Pushing Activity to Tile [" + tileInstance.getJivePushUrl() + "]", ee);
-            throw JiveClientException.buildException("Error Pushing Activity to Tile [" + tileInstance.getJivePushUrl() + "]",ee,tileInstance,data,data.getClass());
-        } finally {
-            if (response != null ) {
-                response.close();
+            created = makeRequest(tileInstance, tileInstance.getJivePushUrl(), HttpMethod.POST, data, ActivityEntry.class);
+        }
+        catch (TargetGoneException e) {
+            log.info("Received 410 from activity push request, assuming tile deleted in Jive and removing it, instance url: " + tileInstance.getJivePushUrl());
+            try {
+                jiveAddOnApplication.getTileInstanceProvider().remove(tileInstance);
+            }
+            catch (TileInstanceProvider.TileInstanceProviderException pe) {
+                log.error("Failed to remove tile instance", pe);
             }
         }
-        client.close();
-        client = null;
         return created;
+    }
+
+    /**
+     * Update existing external activity object in an activity tile stream. Returns the updated ActivityEntry.
+     *
+     * @param tileInstance Instance of activity tile stream
+     * @param externalObjectUrl API url for the external object
+     * @param data External activity object content
+     *
+     * @throws TargetGoneException Thrown when receiving a 410 response. This means that external activity object has been deleted in Jive.
+     */
+    public ActivityEntry updateActivity(TileInstance tileInstance, String externalObjectUrl, ActivityPushTile data) throws JiveClientException {
+        return makeRequest(tileInstance, externalObjectUrl, HttpMethod.PUT, data, ActivityEntry.class);
     }
 
     /**
      * Make http request to url, with given method and content. Tile instance is used to insert
      * auth headers into the request.
      *
+     * @param tileInstance Tile instance where data is pushed, or the parent activity stream tile, when updating external activity object
+     * @param url Full url to request target
+     * @param methodName String name of http method
+     * @param content Request content, will be sent as JSON
+     * @param returnType Class type of response entity. Use String.class if you dont care about the response
      * @throws TargetGoneException Thrown when jive responds with 410, meaning the object identified by url has been removed
      */
-    public ActivityEntry makeRequest(TileInstance tileInstance, String url, String methodName, Object content) throws TargetGoneException {
+    public <T> T makeRequest(TileInstance tileInstance, String url, String methodName, Object content, Class<T> returnType) throws TargetGoneException {
         initAccessTokens(tileInstance);
         Client client = buildClient();
         AsyncInvoker asyncInvoker = client
@@ -255,14 +217,12 @@ public class JiveTileClient {
                 // throw a checked exception so that caller can react accordingly
                 throw new TargetGoneException("", tileInstance);
             }
-            // todo how can I make this generic
-            //return response.readEntity(new GenericType<T>() {});   // this does not work
-            return response.readEntity(ActivityEntry.class);
+            return response.readEntity(returnType);
         }
         catch (ForbiddenException fe) {
             log.debug("403 response from a " + methodName + " to " + url);
             refreshAccessTokens(tileInstance);
-            return makeRequest(tileInstance, url, methodName, content); // recursive call to retry
+            return makeRequest(tileInstance, url, methodName, content, returnType); // recursive call to retry
         }
         catch (InterruptedException e) {
             // todo useless to catch these... refactor somehow
