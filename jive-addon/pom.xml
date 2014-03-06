@@ -46,7 +46,9 @@
 
         <!--
         ############## SERVICE CONFIGURATION ##########################################################################
-        #### NOTE: YOU CANSET THESE PROPERTIES VIA THE COMMAND LINE VIA -DclientUrl=yyy -Dport=8080 ...  ##############
+        #### NOTE: YOU CAN SET THESE PROPERTIES VIA THE COMMAND LINE VIA -DclientUrl=yyy -Dport=8080 ...  #############
+        ####                                                                                                      #####
+        #### NOTE: WHEN DEPLOYING TO HEROKU, THESE SETTINGS ARE IGNORED IN FAVOR OF Procfile and Environment VARS #####
         ###############################################################################################################
         -->
         <clientUrl>http://localhost</clientUrl>
@@ -335,6 +337,13 @@
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-server</artifactId>
             <version>${jetty-version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlet</artifactId>
+            <version>${jetty-version}</version>
+            <scope>runtime</scope>
         </dependency>
 
     </dependencies>
