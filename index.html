@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="jive-sdk-java-jersey : This is an implementation of the Jive SDK written in Java, implemented for JEE6 using Jersey (JAX RS 2.0), JBoss WELD (CDI JSR-299 + 330) and JSP." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>jive-sdk-java-jersey</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/jivesoftware/jive-sdk-java-jersey">View on GitHub</a>
+
+          <h1 id="project_title">jive-sdk-java-jersey</h1>
+          <h2 id="project_tagline">This is an implementation of the Jive SDK written in Java, implemented for JEE6 using Jersey (JAX RS 2.0), JBoss WELD (CDI JSR-299 + 330) and JSP.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/jivesoftware/jive-sdk-java-jersey/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/jivesoftware/jive-sdk-java-jersey/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p><img src="https://github.com/jivesoftware/jive-sdk-java-jersey/blob/master/sdk-diagram.png?raw=true" alt="Jive SDK - Java - Jersey - Architecture"></p>
+
+<p>This document is a work in progress, so please ignore the clutter</p>
+
+<h4>
+<a name="pre-requisites" class="anchor" href="#pre-requisites"><span class="octicon octicon-link"></span></a>Pre-Requisites</h4>
+
+<ol>
+<li>Install <a href="http://git-scm.com/book/en/Getting-Started-Installing-Git">Git</a> (needed for cloning and contributing)</li>
+<li>Install <a href="http://maven.apache.org/download.cgi#Maven_3.0.5">Maven 3.0.5</a> - (This <a href="https://community.jivesoftware.com/docs/DOC-3528">document</a>, while outdated may help.)</li>
+<li>Install <a href="http://java.com/en/download/index.jsp">Java 7</a> (see <a href="http://java.com/en/download/help/index_installing.xml">help center</a> for assistance)</li>
+</ol><blockquote>
+<p><strong>Note:</strong> Some users have found issues with Maven 3.1.0, as we look into those reports, please use 3.0.5)</p>
+</blockquote>
+
+<h4>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h4>
+
+<p>This SDK is more of a boiler plate application that gets your up and running and FAST.</p>
+
+<blockquote>
+<p>Before you get started, make sure your default Java Runtime is Java 7. 
+You can execute <strong>java -version</strong> to confirm.   (see Mac Commands below for possible help)</p>
+</blockquote>
+
+<p>To get started, simply perform the following steps:</p>
+
+<ol>
+<li><strong>git clone <a href="https://github.com/jivesoftware/jive-sdk-java-jersey.git">https://github.com/jivesoftware/jive-sdk-java-jersey.git</a></strong></li>
+<li><strong>cd jive-sdk-java-jersey; mvn install</strong></li>
+<li><strong>cd jive-addon; mvn -DclientUrl=<a href="http://your.resolvable.host.name">http://your.resolvable.host.name</a> -Dport=8090 clean jetty:run</strong></li>
+</ol><p>Congrats, your Jive Add-On Service is should now be running!  Now we just need to link a Jive Instance to it!  Here's how you do that!</p>
+
+<ul>
+<li>
+<strong>Upload ZIP file</strong> generated for you in <strong>jive-sdk-java-jersey/jive-addon/extension-jive-addon-example.zip</strong> in the Add-On Services &gt; Upload Packages section of your Jive Instance (must have admin privileges)</li>
+<li>
+<strong>Note</strong> If you do not want your meta.json and definition.json files re-generated each time you start the service, simply remove <strong>clean</strong> from the goals declaration</li>
+</ul><p>At this point, you client service is running with a Jive Instance connected to it.  Be sure to check the <a href="https://community.jivesoftware.com/community/developer">Jive Developer Community</a> for more updates about this project.  We look forward to your feedback and contributions.</p>
+
+<hr><h4>
+<a name="java-environment-tip--tricks" class="anchor" href="#java-environment-tip--tricks"><span class="octicon octicon-link"></span></a>Java Environment Tip &amp; Tricks</h4>
+
+<h5>
+<a name="mac-tricks" class="anchor" href="#mac-tricks"><span class="octicon octicon-link"></span></a>Mac Tricks</h5>
+
+<p>To switch your Terminal Java Runtime back to Java 7, use:</p>
+
+<blockquote>
+<p>export JAVA_HOME=`/usr/libexec/java_home -v 1.7`</p>
+</blockquote>
+
+<p>To switch your Terminal Java Runtime back to Java 6, use:</p>
+
+<blockquote>
+<p>export JAVA_HOME=`/usr/libexec/java_home -v 1.6`</p>
+</blockquote>
+
+<h5>
+<a name="windows-tricks" class="anchor" href="#windows-tricks"><span class="octicon octicon-link"></span></a>Windows Tricks</h5>
+
+<p>TODO:</p>
+
+<h5>
+<a name="linux-ubuntucentosrhelsuseetc-tricks" class="anchor" href="#linux-ubuntucentosrhelsuseetc-tricks"><span class="octicon octicon-link"></span></a>Linux (Ubuntu/CentOS/RHEL/SUSE/etc..) Tricks</h5>
+
+<p>TODO: </p>
+
+<hr><h4>
+<a name="deployment-instructions" class="anchor" href="#deployment-instructions"><span class="octicon octicon-link"></span></a>Deployment Instructions</h4>
+
+<p><strong>Instructions for deploying on Tomcat</strong></p>
+
+<ul>
+<li>TODO - Instructions</li>
+</ul><p><strong>Instructions for deploying on JBoss</strong></p>
+
+<ul>
+<li>TODO - Instructions</li>
+</ul><p><strong>Instructions for deploying on Weblogic</strong></p>
+
+<ul>
+<li>TODO - Confirm Compatibility</li>
+<li>TODO - Instructions</li>
+</ul><p><strong>Instructions for deploying on Websphere</strong></p>
+
+<ul>
+<li>TODO - Confirm Compatibility</li>
+<li>TODO - Instructions</li>
+</ul><p><strong>Instructions for deploying to Heroku</strong></p>
+
+<ul>
+<li>TODO:  See: <a href="/jivesoftware/jive-sdk-java-jersey/blob/master/jive-addon/Procfile">Procfile</a>
+</li>
+<li>TODO - Instructions</li>
+</ul><hr><h4>
+<a name="need" class="anchor" href="#need"><span class="octicon octicon-link"></span></a>Need:</h4>
+
+<ul>
+<li>Support for Activity Stream Tiles</li>
+<li>Support for Jive API Client (Generic API Tool)</li>
+<li>Support for Jive Analytics Client</li>
+<li>Support ESF Storage Events and Proxy Discussions to Add-On</li>
+<li>Unit Tests that can be run to insure that services haven't changed between versions</li>
+</ul><h4>
+<a name="ideas" class="anchor" href="#ideas"><span class="octicon octicon-link"></span></a>Ideas:</h4>
+
+<ul>
+<li>Better definition.json generation support</li>
+<li>Decoupling Events to <a href="https://github.com/Stateless" class="user-mention">@Stateless</a> + <a href="https://github.com/Asynchronous" class="user-mention">@Asynchronous</a> EJB w/OpenEJB - <a href="http://tomee.apache.org/">http://tomee.apache.org/</a>
+</li>
+<li>Implementing More Future Driven Calls</li>
+<li>Continue to look for ways to improve/speed-up development:
+<a href="http://www.benoitschweblin.com/2013/03/run-jetty-in-maven-life-cycle.html">http://www.benoitschweblin.com/2013/03/run-jetty-in-maven-life-cycle.html</a>
+</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">jive-sdk-java-jersey maintained by <a href="https://github.com/jivesoftware">jivesoftware</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-35433257-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
