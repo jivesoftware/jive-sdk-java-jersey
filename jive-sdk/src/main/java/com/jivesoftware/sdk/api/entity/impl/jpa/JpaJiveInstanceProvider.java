@@ -18,15 +18,31 @@
 
 package com.jivesoftware.sdk.api.entity.impl.jpa;
 
+import com.jivesoftware.sdk.api.entity.JiveInstance;
+import com.jivesoftware.sdk.api.entity.JiveInstanceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Created by rrutan on 2/3/14.
  */
-public class JpaJiveInstanceProvider {
+public class JpaJiveInstanceProvider implements JiveInstanceProvider {
     private static final Logger log = LoggerFactory.getLogger(JpaJiveInstanceProvider.class);
 
-        //TODO:  AT SOME POINT PROVIDE AN OFF THE SHELF IMPLEMENTATION THAT IS CONFIGURABLE
+    @Override
+    public JiveInstance getInstanceByTenantId(String tenantId) {
+        return null;
+    }
 
+    @Override
+    public void remove(JiveInstance jiveInstance) throws JiveInstanceProviderException {
+    }
+
+    @Override
+    public void update(JiveInstance jiveInstance) throws JiveInstanceProviderException {
+    }
+
+    @Override
+    public void dispose() {
+    }
 }

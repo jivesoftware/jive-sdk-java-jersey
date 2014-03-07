@@ -19,6 +19,7 @@
 package com.jivesoftware.sdk.service.filter;
 
 import com.google.common.collect.Maps;
+import com.jivesoftware.sdk.JiveAddOnApplication;
 import com.jivesoftware.sdk.api.entity.JiveInstance;
 import com.jivesoftware.sdk.api.entity.JiveInstanceProvider;
 import com.jivesoftware.sdk.utils.JiveSDKUtils;
@@ -69,11 +70,18 @@ public class JiveAuthorizationValidator {
        new WebApplicationException(
            Response.status(Response.Status.UNAUTHORIZED).build());
 
+    // ambiguous reference when multiple implementations exist
+    //@Inject
+    //private JiveInstanceProvider jiveInstanceProvider;
+
     @Inject
-    private JiveInstanceProvider jiveInstanceProvider;
+    private JiveAddOnApplication jiveAddOnApplication;
 
     public void authenticate(ContainerRequestContext request) {
         String authorization = request.getHeaderString(HttpHeaders.AUTHORIZATION);
+        if (authorization == null) {
+            throw UNAUTHORIZED;
+        }
 
         if (log.isTraceEnabled()) { log.trace("Authz Header:\n"+authorization); }
 
@@ -105,7 +113,8 @@ public class JiveAuthorizationValidator {
             throw UNAUTHORIZED;
         } // end if
 
-        JiveInstance jiveInstance = jiveInstanceProvider.getInstanceByTenantId(tenantId);
+        //JiveInstance jiveInstance = jiveInstanceProvider.getInstanceByTenantId(tenantId);
+        JiveInstance jiveInstance = jiveAddOnApplication.getJiveInstanceProvider().getInstanceByTenantId(tenantId);
 
         if (jiveInstance == null) {
             log.error("Jive authorization failed due to invalid tenant ID: " + tenantId);

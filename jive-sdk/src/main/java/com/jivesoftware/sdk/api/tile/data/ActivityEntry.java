@@ -18,6 +18,7 @@
 
 package com.jivesoftware.sdk.api.tile.data;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
@@ -25,10 +26,40 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
  * Created by rrutan on 2/9/14.
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ActivityEntry {
     private ActivityAction action; // required
     private ActivityActor actor;
     private ActivityObject object; // required
+
+    private String id;
+    private ActivityEntryResources resources;
+
+    private ActivityStatus status;
+
+    public ActivityStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ActivityStatus status) {
+        this.status = status;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public ActivityEntryResources getResources() {
+        return resources;
+    }
+
+    public void setResources(ActivityEntryResources resources) {
+        this.resources = resources;
+    }
 
     public ActivityAction getAction() {
         return action;

@@ -19,6 +19,7 @@
 package com.jivesoftware.sdk.service.tile;
 
 import com.google.common.collect.Maps;
+import com.jivesoftware.sdk.JiveAddOnApplication;
 import com.jivesoftware.sdk.api.entity.JiveInstance;
 import com.jivesoftware.sdk.api.entity.TileInstance;
 import com.jivesoftware.sdk.api.entity.TileInstanceProvider;
@@ -60,7 +61,7 @@ public class TileService extends BaseAddOnService {
     private static final Logger log = LoggerFactory.getLogger(TileService.class);
 
     @Inject
-    private TileInstanceProvider tileInstanceProvider;
+    private JiveAddOnApplication jiveAddOnApplication;
 
     @Inject @TileRegisterSuccess
     Event<TileInstanceEvent> tileInstanceRegisterSuccess;
@@ -109,7 +110,7 @@ public class TileService extends BaseAddOnService {
         TileInstance tileInstance = new TileInstance(tileRegisterAction);
 
         try {
-            tileInstanceProvider.update(tileInstance);
+            jiveAddOnApplication.getTileInstanceProvider().update(tileInstance);
             if (log.isDebugEnabled()) { log.debug("Successfully Saved Tile Instance!"); }
         } catch (TileInstanceProvider.TileInstanceProviderException tipe) {
             log.error("Unable to save TileInstance",tipe);
@@ -140,7 +141,7 @@ public class TileService extends BaseAddOnService {
 
         JiveInstance jiveInstance = (JiveInstance)containerRequestContext.getProperty(JiveAuthorizationValidator.JIVE_INSTANCE);
 
-        TileInstance tileInstance = tileInstanceProvider.getTileInstanceByPushURL(tileUnregisterAction.getUrl());
+        TileInstance tileInstance = jiveAddOnApplication.getTileInstanceProvider().getTileInstanceByPushURL(tileUnregisterAction.getUrl());
         if (tileInstance == null) {
             if (log.isWarnEnabled()) { log.warn("Initializing from Unregister Payload, not from provider!"); }
             tileInstance = new TileInstance(tileUnregisterAction);

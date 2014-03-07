@@ -21,14 +21,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>jive-sdk-java-jersey</groupId>
     <artifactId>jive-sdk-java-jersey-webapp</artifactId>
-    <version>1.0.0.0-SNAPSHOT</version>
+    <version>1.0.1.0-SNAPSHOT-fork</version>
     <name>Jive SDK - Java - Jersey - Jive Add-On</name>
     <packaging>war</packaging>
 
     <parent>
         <groupId>com.jivesoftware.sdk</groupId>
         <artifactId>jive-sdk-java-jersey</artifactId>
-        <version>1.0.0.0-SNAPSHOT</version>
+        <version>1.0.1.0-SNAPSHOT-fork</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -322,13 +322,13 @@
         <dependency>
             <groupId>com.jivesoftware.sdk</groupId>
             <artifactId>jive-sdk-java-jersey-api</artifactId>
-            <version>1.0.0.0-SNAPSHOT</version>
+            <version>1.0.1.0-SNAPSHOT-fork</version>
         </dependency>
 
         <dependency>
             <groupId>com.jivesoftware.sdk</groupId>
             <artifactId>jive-sdk-java-jersey</artifactId>
-            <version>1.0.0.0-SNAPSHOT</version>
+            <version>1.0.1.0-SNAPSHOT-fork</version>
             <type>pom</type>
         </dependency>
 
