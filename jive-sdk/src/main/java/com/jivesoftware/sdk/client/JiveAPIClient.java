@@ -19,7 +19,6 @@
 package com.jivesoftware.sdk.client;
 
 import com.jivesoftware.sdk.client.oauth.OAuthCredentials;
-import com.jivesoftware.sdk.client.oauth.OAuthCredentialsSupport;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,54 +41,18 @@ import java.util.concurrent.Future;
 public class JiveAPIClient extends BaseJiveClient {
     private static final Logger log = LoggerFactory.getLogger(JiveAPIClient.class);
 
-    class JiveBasicAuthorization implements JiveBasicAuthSupport {
-
-        private String username;
-        private String password;
-
-        JiveBasicAuthorization(String username, String password) {
-            this.username = username;
-            this.password = password;
-        } // end constructor
-
-        @Override
-        public String getAuthorizationHeader() {
-            StringBuffer sbuf = new StringBuffer(AUTHORIZATION_BASIC_PREFIX);
-            sbuf.append(Base64.encodeBase64((username + ":" + password).getBytes()));
-            return sbuf.toString();
-        } // end getAuthorizationHeader
-
-    } // end class
-
-    class JiveOAuth2Authorization implements JiveOAuth2Support {
-
-        private String accessToken;
-
-        JiveOAuth2Authorization(OAuthCredentials credentials) {
-            if (credentials != null) {
-                accessToken = credentials.getAccessToken();
-            } // end if
-        } // end constructor
-
-        @Override
-        public String getAuthorizationHeader() {
-            StringBuffer sbuf = new StringBuffer(AUTHORIZATION_OAUTH_PREFIX);
-            sbuf.append(accessToken);
-            return sbuf.toString();
-        } // end getAuthorizationHeader
-
-    } // end class
-
     @Context
     Application application;
 
-    public JiveBasicAuthorization getBasicAuth(String username, String password) {
-        return new JiveBasicAuthorization(username,password);
-    } //end getBasicAuth
+    public Object call (HttpMethods method, URI uri, String requestContentType, String responseContentType, Object data,
+                        JiveAuthorizationSupport authorization, JiveRunAs runAs) throws JiveClientException {
+        return call(method,uri,requestContentType,responseContentType,data,authorization,runAs,null);
+    } // end call
 
-    public JiveOAuth2Authorization getOAuth2Auth(OAuthCredentials credentials) {
-        return new JiveOAuth2Authorization(credentials);
-    } //end getBasicAuth
+    public Object call (HttpMethods method, URI uri, String requestContentType, String responseContentType, Object data,
+                        JiveAuthorizationSupport authorization) throws JiveClientException {
+        return call(method,uri,requestContentType,responseContentType,data,authorization,null,null);
+    } // end call
 
     public Object call (HttpMethods method, URI uri, String requestContentType, String responseContentType, Object data,
                         JiveAuthorizationSupport authorization, Class clazz) throws JiveClientException {

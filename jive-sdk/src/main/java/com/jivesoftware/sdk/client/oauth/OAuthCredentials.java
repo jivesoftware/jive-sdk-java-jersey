@@ -18,6 +18,7 @@
 
 package com.jivesoftware.sdk.client.oauth;
 
+import com.jivesoftware.sdk.client.JiveOAuth2Support;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by rrutan on 1/30/14.
  */
-public class OAuthCredentials {
+public class OAuthCredentials implements JiveOAuth2Support {
     private static final Logger log = LoggerFactory.getLogger(OAuthCredentials.class);
 
     private static final String INVALID = "invalid";
@@ -48,6 +49,13 @@ public class OAuthCredentials {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
     }
+
+    @Override
+    public String getAuthorizationHeader() {
+        StringBuffer sbuf = new StringBuffer(AUTHORIZATION_OAUTH_PREFIX);
+        sbuf.append(accessToken);
+        return sbuf.toString();
+    } // end getAuthorizationHeader
 
     public String getUrl() {
         return url;

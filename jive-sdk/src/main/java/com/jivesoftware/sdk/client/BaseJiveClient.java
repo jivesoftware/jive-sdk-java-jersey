@@ -20,6 +20,8 @@ package com.jivesoftware.sdk.client;
 
 import com.google.common.collect.Maps;
 import com.jivesoftware.sdk.client.filter.DebugClientResponseFilter;
+import com.jivesoftware.sdk.client.oauth.OAuthCredentials;
+import org.apache.commons.codec.binary.Base64;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.slf4j.Logger;
@@ -70,6 +72,30 @@ public class BaseJiveClient {
 
         return builder.async();
     } // end initTarget
+
+
+    class JiveBasicAuthorization implements JiveBasicAuthSupport {
+
+        private String username;
+        private String password;
+
+        JiveBasicAuthorization(String username, String password) {
+            this.username = username;
+            this.password = password;
+        } // end constructor
+
+        @Override
+        public String getAuthorizationHeader() {
+            StringBuffer sbuf = new StringBuffer(AUTHORIZATION_BASIC_PREFIX);
+            sbuf.append(Base64.encodeBase64((username + ":" + password).getBytes()));
+            return sbuf.toString();
+        } // end getAuthorizationHeader
+
+    } // end class
+
+    public JiveBasicAuthorization getBasicAuth(String username, String password) {
+        return new JiveBasicAuthorization(username,password);
+    } //end getBasicAuth
 
     class DataBlock {
         @JsonProperty("data")

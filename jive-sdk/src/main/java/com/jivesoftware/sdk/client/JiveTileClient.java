@@ -92,7 +92,7 @@ public class JiveTileClient extends BaseJiveClient {
         DataBlock dataBlock = new DataBlock(data);
 
         AsyncInvoker asyncInvoker = target.request(MediaType.APPLICATION_JSON_TYPE)
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + tileInstance.getCredentials().getAccessToken()).async();
+                .header(HttpHeaders.AUTHORIZATION, tileInstance.getCredentials().getAuthorizationHeader()).async();
 
         Future<Response> responseFuture = asyncInvoker.put(Entity.entity(dataBlock, MediaType.APPLICATION_JSON_TYPE));
 
@@ -137,7 +137,7 @@ public class JiveTileClient extends BaseJiveClient {
         WebTarget target = client.target(tileInstance.getJivePushUrl());
 
         AsyncInvoker asyncInvoker =  target.request(MediaType.APPLICATION_JSON_TYPE)
-                                           .header(HttpHeaders.AUTHORIZATION, "Bearer " + tileInstance.getCredentials().getAccessToken())
+                                           .header(HttpHeaders.AUTHORIZATION,tileInstance.getCredentials().getAuthorizationHeader())
                                            .async();
 
         Future<Response> responseFuture = asyncInvoker.get();
@@ -182,7 +182,8 @@ public class JiveTileClient extends BaseJiveClient {
         WebTarget target = client.target(tileInstance.getJivePushUrl());
 
         AsyncInvoker asyncInvoker = target.request(MediaType.APPLICATION_JSON_TYPE)
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + tileInstance.getCredentials().getAccessToken()).async();
+                .header(HttpHeaders.AUTHORIZATION, tileInstance.getCredentials().getAuthorizationHeader())
+                .async();
 
         // Note that this needs to be a POST and we are not using the same DataBlock class as data push
         Future<Response> responseFuture = asyncInvoker.post(Entity.entity(data, MediaType.APPLICATION_JSON_TYPE));
