@@ -19,6 +19,8 @@
 package com.jivesoftware.sdk.service.instance.action;
 
 import com.google.common.collect.Maps;
+import com.jivesoftware.sdk.service.filter.JiveSignatureValidatable;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import javax.annotation.Nonnull;
@@ -27,7 +29,8 @@ import java.util.SortedMap;
 /**
  * Created by rrutan on 1/30/14.
  */
-public class InstanceUnregisterAction {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class InstanceUnregisterAction implements JiveSignatureValidatable {
 
     public final static String TIMESTAMP = "timestamp";
     public final static String JIVE_URL = "jiveUrl";
@@ -119,7 +122,7 @@ public class InstanceUnregisterAction {
 
 
     @Nonnull
-    public SortedMap<String, String> toSortedMap() {
+    public SortedMap<String, String> getJiveSignatureMap() {
         // Encode the client-secret
         SortedMap<String, String> sortedMap = Maps.newTreeMap();
         sortedMap.put(CLIENT_ID, clientId);
@@ -129,7 +132,7 @@ public class InstanceUnregisterAction {
         sortedMap.put(TENANT_ID, tenantId);
         sortedMap.put(TIMESTAMP, timestamp);
         return sortedMap;
-    } // end toSortedMap
+    } // end getJiveSignatureMap
 
     @Override
     public boolean equals(Object o) {

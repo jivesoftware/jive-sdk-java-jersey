@@ -23,6 +23,7 @@ import com.jivesoftware.sdk.client.oauth.OAuthCredentialsSupport;
 import com.jivesoftware.sdk.service.tile.action.TileRegisterAction;
 import com.jivesoftware.sdk.service.tile.action.TileUnregisterAction;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,12 +31,19 @@ import java.util.Map;
 /**
  * Created by rrutan on 1/30/14.
  */
+@Entity
 public class TileInstance implements OAuthCredentialsSupport, Serializable {
+    @Id
+    @GeneratedValue
+    @Column(name = "tile_instance_id")
+    private Long id;
+
     private String code;
 	/**
 	 * Configuration from the tile config screen.  This is filled in from
 	 * jive.tile.close(config) in the tile configuration app.
 	 */
+    @ElementCollection(fetch = FetchType.EAGER)
     private Map<String, String> config = new HashMap<String, String>();
 
 	/**
@@ -63,6 +71,7 @@ public class TileInstance implements OAuthCredentialsSupport, Serializable {
 	/**
 	 * Additional credentials if needed.
 	 */
+    @Embedded
     private OAuthCredentials credentials;
 
     public TileInstance() {
@@ -90,6 +99,14 @@ public class TileInstance implements OAuthCredentialsSupport, Serializable {
         this.tenantID = action.getTenantID();
         this.itemType = action.getItemType();
     } // end constructor
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getCode() {
         return code;

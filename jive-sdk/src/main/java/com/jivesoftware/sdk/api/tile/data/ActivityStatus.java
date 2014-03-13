@@ -4,13 +4,19 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**
- * Tile activity actor data
+ * Data class for activity tile status
  */
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ActivityActor {
+public class ActivityStatus {
     private String name;
-    private String email;
+
+    public ActivityStatus() {
+    }
+
+    public ActivityStatus(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;
@@ -18,13 +24,5 @@ public class ActivityActor {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

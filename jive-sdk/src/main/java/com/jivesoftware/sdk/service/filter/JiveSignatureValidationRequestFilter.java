@@ -64,7 +64,7 @@ public class JiveSignatureValidationRequestFilter extends BaseContainerRequestFi
 
 
         if (!jiveSignatureValidator.isValidSignature(instanceRegisterAction)) {
-            System.out.println("invalid signature");
+            log.error("Invalid Signature Validation");
             throw VALIDATION_FAILED;
         } // end if
 

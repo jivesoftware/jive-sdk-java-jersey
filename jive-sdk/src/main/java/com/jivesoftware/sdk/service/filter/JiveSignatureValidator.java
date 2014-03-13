@@ -55,15 +55,14 @@ public class JiveSignatureValidator {
         //client.register(...)
     } //end initClient
 
-    protected boolean isValidSignature(InstanceRegisterAction request) {
+    protected boolean isValidSignature(JiveSignatureValidatable request) {
         String signature = request.getJiveSignature();
         String signatureURL = request.getJiveSignatureURL();
         boolean isHttps = signatureURL.toLowerCase().startsWith("https");
 
         if (signature == null || signatureURL == null) {
             String msg = String.format("Invalid signature [%s] or signature URL [%s]", signature, signatureURL);
-            //TODO: ADD LOGGER
-            System.err.println(msg);
+            log.error(msg);
             return false;
         } // end if
 
@@ -84,7 +83,7 @@ public class JiveSignatureValidator {
 
         try {
             String response = responseFuture.get();
-            if (log.isDebugEnabled()) { log.debug("Signature Validated"); }
+            if (log.isDebugEnabled()) { log.debug("Signature Validated ["+response+"]"); }
             return true;
         } catch (BadRequestException bre) {
             log.error("Error Validating Signature", bre);
@@ -98,9 +97,9 @@ public class JiveSignatureValidator {
     } // end isValidSignature
 
 
-    private String getSignatureValidation(InstanceRegisterAction request) {
+    private String getSignatureValidation(JiveSignatureValidatable request) {
 
-        SortedMap<String, String> sortedMap = request.toSortedMap();
+        SortedMap<String, String> sortedMap = request.getJiveSignatureMap();
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
             String key = entry.getKey();
