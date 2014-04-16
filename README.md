@@ -56,7 +56,10 @@ TODO:
 * TODO - Instructions
 
 **Instructions for deploying on JBoss**
-* TODO - Instructions
+1. **git clone https://github.com/jivesoftware/jive-sdk-java-jersey.git**
+2. **cd jive-sdk-java-jersey; mvn install**
+3. **cd jive-addon; mvn clean package**
+4. **cp target/jive-sdk-jersey-example.war /your/jboss/deployments/directory**
 
 **Instructions for deploying on Weblogic**
 * TODO - Confirm Compatibility
