@@ -18,8 +18,11 @@
 
 package com.jivesoftware.sdk.client;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Created by rrutan on 2/13/14.
  */
+@Component
 public class JiveAnalyticsClient {
 }

@@ -33,6 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Singleton;
 import javax.ws.rs.POST;
@@ -46,7 +47,7 @@ import javax.ws.rs.core.Response;
 /**
  * Created by ryan.rutan on 1/15/14.
  */
-
+@Component
 @Path("/tile")
 @Singleton
 public class TileService extends BaseAddOnService {

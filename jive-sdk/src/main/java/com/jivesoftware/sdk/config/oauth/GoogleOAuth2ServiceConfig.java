@@ -21,14 +21,16 @@ package com.jivesoftware.sdk.config.oauth;
 import com.jivesoftware.sdk.config.BaseAddOnConfig;
 import com.jivesoftware.sdk.service.oauth.google.GoogleOAuth2Service;
 import com.jivesoftware.sdk.utils.JiveSDKUtils;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Singleton;
 
 /**
  * Created by rrutan on 2/6/14.
  */
-    @Singleton
-    public class GoogleOAuth2ServiceConfig extends BaseAddOnConfig {
+@Component
+@Singleton
+public class GoogleOAuth2ServiceConfig extends BaseAddOnConfig {
 
         private String clientID;
         private String clientSecret;

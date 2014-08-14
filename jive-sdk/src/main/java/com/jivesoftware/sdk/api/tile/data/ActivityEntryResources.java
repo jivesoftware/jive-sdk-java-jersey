@@ -1,6 +1,5 @@
 package com.jivesoftware.sdk.api.tile.data;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 /**

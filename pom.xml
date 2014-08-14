@@ -46,7 +46,7 @@
         <glassfish-jersey-client-version>2.4.1</glassfish-jersey-client-version>
         <jetty-version>9.1.1.v20140108</jetty-version>
         <slf4j-version>1.7.5</slf4j-version>
-        <spring-version>4.0.3.RELEASE</spring-version>
+        <spring-version>3.2.5.RELEASE</spring-version>
     </properties>
 
     <build>
@@ -178,6 +178,26 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>${spring-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.ext</groupId>
+            <artifactId>jersey-spring3</artifactId>
+            <version>2.4.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-web</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-beans</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>

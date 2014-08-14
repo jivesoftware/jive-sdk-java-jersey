@@ -20,7 +20,7 @@ package com.jivesoftware.sdk.service.oauth.facebook;
 
 import com.jivesoftware.sdk.config.oauth.FacebookOAuth2ServiceConfig;
 import com.jivesoftware.sdk.event.OAuthEvent;
-import com.jivesoftware.sdk.event.types.oauth.ext.Facebook;
+import com.jivesoftware.sdk.event.OAuthEventPublisher;
 import com.jivesoftware.sdk.service.filter.JiveSignatureValidation;
 import com.jivesoftware.sdk.service.oauth.BaseOAuthService;
 import com.jivesoftware.sdk.utils.JiveSDKUtils;
@@ -31,9 +31,9 @@ import org.glassfish.jersey.client.oauth2.TokenResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
@@ -49,6 +49,7 @@ import java.util.Map;
 /**
  * Created by rrutan on 1/29/14.
  */
+@Component
 @Path("/oauth2/facebook")
 @Singleton
 public class FacebookOAuth2Service extends BaseOAuthService {
@@ -63,6 +64,9 @@ public class FacebookOAuth2Service extends BaseOAuthService {
 
     @Override
     public int getOAuthVersion() { return 2; }
+
+    @Autowired @Qualifier("oauthEventPublisher")
+    private OAuthEventPublisher oAuthEventPublisher;
 
     @GET
     @Path("/authorize")
@@ -164,11 +168,8 @@ public class FacebookOAuth2Service extends BaseOAuthService {
      *
      ******************************************************************************************************/
 
-    @Inject @Facebook
-    Event<OAuthEvent> oauthEventPublisher;
-
     private void fireOAuthEvent(OAuthEvent.Type type, Map<String, Object> data) {
-        oauthEventPublisher.fire(new OAuthEvent(type,data));
+        oAuthEventPublisher.publishEvent(new OAuthEvent(type, data));
     } // end fireOAuthEvent
 
 } // end class

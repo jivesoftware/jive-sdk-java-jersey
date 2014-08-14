@@ -20,7 +20,7 @@ package com.jivesoftware.sdk.service.oauth.twitter;
 
 import com.jivesoftware.sdk.config.oauth.TwitterOAuth1ServiceConfig;
 import com.jivesoftware.sdk.event.OAuthEvent;
-import com.jivesoftware.sdk.event.types.oauth.ext.Twitter;
+import com.jivesoftware.sdk.event.OAuthEventPublisher;
 import com.jivesoftware.sdk.service.filter.JiveSignatureValidation;
 import com.jivesoftware.sdk.service.oauth.BaseOAuthService;
 import com.jivesoftware.sdk.utils.JiveSDKUtils;
@@ -30,9 +30,9 @@ import org.glassfish.jersey.client.oauth1.OAuth1ClientSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
@@ -48,6 +48,7 @@ import java.util.Map;
 /**
  * Created by rrutan on 1/29/14.
  */
+@Component
 @Path("/oauth/twitter")
 @Singleton
 public class TwitterOAuth1Service extends BaseOAuthService {
@@ -62,6 +63,9 @@ public class TwitterOAuth1Service extends BaseOAuthService {
 
     @Override
     public int getOAuthVersion() { return 1; }
+
+    @Autowired @Qualifier("oauthEventPublisher")
+    private OAuthEventPublisher oAuthEventPublisher;
 
     @GET
     @Path("/authorize")
@@ -153,11 +157,8 @@ public class TwitterOAuth1Service extends BaseOAuthService {
      *
      ******************************************************************************************************/
 
-    @Inject @Twitter
-    Event<OAuthEvent> oauthEventPublisher;
-
     private void fireOAuthEvent(OAuthEvent.Type type, Map<String, Object> data) {
-        oauthEventPublisher.fire(new OAuthEvent(type,data));
+        oAuthEventPublisher.publishEvent(new OAuthEvent(type, data));
     } // end fireOAuthEvent
 
 } // end class JiveOAuth2Service

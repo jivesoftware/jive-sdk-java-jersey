@@ -20,13 +20,12 @@ package com.jivesoftware.sdk.service.health;
 
 import com.jivesoftware.sdk.api.entity.HealthStatusProvider;
 import com.jivesoftware.sdk.service.BaseAddOnService;
-import com.jivesoftware.sdk.service.filter.JiveSignatureValidation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -40,7 +39,7 @@ import javax.ws.rs.core.UriInfo;
 /**
  * Created by ryan.rutan on 1/15/14.
  */
-
+@Component
 @Path("/health")
 @Singleton
 public class HealthService extends BaseAddOnService {

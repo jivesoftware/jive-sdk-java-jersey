@@ -19,12 +19,11 @@
 package com.jivesoftware.sdk.service.filter;
 
 import com.jivesoftware.sdk.config.JiveAddOnConfig;
-import com.jivesoftware.sdk.service.instance.action.InstanceRegisterAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.client.*;
@@ -38,6 +37,7 @@ import java.util.concurrent.Future;
 /**
  * Created by rrutan on 1/30/14.
  */
+@Component
 @Singleton
 public class JiveSignatureValidator {
     private static final Logger log = LoggerFactory.getLogger(JiveSignatureValidator.class);

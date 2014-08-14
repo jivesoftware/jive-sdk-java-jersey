@@ -19,10 +19,12 @@
 package com.jivesoftware.addon.example;
 
 import com.jivesoftware.sdk.JiveAddOnApplication;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Singleton;
 import javax.ws.rs.ApplicationPath;
 
+@Component
 @Singleton
 @ApplicationPath("example")
 public class MyExampleAddOn extends JiveAddOnApplication {

@@ -27,7 +27,6 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import javax.annotation.Nonnull;
-import java.security.NoSuchAlgorithmException;
 import java.util.SortedMap;
 
 /**

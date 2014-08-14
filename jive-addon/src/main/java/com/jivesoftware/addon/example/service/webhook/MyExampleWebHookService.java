@@ -18,12 +18,15 @@
 
 package com.jivesoftware.addon.example.service.webhook;
 
+import org.springframework.stereotype.Component;
+
 import javax.inject.Singleton;
 import javax.ws.rs.Path;
 
 /**
  * Created by rrutan on 2/24/14.
  */
+@Component
 @Path("/webhooks")
 @Singleton
 public class MyExampleWebHookService {

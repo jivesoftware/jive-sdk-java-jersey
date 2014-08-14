@@ -20,7 +20,6 @@ package com.jivesoftware.sdk.service.tile.action;
 
 import com.google.common.base.Objects;
 import com.jivesoftware.sdk.api.entity.JiveInstance;
-import com.jivesoftware.sdk.utils.JiveSDKUtils;
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;

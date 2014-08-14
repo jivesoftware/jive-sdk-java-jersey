@@ -19,7 +19,6 @@
 package com.jivesoftware.sdk.api.tile;
 
 import com.jivesoftware.sdk.api.entity.TileInstance;
-import com.jivesoftware.sdk.api.tile.data.GalleryTile;
 import com.jivesoftware.sdk.api.tile.data.GaugeTile;
 import com.jivesoftware.sdk.client.JiveClientException;
 import org.slf4j.Logger;

@@ -18,14 +18,10 @@
 
 package com.jivesoftware.sdk.service.instance;
 
-import com.google.common.collect.Maps;
-import com.jivesoftware.sdk.JiveAddOnApplication;
 import com.jivesoftware.sdk.api.entity.JiveInstance;
 import com.jivesoftware.sdk.api.entity.JiveInstanceProvider;
 import com.jivesoftware.sdk.event.JiveInstanceEvent;
-import com.jivesoftware.sdk.event.types.instance.InstanceRegisterFailed;
-import com.jivesoftware.sdk.event.types.instance.InstanceRegisterSuccess;
-import com.jivesoftware.sdk.event.types.instance.InstanceUnregister;
+import com.jivesoftware.sdk.event.JiveInstanceEventPublisher;
 import com.jivesoftware.sdk.service.BaseAddOnService;
 import com.jivesoftware.sdk.service.filter.JiveSignatureValidation;
 import com.jivesoftware.sdk.service.instance.action.InstanceRegisterAction;
@@ -34,9 +30,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -44,12 +39,11 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import java.util.Map;
 
 /**
  * Created by ryan.rutan on 1/15/14.
  */
-
+@Component
 @Path("/instance")
 @Singleton
 public class InstanceService extends BaseAddOnService {
@@ -58,14 +52,8 @@ public class InstanceService extends BaseAddOnService {
     @Autowired @Qualifier("jiveInstanceProvider")
     private JiveInstanceProvider jiveInstanceProvider;
 
-    @Inject @InstanceRegisterSuccess
-    Event<JiveInstanceEvent> jiveInstanceRegisterSuccess;
-
-    @Inject @InstanceRegisterFailed
-    Event<JiveInstanceEvent> jiveInstanceRegisterFailed;
-
-    @Inject @InstanceUnregister
-    Event<JiveInstanceEvent> jiveInstanceUnregister;
+    @Autowired @Qualifier("jiveInstanceEventPublisher")
+    private JiveInstanceEventPublisher jiveInstanceEventPublisher;
 
     private void fireJiveInstanceEvent(JiveInstanceEvent.Type type, JiveInstance context, Throwable error) {
         if (log.isTraceEnabled()) { log.trace("fireJiveInstanceEvent called..."); }
@@ -76,11 +64,7 @@ public class InstanceService extends BaseAddOnService {
             event.setError(error);
         } // end if
 
-        switch (type) {
-            case RegisterSuccess :   { jiveInstanceRegisterSuccess.fire(event); break; }
-            case RegisterFailed :    { jiveInstanceRegisterFailed.fire(event);  break; }
-            case Unregister :        { jiveInstanceUnregister.fire(event);      break; }
-        } // end switch
+        jiveInstanceEventPublisher.publishEvent(event);
     } // end fireTileInstanceEvent
 
     @POST
@@ -90,13 +74,6 @@ public class InstanceService extends BaseAddOnService {
         if (log.isTraceEnabled()) { log.trace("register called..."); }
 
         JiveInstance jiveInstance = new JiveInstance(instanceRegisterAction);
-
-        try {
-            jiveInstanceProvider.update(jiveInstance);
-            if (log.isDebugEnabled()) { log.debug("Successfully Saved jiveInstance!"); }
-        } catch (JiveInstanceProvider.JiveInstanceProviderException jipe) {
-            log.error("Unable to update jiveInstanceProvider");
-        } // end try/catch
 
         fireJiveInstanceEvent(JiveInstanceEvent.Type.RegisterSuccess,jiveInstance,null);
 

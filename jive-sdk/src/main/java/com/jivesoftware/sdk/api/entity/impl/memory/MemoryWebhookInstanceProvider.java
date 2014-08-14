@@ -19,14 +19,10 @@
 package com.jivesoftware.sdk.api.entity.impl.memory;
 
 import com.google.common.collect.Maps;
-import com.jivesoftware.sdk.api.entity.StorageInstance;
-import com.jivesoftware.sdk.api.entity.StorageInstanceProvider;
 import com.jivesoftware.sdk.api.entity.Webhook;
 import com.jivesoftware.sdk.api.entity.WebhookInstanceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.Map;
 

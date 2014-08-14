@@ -21,7 +21,6 @@ package com.jivesoftware.sdk.api.entity;
 import com.jivesoftware.sdk.client.oauth.OAuthCredentials;
 import com.jivesoftware.sdk.client.oauth.OAuthCredentialsSupport;
 import com.jivesoftware.sdk.service.instance.action.InstanceRegisterAction;
-import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;

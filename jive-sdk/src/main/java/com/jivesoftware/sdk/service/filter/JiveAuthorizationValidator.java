@@ -19,7 +19,6 @@
 package com.jivesoftware.sdk.service.filter;
 
 import com.google.common.collect.Maps;
-import com.jivesoftware.sdk.JiveAddOnApplication;
 import com.jivesoftware.sdk.api.entity.JiveInstance;
 import com.jivesoftware.sdk.api.entity.JiveInstanceProvider;
 import com.jivesoftware.sdk.utils.JiveSDKUtils;
@@ -28,11 +27,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -47,6 +46,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by rrutan on 1/30/14.
  */
+@Component
 @Singleton
 public class JiveAuthorizationValidator {
     private static final Logger log = LoggerFactory.getLogger(JiveAuthorizationValidator.class);

@@ -25,6 +25,7 @@ import com.jivesoftware.sdk.event.TileInstanceEvent;
 import com.jivesoftware.sdk.event.TileInstanceEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Singleton;
 import java.util.Map;
@@ -32,6 +33,7 @@ import java.util.Map;
 /**
  * Created by rrutan on 2/3/14.
  */
+@Component
 @Singleton
 public class MemoryTileInstanceProvider implements TileInstanceProvider, TileInstanceEventListener {
     private static final Logger log = LoggerFactory.getLogger(MemoryTileInstanceProvider.class);
@@ -48,6 +50,33 @@ public class MemoryTileInstanceProvider implements TileInstanceProvider, TileIns
         if (log.isTraceEnabled()) { log.trace("init called..."); }
     } // end init
 
+
+    @Override
+    public boolean accepts(TileInstanceEvent event) {
+        boolean accept = (TileInstanceEvent.Type.Unregister.equals(event.getType()) &&
+                TileInstanceEvent.Type.RegisterSuccess.equals(event.getType()));
+        if (log.isTraceEnabled()) { log.trace("accepts event["+event.getType()+"] ..."); }
+        return accept;
+    } // end accepts
+
+    @Override
+    public void process(TileInstanceEvent event) throws TileInstanceEventException {
+         if (log.isDebugEnabled()) { log.debug("TileInstanceEvent["+event.getType()+"] received ..."); }
+
+        try {
+            if (TileInstanceEvent.Type.RegisterSuccess.equals(event.getType())) {
+                update((TileInstance) event.getContext());
+                if (log.isDebugEnabled()) { log.debug("Successfully Saved tileInstance!"); }
+            } else if (TileInstanceEvent.Type.Unregister.equals(event.getType())) {
+                remove((TileInstance)event.getContext());
+                if (log.isDebugEnabled()) { log.debug("Successfully Removed tileInstance!"); }
+            } else {
+                if (log.isDebugEnabled()) { log.debug("Unsupported Event, not Expected"); }
+            } // end if
+        } catch (TileInstanceProviderException tipe) {
+            log.error("Unable to update tileInstanceProvider",tipe);
+        } // end try/catch
+    } // end onJiveInstanceEvent
 
     @Override
     public TileInstance getTileInstanceByPushURL(String url) {
@@ -78,21 +107,6 @@ public class MemoryTileInstanceProvider implements TileInstanceProvider, TileIns
         if (log.isDebugEnabled()) { log.debug("update ["+ tileInstance.getJivePushUrl()+"] ..."); }
         memoryTileInstanceStore.put(tileInstance.getJivePushUrl(), tileInstance);
     } // end update
-
-    @Override
-    public boolean accepts(TileInstanceEvent event) {
-        if (log.isTraceEnabled()) { log.trace("accepts event["+event.getTileName()+","+event.getType()+"] ..."); }
-        boolean accept = TileInstanceEvent.Type.Unregister.equals(event.getType());
-        return accept;
-    } // end accepts
-
-    @Override
-    public void process(TileInstanceEvent event) throws TileInstanceEventException {
-         if (log.isDebugEnabled()) { log.debug("JiveInstanceEvent["+event.getType()+"] received ..."); }
-
-         //TODO: thisProvider (list all entries with the same tenantID)
-
-    } // end onJiveInstanceEvent
 
     @Override
     public void dispose() {

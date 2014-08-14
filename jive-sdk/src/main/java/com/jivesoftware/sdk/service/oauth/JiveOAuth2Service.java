@@ -20,7 +20,7 @@ package com.jivesoftware.sdk.service.oauth;
 
 import com.jivesoftware.sdk.config.oauth.JiveOAuth2ServiceConfig;
 import com.jivesoftware.sdk.event.OAuthEvent;
-import com.jivesoftware.sdk.event.types.oauth.Jive;
+import com.jivesoftware.sdk.event.OAuthEventPublisher;
 import com.jivesoftware.sdk.utils.JiveSDKUtils;
 import org.glassfish.jersey.client.oauth2.ClientIdentifier;
 import org.glassfish.jersey.client.oauth2.OAuth2ClientSupport;
@@ -29,9 +29,9 @@ import org.glassfish.jersey.client.oauth2.TokenResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
@@ -47,6 +47,7 @@ import java.util.Map;
 /**
  * Created by rrutan on 1/29/14.
  */
+@Component
 @Path("/oauth2")
 @Singleton
 public class JiveOAuth2Service extends BaseOAuthService {
@@ -61,6 +62,9 @@ public class JiveOAuth2Service extends BaseOAuthService {
 
     @Override
     public int getOAuthVersion() {  return 2; }
+
+    @Autowired @Qualifier("oauthEventPublisher")
+    private OAuthEventPublisher oAuthEventPublisher;
 
     @GET
     @Path("/authorize")
@@ -153,11 +157,8 @@ public class JiveOAuth2Service extends BaseOAuthService {
      *
      ******************************************************************************************************/
 
-    @Inject @Jive
-    Event<OAuthEvent> oauthEventPublisher;
-
     private void fireOAuthEvent(OAuthEvent.Type type, Map<String, Object> data) {
-        oauthEventPublisher.fire(new OAuthEvent(type,data));
+        oAuthEventPublisher.publishEvent(new OAuthEvent(type, data));
     } // end fireOAuthEvent
 
 } // end class JiveOAuth2Service

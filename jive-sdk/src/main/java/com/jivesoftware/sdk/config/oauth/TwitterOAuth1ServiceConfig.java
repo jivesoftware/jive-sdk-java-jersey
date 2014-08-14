@@ -21,12 +21,14 @@ package com.jivesoftware.sdk.config.oauth;
 import com.jivesoftware.sdk.config.BaseAddOnConfig;
 import com.jivesoftware.sdk.service.oauth.twitter.TwitterOAuth1Service;
 import com.jivesoftware.sdk.utils.JiveSDKUtils;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Singleton;
 
 /**
  * Created by rrutan on 2/6/14.
  */
+@Component
 @Singleton
 public class TwitterOAuth1ServiceConfig extends BaseAddOnConfig {
 

@@ -18,10 +18,6 @@
 
 package com.jivesoftware.sdk.client.oauth;
 
-import com.jivesoftware.sdk.client.JiveAuthorizationSupport;
-import com.jivesoftware.sdk.client.JiveOAuth2Support;
-import com.jivesoftware.sdk.client.oauth.OAuthCredentials;
-
 /**
  * Created by rrutan on 2/5/14.
  */

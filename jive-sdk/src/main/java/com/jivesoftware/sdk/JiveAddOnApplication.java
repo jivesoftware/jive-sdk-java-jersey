@@ -36,6 +36,8 @@ public abstract class JiveAddOnApplication extends ResourceConfig {
 
         register(JacksonFeature.class);
 
+        packages(true,"com.jivesoftware.sdk.service");
+
       } // end constructor
 
 } // end class

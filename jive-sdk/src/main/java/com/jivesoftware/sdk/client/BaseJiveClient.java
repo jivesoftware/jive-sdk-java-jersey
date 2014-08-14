@@ -20,7 +20,6 @@ package com.jivesoftware.sdk.client;
 
 import com.google.common.collect.Maps;
 import com.jivesoftware.sdk.client.filter.DebugClientResponseFilter;
-import com.jivesoftware.sdk.client.oauth.OAuthCredentials;
 import org.apache.commons.codec.binary.Base64;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.glassfish.jersey.jackson.JacksonFeature;

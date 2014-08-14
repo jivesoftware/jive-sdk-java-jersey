@@ -21,28 +21,28 @@ package com.jivesoftware.sdk.event;
 /**
  * Created by rrutan on 8/14/14.
  */
-public interface TileInstanceEventListener {
+public interface OAuthEventListener {
 
-    public boolean accepts(TileInstanceEvent event);
-    public void process(TileInstanceEvent event) throws TileInstanceEventException;
+    public boolean accepts(OAuthEvent event);
+    public void process(OAuthEvent event) throws OAuthEventException;
 
-    class TileInstanceEventException extends Exception {
-        public TileInstanceEventException() {
+    class OAuthEventException extends Exception {
+        public OAuthEventException() {
         }
 
-        public TileInstanceEventException(String message) {
+        public OAuthEventException(String message) {
             super(message);
         }
 
-        public TileInstanceEventException(String message, Throwable cause) {
+        public OAuthEventException(String message, Throwable cause) {
             super(message, cause);
         }
 
-        public TileInstanceEventException(Throwable cause) {
+        public OAuthEventException(Throwable cause) {
             super(cause);
         }
 
-        public TileInstanceEventException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        public OAuthEventException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
             super(message, cause, enableSuppression, writableStackTrace);
         }
     }

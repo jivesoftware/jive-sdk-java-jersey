@@ -20,8 +20,6 @@ package com.jivesoftware.sdk.event;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Singleton;
@@ -32,33 +30,34 @@ import java.util.List;
  */
 @Component
 @Singleton
-public class TileInstanceEventPublisher {
-    private static final Logger log = LoggerFactory.getLogger(TileInstanceEventPublisher.class);
+public class OAuthEventPublisher {
+    private static final Logger log = LoggerFactory.getLogger(OAuthEventPublisher.class);
 
-    private List<TileInstanceEventListener> tileInstanceEventListeners;
+    private List<OAuthEventListener> oauthEventListeners;
 
-    public List<TileInstanceEventListener> getTileInstanceEventListeners() { return tileInstanceEventListeners; }
-    public void setTileInstanceEventListeners(List<TileInstanceEventListener> tileInstanceEventListeners) {
-        this.tileInstanceEventListeners = tileInstanceEventListeners;
+    public List<OAuthEventListener> getOauthEventListeners() { return oauthEventListeners; }
+    public void setOauthEventListeners(List<OAuthEventListener> oauthEventListeners) {
+        this.oauthEventListeners = oauthEventListeners;
     } // end get/setOauthEventListeners
 
-
-    public void publishEvent(TileInstanceEvent event) {
-        if (tileInstanceEventListeners != null ) {
-            for (TileInstanceEventListener listener : tileInstanceEventListeners) {
+    public void publishEvent(OAuthEvent event) {
+        if (oauthEventListeners != null && oauthEventListeners.size() > 0) {
+            for (OAuthEventListener listener : oauthEventListeners) {
                 if (log.isTraceEnabled()) { log.trace("["+ listener.getClass().getSimpleName()+"]..."); }
                 if (listener.accepts(event)) {
-                    if (log.isDebugEnabled()) { log.debug("[" + listener.getClass().getSimpleName() + "] accepted event[" + event.getType() + "," + event.getTileName() + "]..."); }
+                    if (log.isDebugEnabled()) { log.debug("[" + listener.getClass().getSimpleName() + "] accepted event[" + event.getType() + "]..."); }
                     try {
                         listener.process(event);
-                    } catch (TileInstanceEventListener.TileInstanceEventException tiee) {
+                    } catch (OAuthEventListener.OAuthEventException oee) {
                         //TODO: ADD FUNCTIONALITY INTO EXCEPTION TO CONTROL BREAKING LOOP
-                        log.error("Unable to Process Tile Event, continuing to other listeners",tiee);
+                        log.error("Unable to Process OAuth Event, continuing to other listeners",oee);
                     } // end try/catch
                 } // end if
             } // end for
+        } else {
+            if (log.isDebugEnabled()) { log.debug("No OAuthEventListeners Registered, ignoring..."); }
+            // end if
         } // end if
-
     } // end publishEvent
 
 } // end class

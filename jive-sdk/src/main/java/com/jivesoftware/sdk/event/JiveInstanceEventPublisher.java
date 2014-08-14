@@ -22,18 +22,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+import javax.inject.Singleton;
 import java.util.List;
 
 /**
  * Created by rrutan on 8/14/14.
  */
+@Component
+@Singleton
 public class JiveInstanceEventPublisher {
     private static final Logger log = LoggerFactory.getLogger(JiveInstanceEventPublisher.class);
 
-    @Autowired
-    @Qualifier ("jiveInstanceEventListeners")
     private List<JiveInstanceEventListener> jiveInstanceEventListeners;
+
+    public List<JiveInstanceEventListener> getJiveInstanceEventListeners() { return jiveInstanceEventListeners; }
+    public void setJiveInstanceEventListeners(List<JiveInstanceEventListener> jiveInstanceEventListeners) {
+        this.jiveInstanceEventListeners = jiveInstanceEventListeners;
+    } // end get/setJiveInstanceEventListeners
 
     public void publishEvent(JiveInstanceEvent event) {
         if (jiveInstanceEventListeners != null ) {

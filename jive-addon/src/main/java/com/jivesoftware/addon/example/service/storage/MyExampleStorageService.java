@@ -24,6 +24,7 @@ import com.jivesoftware.addon.example.service.storage.action.StorageUnregisterAc
 import com.jivesoftware.sdk.service.filter.JiveSignatureValidation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Singleton;
 import javax.ws.rs.*;
@@ -34,6 +35,7 @@ import javax.ws.rs.core.Response;
 /**
  * Created by rrutan on 2/24/14.
  */
+@Component
 @Path("/storage")
 @Singleton
 public class MyExampleStorageService {

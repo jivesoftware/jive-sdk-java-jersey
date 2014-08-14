@@ -18,10 +18,9 @@
 
 package com.jivesoftware.sdk.client;
 
-import com.jivesoftware.sdk.client.oauth.OAuthCredentials;
-import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.client.AsyncInvoker;
@@ -38,6 +37,7 @@ import java.util.concurrent.Future;
 /**
  * Created by rrutan on 2/8/14.
  */
+@Component
 public class JiveAPIClient extends BaseJiveClient {
     private static final Logger log = LoggerFactory.getLogger(JiveAPIClient.class);
 

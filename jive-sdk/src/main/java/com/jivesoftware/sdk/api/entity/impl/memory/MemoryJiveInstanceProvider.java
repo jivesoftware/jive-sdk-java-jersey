@@ -21,10 +21,11 @@ package com.jivesoftware.sdk.api.entity.impl.memory;
 import com.google.common.collect.Maps;
 import com.jivesoftware.sdk.api.entity.JiveInstance;
 import com.jivesoftware.sdk.api.entity.JiveInstanceProvider;
+import com.jivesoftware.sdk.event.JiveInstanceEvent;
+import com.jivesoftware.sdk.event.JiveInstanceEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Singleton;
 import java.util.Map;
@@ -32,8 +33,9 @@ import java.util.Map;
 /**
  * Created by rrutan on 2/3/14.
  */
+@Component
 @Singleton
-public class MemoryJiveInstanceProvider implements JiveInstanceProvider {
+public class MemoryJiveInstanceProvider implements JiveInstanceProvider, JiveInstanceEventListener {
     private static final Logger log = LoggerFactory.getLogger(MemoryJiveInstanceProvider.class);
 
     private Map<String,JiveInstance> memoryJiveInstanceStore;
@@ -42,6 +44,31 @@ public class MemoryJiveInstanceProvider implements JiveInstanceProvider {
         if (log.isTraceEnabled()) { log.trace("constructor called..."); }
         memoryJiveInstanceStore = Maps.newConcurrentMap();
     } // end constructor
+
+    @Override
+    public boolean accepts(JiveInstanceEvent event) {
+        boolean accept = (JiveInstanceEvent.Type.Unregister.equals(event.getType()) &&
+                          JiveInstanceEvent.Type.RegisterSuccess.equals(event.getType()));
+        if (log.isTraceEnabled()) { log.trace("accepts event["+event.getType()+"] ..."); }
+        return accept;
+    } // end accepts
+
+    @Override
+    public void process(JiveInstanceEvent event) throws JiveInstanceEventException {
+        try {
+            if (JiveInstanceEvent.Type.RegisterSuccess.equals(event.getType())) {
+                update((JiveInstance) event.getContext());
+                if (log.isDebugEnabled()) { log.debug("Successfully Saved jiveInstance!"); }
+            } else if (JiveInstanceEvent.Type.Unregister.equals(event.getType())) {
+                remove((JiveInstance)event.getContext());
+                if (log.isDebugEnabled()) { log.debug("Successfully Removed jiveInstance!"); }
+            } else {
+                if (log.isDebugEnabled()) { log.debug("Unsupported Event, not Expected"); }
+            } // end if
+        } catch (JiveInstanceProvider.JiveInstanceProviderException jipe) {
+            log.error("Unable to update jiveInstanceProvider",jipe);
+        } // end try/catch
+    } // end process
 
     @Override
     public void init() throws JiveInstanceProviderException {

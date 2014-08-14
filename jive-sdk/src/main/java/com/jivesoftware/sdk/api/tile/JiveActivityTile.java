@@ -19,9 +19,11 @@
 package com.jivesoftware.sdk.api.tile;
 
 import com.jivesoftware.sdk.api.entity.TileInstance;
-import com.jivesoftware.sdk.api.tile.data.*;
+import com.jivesoftware.sdk.api.tile.data.ActivityCommentTile;
+import com.jivesoftware.sdk.api.tile.data.ActivityEntry;
+import com.jivesoftware.sdk.api.tile.data.ActivityPushTile;
+import com.jivesoftware.sdk.api.tile.data.ActivityTile;
 import com.jivesoftware.sdk.client.JiveClientException;
-import com.jivesoftware.sdk.client.JiveTileClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -22,9 +22,9 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:util="http://www.springframework.org/schema/util"
 	   xsi:schemaLocation="
-http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-http://www.springframework.org/schema/context   http://www.springframework.org/schema/context/spring-context-4.0.xsd
-http://www.springframework.org/schema/util      http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+http://www.springframework.org/schema/beans     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context   http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/util      http://www.springframework.org/schema/util/spring-util-3.0.xsd">
 
     <import resource="classpath:spring-jive-sdk-config.xml" />
 
@@ -40,6 +40,9 @@ http://www.springframework.org/schema/util      http://www.springframework.org/s
     <bean id="exampleTableTile" class="com.jivesoftware.addon.example.tile.MyExampleTableTile" scope="singleton" />
 
     <util:list id="tileInstanceEventListeners" list-class="java.util.ArrayList" value-type="com.jivesoftware.sdk.event.TileInstanceEventListener">
+        <!-- MUST BE FIRST IN CURRENT IMPLEMENTATION -->
+        <ref bean="tileInstanceProvider" />
+        <!-- LIST REMAINING LISTENERS, EVENTS FIRED SERIALLY, IN CURRENT IMPLEMENTATION -->
         <ref bean="exampleActivityTile" />
         <ref bean="exampleCalendarTile" />
         <ref bean="exampleGalleryTile" />
@@ -48,15 +51,37 @@ http://www.springframework.org/schema/util      http://www.springframework.org/s
         <ref bean="exampleTableTile" />
     </util:list>
 
+    <util:list id="jiveInstanceEventListeners" list-class="java.util.ArrayList" value-type="com.jivesoftware.sdk.event.JiveInstanceEventListener">
+        <!-- MUST BE FIRST IN CURRENT IMPLEMENTATION -->
+        <ref bean="jiveInstanceProvider" />
+        <!-- LIST REMAINING LISTENERS, EVENTS FIRED SERIALLY, IN CURRENT IMPLEMENTATION -->
+    </util:list>
+
+    <util:list id="oauthEventListeners" list-class="java.util.ArrayList" value-type="com.jivesoftware.sdk.event.OAuthEventListener" />
+
     <!-- CONFIGURE WHICH PROVIDERS YOU WANT TO USE -->
     <bean id="healthStatusProvider" parent="memoryHealthStatusProvider" />
     <bean id="jiveInstanceProvider" parent="memoryJiveInstanceProvider" />
     <bean id="storageInstanceProvider" parent="memoryStorageInstanceProvider" />
     <bean id="tileInstanceProvider" parent="memoryTileInstanceProvider" />
 
+    <bean id="tileInstanceEventPublisher" class="com.jivesoftware.sdk.event.TileInstanceEventPublisher" scope="singleton">
+        <property name="tileInstanceEventListeners" ref="tileInstanceEventListeners" />
+    </bean>
+
+    <bean id="jiveInstanceEventPublisher" class="com.jivesoftware.sdk.event.JiveInstanceEventPublisher" scope="singleton">
+        <property name="jiveInstanceEventListeners" ref="jiveInstanceEventListeners" />
+    </bean>
+
+    <bean id="oauthEventPublisher" class="com.jivesoftware.sdk.event.OAuthEventPublisher" scope="singleton">
+        <property name="oauthEventListeners" ref="oauthEventListeners" />
+    </bean>
+
+    <!--
     <bean id="jiveAnalyticsClient" class="com.jivesoftware.sdk.client.JiveAnalyticsClient" scope="singleton" />
     <bean id="jiveAPIClient" class="com.jivesoftware.sdk.client.JiveAPIClient" scope="singleton" />
     <bean id="jiveOAuthClient" class="com.jivesoftware.sdk.client.oauth.JiveOAuthClient" scope="singleton" />
     <bean id="jiveTileClient" class="com.jivesoftware.sdk.client.JiveTileClient" scope="singleton" />
+    -->
 
 </beans>

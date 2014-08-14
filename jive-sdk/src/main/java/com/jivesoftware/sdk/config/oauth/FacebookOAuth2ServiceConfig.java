@@ -21,6 +21,7 @@ package com.jivesoftware.sdk.config.oauth;
 import com.jivesoftware.sdk.config.BaseAddOnConfig;
 import com.jivesoftware.sdk.service.oauth.facebook.FacebookOAuth2Service;
 import com.jivesoftware.sdk.utils.JiveSDKUtils;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Singleton;
 import javax.ws.rs.ext.Provider;
@@ -29,6 +30,7 @@ import javax.ws.rs.ext.Provider;
  * Created by rrutan on 2/6/14.
  */
     @Singleton
+    @Component
     @Provider
     public class FacebookOAuth2ServiceConfig extends BaseAddOnConfig {
 
