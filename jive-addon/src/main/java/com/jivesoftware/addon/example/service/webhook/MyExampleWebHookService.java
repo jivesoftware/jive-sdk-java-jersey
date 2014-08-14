@@ -16,19 +16,16 @@
  *
  */
 
-package com.jivesoftware.addon.example;
-
-import com.jivesoftware.sdk.JiveAddOnApplication;
+package com.jivesoftware.addon.example.service.webhook;
 
 import javax.inject.Singleton;
-import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.Path;
 
+/**
+ * Created by rrutan on 2/24/14.
+ */
+@Path("/webhooks")
 @Singleton
-@ApplicationPath("example")
-public class MyExampleAddOn extends JiveAddOnApplication {
+public class MyExampleWebHookService {
 
-    /****************************************************************
-     *  see: applicationContext.xml for Configuration Instructions
-     ****************************************************************/
-
-} // end class
+}

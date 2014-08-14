@@ -26,6 +26,8 @@ import com.jivesoftware.sdk.utils.JiveSDKUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.annotation.Nonnull;
 import javax.crypto.Mac;
@@ -70,12 +72,8 @@ public class JiveAuthorizationValidator {
        new WebApplicationException(
            Response.status(Response.Status.UNAUTHORIZED).build());
 
-    // ambiguous reference when multiple implementations exist
-    //@Inject
-    //private JiveInstanceProvider jiveInstanceProvider;
-
-    @Inject
-    private JiveAddOnApplication jiveAddOnApplication;
+    @Autowired @Qualifier ("jiveInstanceProvider")
+    private JiveInstanceProvider jiveInstanceProvider;
 
     public void authenticate(ContainerRequestContext request) {
         String authorization = request.getHeaderString(HttpHeaders.AUTHORIZATION);
@@ -114,7 +112,7 @@ public class JiveAuthorizationValidator {
         } // end if
 
         //JiveInstance jiveInstance = jiveInstanceProvider.getInstanceByTenantId(tenantId);
-        JiveInstance jiveInstance = jiveAddOnApplication.getJiveInstanceProvider().getInstanceByTenantId(tenantId);
+        JiveInstance jiveInstance = jiveInstanceProvider.getInstanceByTenantId(tenantId);
 
         if (jiveInstance == null) {
             log.error("Jive authorization failed due to invalid tenant ID: " + tenantId);

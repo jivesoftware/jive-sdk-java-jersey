@@ -18,21 +18,26 @@
 
 package com.jivesoftware.sdk.client.oauth;
 
-import com.jivesoftware.sdk.JiveAddOnApplication;
-import com.jivesoftware.sdk.api.entity.*;
+import com.jivesoftware.sdk.api.entity.JiveInstance;
+import com.jivesoftware.sdk.api.entity.JiveInstanceProvider;
+import com.jivesoftware.sdk.api.entity.TileInstance;
+import com.jivesoftware.sdk.api.entity.TileInstanceProvider;
 import com.jivesoftware.sdk.client.BaseJiveClient;
-import com.jivesoftware.sdk.client.filter.DebugClientResponseFilter;
 import com.jivesoftware.sdk.utils.JiveSDKUtils;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
-import org.glassfish.jersey.jackson.JacksonFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.BadRequestException;
-import javax.ws.rs.client.*;
-import javax.ws.rs.core.*;
+import javax.ws.rs.client.AsyncInvoker;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Form;
+import javax.ws.rs.core.MediaType;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -43,11 +48,11 @@ import java.util.concurrent.Future;
 public class JiveOAuthClient extends BaseJiveClient {
     private static final Logger log = LoggerFactory.getLogger(JiveOAuthClient.class);
 
-    @Context
-    Application application;
+    @Autowired @Qualifier("jiveInstanceProvider")
+    private JiveInstanceProvider jiveInstanceProvider;
 
-    @Inject
-    private JiveAddOnApplication jiveAddOnApplication;
+    @Autowired @Qualifier("tileInstanceProvider")
+    private TileInstanceProvider tileInstanceProvider;
 
     public JiveOAuthClient() {
         if (log.isTraceEnabled()) { log.trace("constructor called..."); }
@@ -135,8 +140,8 @@ public class JiveOAuthClient extends BaseJiveClient {
     } // requestAccessTokens
 
     public OAuthCredentials refreshTileInstanceAccessToken(TileInstance tile) throws BadRequestException {
-        JiveInstance jiveInstance = jiveAddOnApplication.getJiveInstanceProvider().getInstanceByTenantId(tile.getTenantID());
-        TileInstance tileInstance = jiveAddOnApplication.getTileInstanceProvider().getTileInstanceByPushURL(tile.getJivePushUrl());
+        JiveInstance jiveInstance = jiveInstanceProvider.getInstanceByTenantId(tile.getTenantID());
+        TileInstance tileInstance = tileInstanceProvider.getTileInstanceByPushURL(tile.getJivePushUrl());
 
         Client client = buildClient();
         client.register(HttpAuthenticationFeature.basic(jiveInstance.getClientId(), jiveInstance.getClientSecret()));
@@ -154,8 +159,8 @@ public class JiveOAuthClient extends BaseJiveClient {
     }
 
     public OAuthCredentials getTileInstanceAccessToken(TileInstance tile) throws BadRequestException {
-        JiveInstance jiveInstance = jiveAddOnApplication.getJiveInstanceProvider().getInstanceByTenantId(tile.getTenantID());
-        TileInstance tileInstance = jiveAddOnApplication.getTileInstanceProvider().getTileInstanceByPushURL(tile.getJivePushUrl());
+        JiveInstance jiveInstance = jiveInstanceProvider.getInstanceByTenantId(tile.getTenantID());
+        TileInstance tileInstance = tileInstanceProvider.getTileInstanceByPushURL(tile.getJivePushUrl());
 
         Client client = buildClient();
         client.register(HttpAuthenticationFeature.basic(jiveInstance.getClientId(), jiveInstance.getClientSecret()));

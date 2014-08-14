@@ -29,6 +29,7 @@ import org.glassfish.jersey.client.oauth1.OAuth1AuthorizationFlow;
 import org.glassfish.jersey.client.oauth1.OAuth1ClientSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -53,7 +54,7 @@ public class TwitterOAuth1Service extends BaseOAuthService {
     private static final Logger log = LoggerFactory.getLogger(TwitterOAuth1Service.class);
     public static final String SERVICE_NAME = "twitter";
 
-    @Inject
+    @Autowired
     private TwitterOAuth1ServiceConfig serviceConfig;
 
     @Override

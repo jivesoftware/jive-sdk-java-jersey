@@ -23,6 +23,8 @@ import com.jivesoftware.sdk.service.BaseAddOnService;
 import com.jivesoftware.sdk.service.filter.JiveSignatureValidation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -44,7 +46,7 @@ import javax.ws.rs.core.UriInfo;
 public class HealthService extends BaseAddOnService {
     private static final Logger log = LoggerFactory.getLogger(HealthService.class);
 
-    @Inject
+    @Autowired @Qualifier("healthStatusProvider")
     private HealthStatusProvider healthStatusProvider;
 
     @GET

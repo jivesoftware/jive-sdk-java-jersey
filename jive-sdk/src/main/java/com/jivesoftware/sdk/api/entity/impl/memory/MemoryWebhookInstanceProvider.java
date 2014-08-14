@@ -19,56 +19,52 @@
 package com.jivesoftware.sdk.api.entity.impl.memory;
 
 import com.google.common.collect.Maps;
-import com.jivesoftware.sdk.api.entity.JiveInstance;
-import com.jivesoftware.sdk.api.entity.JiveInstanceProvider;
+import com.jivesoftware.sdk.api.entity.StorageInstance;
+import com.jivesoftware.sdk.api.entity.StorageInstanceProvider;
+import com.jivesoftware.sdk.api.entity.Webhook;
+import com.jivesoftware.sdk.api.entity.WebhookInstanceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import javax.inject.Singleton;
 import java.util.Map;
 
 /**
- * Created by rrutan on 2/3/14.
+ * Created by rrutan on 8/14/14.
  */
-@Singleton
-public class MemoryJiveInstanceProvider implements JiveInstanceProvider {
-    private static final Logger log = LoggerFactory.getLogger(MemoryJiveInstanceProvider.class);
+public class MemoryWebhookInstanceProvider implements WebhookInstanceProvider {
+    private static final Logger log = LoggerFactory.getLogger(MemoryWebhookInstanceProvider.class);
 
-    private Map<String,JiveInstance> memoryJiveInstanceStore;
+    private Map<String,Webhook> memoryStorageInstanceStore;
 
-    public MemoryJiveInstanceProvider() {
+    public MemoryWebhookInstanceProvider() {
         if (log.isTraceEnabled()) { log.trace("constructor called..."); }
-        memoryJiveInstanceStore = Maps.newConcurrentMap();
+        memoryStorageInstanceStore = Maps.newConcurrentMap();
     } // end constructor
 
     @Override
-    public void init() throws JiveInstanceProviderException {
+    public void init() throws WebhookInstanceProviderException {
         if (log.isTraceEnabled()) { log.trace("init called..."); }
     } // end init
 
-    public void addInstance(JiveInstance jiveInstance) {
-        if (log.isDebugEnabled()) { log.debug("Adding Instance ["+jiveInstance.getTenantId()+"] ..."); }
-        memoryJiveInstanceStore.put(jiveInstance.getTenantId(), jiveInstance);
-    } // end addInstance
+    @Override
+    public Webhook getWebhookByID(String id) {
+        if (log.isTraceEnabled()) { log.trace("getWebhookByID called..."); }
+        //TODO
+        return null;
+    } // end getWebhookByID
 
     @Override
-    public JiveInstance getInstanceByTenantId(String tenantId) {
-        if (log.isTraceEnabled()) { log.trace("getInstanceByTenantId called..."); }
-        return memoryJiveInstanceStore.get(tenantId);
-    } // end getInstanceByTenantId
-
-    @Override
-    public void remove(JiveInstance jiveInstance) throws JiveInstanceProviderException {
+    public void remove(Webhook webhook) throws WebhookInstanceProviderException {
         if (log.isTraceEnabled()) { log.trace("remove called..."); }
-        memoryJiveInstanceStore.remove(jiveInstance.getTenantId());
+        //TODO
     } // end remove
 
     @Override
-    public void update(JiveInstance jiveInstance) throws JiveInstanceProviderException {
+    public void update(Webhook webhook) throws WebhookInstanceProviderException {
         if (log.isTraceEnabled()) { log.trace("update called..."); }
-        memoryJiveInstanceStore.put(jiveInstance.getTenantId(), jiveInstance);
+        //TODO
     } // end update
 
     @Override

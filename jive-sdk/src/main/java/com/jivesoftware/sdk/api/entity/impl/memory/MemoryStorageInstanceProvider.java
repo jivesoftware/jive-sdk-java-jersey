@@ -18,9 +18,15 @@
 
 package com.jivesoftware.sdk.api.entity.impl.memory;
 
+import com.google.common.collect.Maps;
+import com.jivesoftware.sdk.api.entity.StorageInstance;
 import com.jivesoftware.sdk.api.entity.StorageInstanceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
+import java.util.Map;
 
 /**
  * Created by rrutan on 2/6/14.
@@ -28,18 +34,12 @@ import org.slf4j.LoggerFactory;
 public class MemoryStorageInstanceProvider implements StorageInstanceProvider {
     private static final Logger log = LoggerFactory.getLogger(MemoryStorageInstanceProvider.class);
 
-    private static MemoryStorageInstanceProvider instance = null;
+    private Map<String,StorageInstance> memoryStorageInstanceStore;
 
-    private MemoryStorageInstanceProvider() {
+    public MemoryStorageInstanceProvider() {
         if (log.isTraceEnabled()) { log.trace("constructor called..."); }
+        memoryStorageInstanceStore = Maps.newConcurrentMap();
     } // end constructor
-
-    public static MemoryStorageInstanceProvider getInstance() {
-        if (instance == null) {
-            instance = new MemoryStorageInstanceProvider();
-        }// end if
-        return instance;
-    } // end getInstance
 
     @Override
     public void init() throws StorageInstanceProviderException {

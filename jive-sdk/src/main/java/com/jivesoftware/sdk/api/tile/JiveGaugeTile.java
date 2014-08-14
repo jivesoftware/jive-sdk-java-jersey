@@ -34,13 +34,13 @@ public abstract class JiveGaugeTile extends BaseJiveTile implements JiveTile<Gau
     @Override
     public GaugeTile fetchData(TileInstance tileInstance) throws JiveClientException {
         if (log.isDebugEnabled()) { log.debug("fetchData["+ tileInstance.getJivePushUrl()+"] called"); }
-        return (GaugeTile)getTileClient().fetchData(tileInstance, GaugeTile.class);
+        return (GaugeTile)jiveTileClient.fetchData(tileInstance, GaugeTile.class);
     } // end fetchData
 
     @Override
     public void pushData(TileInstance tileInstance, GaugeTile data) throws JiveClientException {
         if (log.isDebugEnabled()) { log.debug("pushData["+ tileInstance.getJivePushUrl()+"] called"); }
-        getTileClient().pushData(tileInstance,data);
+        jiveTileClient.pushData(tileInstance,data);
     } // end pushData
 
 } // end class

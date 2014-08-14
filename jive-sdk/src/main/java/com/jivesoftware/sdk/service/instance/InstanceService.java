@@ -32,6 +32,8 @@ import com.jivesoftware.sdk.service.instance.action.InstanceRegisterAction;
 import com.jivesoftware.sdk.service.instance.action.InstanceUnregisterAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -53,12 +55,8 @@ import java.util.Map;
 public class InstanceService extends BaseAddOnService {
     private static final Logger log = LoggerFactory.getLogger(InstanceService.class);
 
-    // ambiguous reference when multiple implementations exist
-    //@Inject
-    //private JiveInstanceProvider jiveInstanceProvider;
-
-    @Inject
-    private JiveAddOnApplication jiveAddOnApplication;
+    @Autowired @Qualifier("jiveInstanceProvider")
+    private JiveInstanceProvider jiveInstanceProvider;
 
     @Inject @InstanceRegisterSuccess
     Event<JiveInstanceEvent> jiveInstanceRegisterSuccess;
@@ -68,10 +66,6 @@ public class InstanceService extends BaseAddOnService {
 
     @Inject @InstanceUnregister
     Event<JiveInstanceEvent> jiveInstanceUnregister;
-
-    private JiveInstanceProvider getJiveInstanceProvider() {
-        return jiveAddOnApplication.getJiveInstanceProvider();
-    }
 
     private void fireJiveInstanceEvent(JiveInstanceEvent.Type type, JiveInstance context, Throwable error) {
         if (log.isTraceEnabled()) { log.trace("fireJiveInstanceEvent called..."); }
@@ -98,8 +92,7 @@ public class InstanceService extends BaseAddOnService {
         JiveInstance jiveInstance = new JiveInstance(instanceRegisterAction);
 
         try {
-            //jiveInstanceProvider.update(jiveInstance);
-            getJiveInstanceProvider().update(jiveInstance);
+            jiveInstanceProvider.update(jiveInstance);
             if (log.isDebugEnabled()) { log.debug("Successfully Saved jiveInstance!"); }
         } catch (JiveInstanceProvider.JiveInstanceProviderException jipe) {
             log.error("Unable to update jiveInstanceProvider");
@@ -117,8 +110,7 @@ public class InstanceService extends BaseAddOnService {
     @JiveSignatureValidation
     public Response unregister(@Context UriInfo uriInfo, @Context ContainerRequestContext containerRequestContext, InstanceUnregisterAction instanceUnregisterAction) {
         if (log.isTraceEnabled()) { log.trace("unregister called..."); }
-        //JiveInstance jiveInstance = jiveInstanceProvider.getInstanceByTenantId(instanceUnregisterAction.getTenantId());
-        JiveInstance jiveInstance = getJiveInstanceProvider().getInstanceByTenantId(instanceUnregisterAction.getTenantId());
+        JiveInstance jiveInstance = jiveInstanceProvider.getInstanceByTenantId(instanceUnregisterAction.getTenantId());
 
         if (jiveInstance != null ) {
             fireJiveInstanceEvent(JiveInstanceEvent.Type.Unregister, jiveInstance,null);

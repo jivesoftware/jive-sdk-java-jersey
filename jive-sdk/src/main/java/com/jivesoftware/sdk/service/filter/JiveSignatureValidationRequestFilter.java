@@ -23,8 +23,8 @@ import com.jivesoftware.sdk.service.instance.action.InstanceRegisterAction;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class JiveSignatureValidationRequestFilter extends BaseContainerRequestFi
 
     private ObjectMapper objectMapper = null;
 
-    @Inject
+    @Autowired
     private JiveSignatureValidator jiveSignatureValidator;
 
     @Override

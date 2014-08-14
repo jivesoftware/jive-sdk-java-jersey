@@ -30,6 +30,7 @@ import org.glassfish.jersey.client.oauth2.OAuth2CodeGrantFlow;
 import org.glassfish.jersey.client.oauth2.TokenResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -54,7 +55,7 @@ public class GoogleOAuth2Service extends BaseOAuthService {
     private static final Logger log = LoggerFactory.getLogger(GoogleOAuth2Service.class);
     public static final String SERVICE_NAME = "google";
 
-    @Inject
+    @Autowired
     private GoogleOAuth2ServiceConfig serviceConfig;
 
     @Override

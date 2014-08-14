@@ -33,18 +33,9 @@ import java.util.Date;
 public class MemoryHealthStatusProvider implements HealthStatusProvider {
     private static final Logger log = LoggerFactory.getLogger(MemoryHealthStatusProvider.class);
 
-    private static MemoryHealthStatusProvider instance = null;
-
-    private MemoryHealthStatusProvider() {
+    public MemoryHealthStatusProvider() {
         if (log.isTraceEnabled()) { log.trace("constructor called..."); }
     } // end constructor
-
-    public static MemoryHealthStatusProvider getInstance() {
-        if (instance == null) {
-            instance = new MemoryHealthStatusProvider();
-        }// end if
-        return instance;
-    } // end getInstance
 
     @Override
     public void init() throws HealthStatusProviderException {

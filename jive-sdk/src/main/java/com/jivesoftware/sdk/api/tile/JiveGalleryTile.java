@@ -35,13 +35,13 @@ public abstract class JiveGalleryTile extends BaseJiveTile implements JiveTile<G
     @Override
     public GalleryTile fetchData(TileInstance tileInstance) throws JiveClientException {
         if (log.isDebugEnabled()) { log.debug("fetchData["+ tileInstance.getJivePushUrl()+"] called"); }
-        return (GalleryTile)getTileClient().fetchData(tileInstance, GalleryTile.class);
+        return (GalleryTile)jiveTileClient.fetchData(tileInstance, GalleryTile.class);
     } // end fetchData
 
     @Override
     public void pushData(TileInstance tileInstance, GalleryTile data) throws JiveClientException {
         if (log.isDebugEnabled()) { log.debug("pushData["+ tileInstance.getJivePushUrl()+"] called"); }
-        getTileClient().pushData(tileInstance,data);
+        jiveTileClient.pushData(tileInstance,data);
     } // end pushData
 
 } // end class

@@ -35,13 +35,13 @@ public abstract class JiveTableTile extends BaseJiveTile implements JiveTile<Tab
     @Override
     public TableTile fetchData(TileInstance tileInstance) throws JiveClientException {
         if (log.isDebugEnabled()) { log.debug("fetchData["+ tileInstance.getJivePushUrl()+"] called"); }
-        return (TableTile)getTileClient().fetchData(tileInstance, TableTile.class);
+        return (TableTile)jiveTileClient.fetchData(tileInstance, TableTile.class);
     } // end fetchData
 
     @Override
     public void pushData(TileInstance tileInstance, TableTile data) throws JiveClientException {
         if (log.isDebugEnabled()) { log.debug("pushData["+ tileInstance.getJivePushUrl()+"] called"); }
-        getTileClient().pushData(tileInstance,data);
+        jiveTileClient.pushData(tileInstance,data);
     } // end pushData
 
 }

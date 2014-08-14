@@ -24,6 +24,7 @@ import com.jivesoftware.sdk.api.tile.data.ExtendedProps;
 import com.jivesoftware.sdk.client.JiveTileClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by rrutan on 2/9/14.
@@ -31,18 +32,12 @@ import org.slf4j.LoggerFactory;
 public abstract class BaseJiveTile {
     private static final Logger log = LoggerFactory.getLogger(BaseJiveTile.class);
 
-
-    /******************************
-     * NECESSARY AS CDI INJECTION CAN ONLY BE DONE WITH CONCRETE CLASSES, HAVING THEM PASS THE REF BACK THROGH THIS
-     * VARIABLE
-     *
-     * @return  Reference to the TileClient Injected in Tile Implementation
-     ******************************/
-    protected abstract JiveTileClient getTileClient();
+    @Autowired
+    protected JiveTileClient jiveTileClient;
 
     public ExtendedProps fetchExtendedProperties(TileInstance tileInstance) {
         if (log.isTraceEnabled()) { log.trace("fetchExtendedProperties called ..."); }
-        JiveTileClient client = getTileClient();
+//        JiveTileClient client = getTileClient();
 
         //TODO: IMPLEMENT
         if (log.isWarnEnabled()) { log.warn("Unimplemented!");  }
@@ -52,7 +47,7 @@ public abstract class BaseJiveTile {
 
     public void pushExtendedProperties(TileInstance tileInstance,ExtendedProps extendedProps) {
         if (log.isTraceEnabled()) { log.trace("pushExtendedProperties called ..."); }
-        JiveTileClient client = getTileClient();
+//        JiveTileClient client = getTileClient();
 
         //TODO: IMPLEMENT
         if (log.isWarnEnabled()) { log.warn("Unimplemented!"); }
@@ -62,7 +57,7 @@ public abstract class BaseJiveTile {
 
     public void removeExtendedProperties(TileInstance tileInstance) {
         if (log.isTraceEnabled()) { log.trace("removeExtendedProperties called ..."); }
-        JiveTileClient client = getTileClient();
+//        JiveTileClient client = getTileClient();
 
         //TODO: IMPLEMENT
         if (log.isWarnEnabled()) { log.warn("Unimplemented!");  }

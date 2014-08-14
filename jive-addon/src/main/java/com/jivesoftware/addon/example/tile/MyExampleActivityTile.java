@@ -22,56 +22,56 @@ import com.jivesoftware.sdk.api.entity.TileInstance;
 import com.jivesoftware.sdk.api.tile.JiveActivityTile;
 import com.jivesoftware.sdk.api.tile.data.*;
 import com.jivesoftware.sdk.client.JiveClientException;
-import com.jivesoftware.sdk.client.JiveTileClient;
 import com.jivesoftware.sdk.event.TileInstanceEvent;
-import com.jivesoftware.sdk.event.types.tile.TileRegisterSuccess;
-import com.jivesoftware.sdk.event.types.tile.TileUnregister;
+import com.jivesoftware.sdk.event.TileInstanceEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
 import java.util.TimerTask;
 
 /**
  * Created by rrutan on 2/9/14.
  */
-public class MyExampleActivityTile extends JiveActivityTile {
+public class MyExampleActivityTile extends JiveActivityTile implements TileInstanceEventListener {
     private static final Logger log = LoggerFactory.getLogger(MyExampleGalleryTile.class);
 
     public static final String NAME = "jersey-example-activity";
-
-    @Inject
-    private JiveTileClient tileClient = null;
 
     @Override
     public String getName() {   return NAME; }
 
     @Override
-    public JiveTileClient getTileClient() { return tileClient; }
+    public boolean accepts(TileInstanceEvent event) {
+        boolean accept = (event.getTileName().equals(event) &&
+                (
+                        TileInstanceEvent.Type.RegisterSuccess.equals(event.getType()) ||
+                        TileInstanceEvent.Type.Unregister.equals(event.getType())
+                )
+        );
+        if (log.isTraceEnabled()) { log.trace("accepts[name="+event.getTileName()+"], type=["+event.getType()+"] => "+accept); }
+        return accept;
+    } // end accepts
 
-    public void onRegisterSuccessEvent(@Observes @TileRegisterSuccess TileInstanceEvent event) {
-        if (!event.getTileName().equals(getName())) {
-            if (log.isTraceEnabled()) { log.trace("onRegisterSuccessEvent[name="+event.getTileName()+"], ignoring ..."); }
-            return;
+    @Override
+    public void process(TileInstanceEvent event) throws TileInstanceEventException {
+        if (log.isDebugEnabled()) { log.debug("process[name=" + getName() + "] ...");   }
+        if (event.getType().equals(TileInstanceEvent.Type.RegisterSuccess)) {
+            onRegisterEvent(event);
+        } else if (event.getType().equals(TileInstanceEvent.Type.Unregister)) {
+            onUnregisterEvent(event);
         } // end if
+    } // end process
 
-        if (log.isDebugEnabled()) { log.debug("onRegisterSuccessEvent[name="+getName()+"] ..."); }
+    private void onRegisterEvent(TileInstanceEvent event) {
         TileInstance tileInstance = (TileInstance)event.getContext();
 
         new Thread(new TileTimerTask(tileInstance)).start();
-    } // end onReadyEvent
+    } // end onRegisterEvent
 
-    public void onUnregisterEvent(@Observes @TileUnregister TileInstanceEvent event) {
-        if (!event.getTileName().equals(getName())) {
-            if (log.isTraceEnabled()) { log.trace("onUnregisterEvent[name="+event.getTileName()+"], ignoring ..."); }
-            return;
-        } // end if
-
+    private void onUnregisterEvent(TileInstanceEvent event) {
         if (log.isDebugEnabled()) { log.debug("onUnregisterEvent[name="+getName()+"] ..."); }
 
     } // end onUnregisterEvent
-
 
     class TileTimerTask extends TimerTask {
 

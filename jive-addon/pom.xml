@@ -21,14 +21,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>jive-sdk-java-jersey</groupId>
     <artifactId>jive-sdk-java-jersey-webapp</artifactId>
-    <version>1.0.1.0-SNAPSHOT</version>
+    <version>1.0.5.0-SNAPSHOT</version>
     <name>Jive SDK - Java - Jersey - Jive Add-On</name>
     <packaging>war</packaging>
 
     <parent>
         <groupId>com.jivesoftware.sdk</groupId>
         <artifactId>jive-sdk-java-jersey</artifactId>
-        <version>1.0.1.0-SNAPSHOT</version>
+        <version>1.0.5.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -305,10 +305,10 @@
                     <webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>
                     <webAppConfig>
                         <!-- <overrideDescriptor>src/main/webapp/WEB-INF/web.xml</overrideDescriptor> -->
-                        <jettyEnvXml>src/main/webapp/WEB-INF/jetty-env.xml</jettyEnvXml>
+                        <!-- <jettyEnvXml>src/main/webapp/WEB-INF/jetty-env.xml</jettyEnvXml> -->
                         <contextPath>/</contextPath>
                     </webAppConfig>
-                    <contextXml>src/main/webapp/WEB-INF/jetty-context.xml</contextXml>
+                    <!-- <contextXml>src/main/webapp/WEB-INF/jetty-context.xml</contextXml> -->
                     <httpConnector>
                         <name>${clientUrl}</name>
                         <port>${port}</port>
@@ -316,19 +316,25 @@
                     </httpConnector>
                 </configuration>
             </plugin>
+            <!-- WORK IN PROGRESS FOR EMBEDDED TOMCAT -->
+            <plugin>
+   	          <groupId>org.apache.tomcat.maven</groupId>
+   	          <artifactId>tomcat7-maven-plugin</artifactId>
+   	          <version>2.2</version>
+   	        </plugin>
         </plugins>
     </build>
     <dependencies>
         <dependency>
             <groupId>com.jivesoftware.sdk</groupId>
             <artifactId>jive-sdk-java-jersey-api</artifactId>
-            <version>1.0.1.0-SNAPSHOT</version>
+            <version>1.0.5.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>com.jivesoftware.sdk</groupId>
             <artifactId>jive-sdk-java-jersey</artifactId>
-            <version>1.0.1.0-SNAPSHOT</version>
+            <version>1.0.5.0-SNAPSHOT</version>
             <type>pom</type>
         </dependency>
 
@@ -345,6 +351,16 @@
             <version>${jetty-version}</version>
             <scope>runtime</scope>
         </dependency>
+
+        <!-- LOOK INTO WHY TOMCAT ISNT STARTING -->
+        <!--
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-servlet-api</artifactId>
+            <version>7.0.47</version>
+            <scope>provided</scope>
+        </dependency>
+        -->
 
     </dependencies>
 </project>

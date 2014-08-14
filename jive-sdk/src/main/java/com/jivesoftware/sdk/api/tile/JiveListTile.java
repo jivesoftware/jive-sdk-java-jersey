@@ -33,13 +33,13 @@ public abstract class JiveListTile extends BaseJiveTile implements JiveTile<List
     @Override
     public ListTile fetchData(TileInstance tileInstance) throws JiveClientException {
         if (log.isDebugEnabled()) { log.debug("fetchData["+ tileInstance.getJivePushUrl()+"] called"); }
-        return (ListTile)getTileClient().fetchData(tileInstance, ListTile.class);
+        return (ListTile)jiveTileClient.fetchData(tileInstance, ListTile.class);
     } // end fetchData
 
     @Override
     public void pushData(TileInstance tileInstance, ListTile data) throws JiveClientException {
         if (log.isDebugEnabled()) { log.debug("pushData["+ tileInstance.getJivePushUrl()+"] called"); }
-        getTileClient().pushData(tileInstance,data);
+        jiveTileClient.pushData(tileInstance,data);
     } // end pushData
 
 }

@@ -18,69 +18,41 @@
 
 package com.jivesoftware.sdk.api.entity.impl.memory;
 
+import com.google.common.collect.Maps;
 import com.jivesoftware.sdk.api.entity.TileInstance;
 import com.jivesoftware.sdk.api.entity.TileInstanceProvider;
-import com.jivesoftware.sdk.event.JiveInstanceEvent;
-import com.jivesoftware.sdk.event.types.instance.InstanceUnregister;
+import com.jivesoftware.sdk.event.TileInstanceEvent;
+import com.jivesoftware.sdk.event.TileInstanceEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.event.Observes;
 import javax.inject.Singleton;
+import java.util.Map;
 
 /**
  * Created by rrutan on 2/3/14.
  */
 @Singleton
-public class MemoryTileInstanceProvider implements TileInstanceProvider {
+public class MemoryTileInstanceProvider implements TileInstanceProvider, TileInstanceEventListener {
     private static final Logger log = LoggerFactory.getLogger(MemoryTileInstanceProvider.class);
 
-    private static MemoryTileInstanceProvider instance = null;
+    private Map<String,TileInstance> memoryTileInstanceStore;
 
-    private MemoryTileInstanceProvider() {
+    public MemoryTileInstanceProvider() {
         if (log.isTraceEnabled()) { log.trace("constructor called..."); }
+        memoryTileInstanceStore = Maps.newConcurrentMap();
     } // end constructor
-
 
     @Override
     public void init() throws TileInstanceProviderException {
         if (log.isTraceEnabled()) { log.trace("init called..."); }
     } // end init
 
-    public static MemoryTileInstanceProvider getInstance() {
-        if (instance == null) {
-            instance = new MemoryTileInstanceProvider();
-        }// end if
-        return instance;
-    } // end getInstance
-
-//    @Inject @TileUnregister
-//    Event <TileInstanceEvent> tileInstanceUnregister;
-//
-//    @Inject @TileRegisterSuccess
-//    Event <TileInstanceEvent> tileInstanceRegisterSuccess;
-//
-//    @Inject @TileRegisterFailed
-//    Event <TileInstanceEvent> tileInstanceRegisterFailed;
-//
-//    private void fireTileInstanceEvent(TileInstanceEvent.Type type, TileInstance context) {
-//        if (log.isDebugEnabled()) { log.debug("Firing[TileInstanceEvent]["+type+"] ..."); }
-//        Map<String, Object> data = Maps.newHashMap();
-//        data.put(JiveInstanceEvent.CONTEXT, context);
-//
-//        TileInstanceEvent event = new TileInstanceEvent(type,context.getItemType(),data);
-//
-//        switch (type) {
-//            case RegisterSuccess :   { tileInstanceRegisterSuccess.fire(event); break; }
-//            case RegisterFailed :    { tileInstanceRegisterFailed.fire(event);  break; }
-//            case Unregister :        { tileInstanceUnregister.fire(event);      break; }
-//        } // end switch
-//    } // end fireTileInstanceEvent
 
     @Override
     public TileInstance getTileInstanceByPushURL(String url) {
         if (log.isDebugEnabled()) { log.debug("getTileInstanceByPushURL ["+url+"] ..."); }
-        return MemoryTileInstanceStore.getInstance().getMap().get(url);
+        return memoryTileInstanceStore.get(url);
     } // end getTileByPushURL
 
     @Override
@@ -92,7 +64,7 @@ public class MemoryTileInstanceProvider implements TileInstanceProvider {
         } // end if
 
         if (log.isDebugEnabled()) { log.debug("remove ["+ tileInstance.getJivePushUrl()+"] ..."); }
-        MemoryTileInstanceStore.getInstance().getMap().remove(tileInstance.getJivePushUrl());
+        memoryTileInstanceStore.remove(tileInstance.getJivePushUrl());
     } // end remove
 
     @Override
@@ -104,10 +76,18 @@ public class MemoryTileInstanceProvider implements TileInstanceProvider {
         } // end if
 
         if (log.isDebugEnabled()) { log.debug("update ["+ tileInstance.getJivePushUrl()+"] ..."); }
-        MemoryTileInstanceStore.getInstance().getMap().put(tileInstance.getJivePushUrl(),tileInstance);
+        memoryTileInstanceStore.put(tileInstance.getJivePushUrl(), tileInstance);
     } // end update
 
-    private void onJiveInstanceEvent(@Observes @InstanceUnregister JiveInstanceEvent event) {
+    @Override
+    public boolean accepts(TileInstanceEvent event) {
+        if (log.isTraceEnabled()) { log.trace("accepts event["+event.getTileName()+","+event.getType()+"] ..."); }
+        boolean accept = TileInstanceEvent.Type.Unregister.equals(event.getType());
+        return accept;
+    } // end accepts
+
+    @Override
+    public void process(TileInstanceEvent event) throws TileInstanceEventException {
          if (log.isDebugEnabled()) { log.debug("JiveInstanceEvent["+event.getType()+"] received ..."); }
 
          //TODO: thisProvider (list all entries with the same tenantID)
@@ -118,5 +98,6 @@ public class MemoryTileInstanceProvider implements TileInstanceProvider {
     public void dispose() {
         if (log.isTraceEnabled()) { log.trace("dispose called..."); }
     } // end dispose
+
 
 } // end class

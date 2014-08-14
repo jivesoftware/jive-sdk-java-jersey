@@ -18,30 +18,28 @@
 
 package com.jivesoftware.sdk.client;
 
-import com.google.common.collect.Maps;
-import com.jivesoftware.sdk.JiveAddOnApplication;
 import com.jivesoftware.sdk.api.entity.TileInstance;
 import com.jivesoftware.sdk.api.entity.TileInstanceProvider;
 import com.jivesoftware.sdk.api.tile.data.ActivityEntry;
-import com.jivesoftware.sdk.api.tile.data.ActivityObject;
 import com.jivesoftware.sdk.api.tile.data.ActivityPushTile;
-import com.jivesoftware.sdk.client.filter.DebugClientResponseFilter;
 import com.jivesoftware.sdk.client.oauth.JiveOAuthClient;
 import com.jivesoftware.sdk.utils.JiveSDKUtils;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.glassfish.jersey.jackson.JacksonFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.HttpMethod;
-import javax.ws.rs.client.*;
-import javax.ws.rs.core.*;
-import java.net.URI;
-import java.util.Map;
+import javax.ws.rs.client.AsyncInvoker;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -55,16 +53,11 @@ import java.util.concurrent.Future;
 public class JiveTileClient extends BaseJiveClient {
     private static final Logger log = LoggerFactory.getLogger(JiveTileClient.class);
 
-    @Context
-    Application application;
+    @Autowired @Qualifier("tileInstanceProvider")
+    private TileInstanceProvider tileInstanceProvider;
 
-    @Inject
-    private JiveAddOnApplication jiveAddOnApplication;
-
-    @Inject
+    @Autowired
     private JiveOAuthClient jiveOAuthClient;
-
-    private static JiveTileClient instance = null;
 
     public JiveTileClient() {
         if (log.isTraceEnabled()) { log.trace("constructor called..."); }
@@ -84,7 +77,7 @@ public class JiveTileClient extends BaseJiveClient {
         catch (TargetGoneException e) {
             log.info("Received 410 from data push request, assuming tile deleted in Jive and removing it, instance url: " + tileInstance.getJivePushUrl());
             try {
-                jiveAddOnApplication.getTileInstanceProvider().remove(tileInstance);
+                tileInstanceProvider.remove(tileInstance);
             }
             catch (TileInstanceProvider.TileInstanceProviderException pe) {
                 log.error("Failed to remove tile instance", pe);
@@ -152,7 +145,7 @@ public class JiveTileClient extends BaseJiveClient {
         catch (TargetGoneException e) {
             log.info("Received 410 from activity push request, assuming tile deleted in Jive and removing it, instance url: " + tileInstance.getJivePushUrl());
             try {
-                jiveAddOnApplication.getTileInstanceProvider().remove(tileInstance);
+                tileInstanceProvider.remove(tileInstance);
             }
             catch (TileInstanceProvider.TileInstanceProviderException pe) {
                 log.error("Failed to remove tile instance", pe);
@@ -232,7 +225,7 @@ public class JiveTileClient extends BaseJiveClient {
     private void refreshAccessTokens(TileInstance tileInstance) {
         tileInstance.setCredentials(jiveOAuthClient.refreshTileInstanceAccessToken(tileInstance));
         try {
-            jiveAddOnApplication.getTileInstanceProvider().update(tileInstance);
+            tileInstanceProvider.update(tileInstance);
             if (log.isDebugEnabled()) { log.debug("Successfully Updated Tile Instance!"); }
         } catch (TileInstanceProvider.TileInstanceProviderException tipe) {
             log.error("Unable to save credential information",tipe);
@@ -248,7 +241,7 @@ public class JiveTileClient extends BaseJiveClient {
             //TODO: SHOULD I SAVE EXPIRES TIME / CALCULATE AND REFRESH PROACTIVELY?
 
             try {
-                jiveAddOnApplication.getTileInstanceProvider().update(tileInstance);
+                tileInstanceProvider.update(tileInstance);
                 if (log.isDebugEnabled()) { log.debug("Successfully Updated Tile Instance!"); }
             } catch (TileInstanceProvider.TileInstanceProviderException tipe) {
                 log.error("Unable to save credential information",tipe);

@@ -35,23 +35,23 @@ public abstract class JiveActivityTile extends BaseJiveTile implements JiveTile<
     @Override
     public ActivityTile fetchData(TileInstance tileInstance) throws JiveClientException {
         if (log.isDebugEnabled()) { log.debug("fetchData["+ tileInstance.getJivePushUrl()+"] called"); }
-        return (ActivityTile)getTileClient().fetchData(tileInstance, ActivityTile.class);
+        return (ActivityTile)jiveTileClient.fetchData(tileInstance, ActivityTile.class);
     } // end fetchData
 
     @Override
     public void pushData(TileInstance tileInstance, ActivityTile data) throws JiveClientException {
         if (log.isDebugEnabled()) { log.debug("pushData["+ tileInstance.getJivePushUrl()+"] called"); }
-        getTileClient().pushData(tileInstance,data);
+        jiveTileClient.pushData(tileInstance,data);
     } // end pushData
 
     public ActivityEntry pushActivity(TileInstance tileInstance, ActivityPushTile data) throws JiveClientException {
         if (log.isTraceEnabled()) { log.trace("pushActivity called ..."); }
-        return getTileClient().pushActivity(tileInstance,data);
+        return jiveTileClient.pushActivity(tileInstance,data);
     } // end fetchExtendedProperties
 
     public void pushComment(TileInstance tileInstance, ActivityCommentTile data) {
         if (log.isTraceEnabled()) { log.trace("pushActivity called ..."); }
-        JiveTileClient client = getTileClient();
+//      JiveTileClient client = getTileClient();
 
     } // end pushComment
 

@@ -36,13 +36,13 @@ public abstract class JiveCalendarTile extends BaseJiveTile implements JiveTile<
     @Override
     public CalendarTile fetchData(TileInstance tileInstance) throws JiveClientException {
         if (log.isDebugEnabled()) { log.debug("fetchData["+ tileInstance.getJivePushUrl()+"] called"); }
-        return (CalendarTile)getTileClient().fetchData(tileInstance, CalendarTile.class);
+        return (CalendarTile)jiveTileClient.fetchData(tileInstance, CalendarTile.class);
     } // end fetchData
 
     @Override
     public void pushData(TileInstance tileInstance, CalendarTile data) throws JiveClientException {
         if (log.isDebugEnabled()) { log.debug("pushData["+ tileInstance.getJivePushUrl()+"] called"); }
-        getTileClient().pushData(tileInstance,data);
+        jiveTileClient.pushData(tileInstance,data);
     } // end pushData
 
 } // end class

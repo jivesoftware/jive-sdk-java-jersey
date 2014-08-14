@@ -28,6 +28,7 @@ import org.glassfish.jersey.client.oauth2.OAuth2CodeGrantFlow;
 import org.glassfish.jersey.client.oauth2.TokenResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -52,7 +53,7 @@ public class JiveOAuth2Service extends BaseOAuthService {
     private static final Logger log = LoggerFactory.getLogger(JiveOAuth2Service.class);
     private static final String SERVICE_NAME = "jive";
 
-    @Inject
+    @Autowired
     private JiveOAuth2ServiceConfig serviceConfig;
 
     @Override

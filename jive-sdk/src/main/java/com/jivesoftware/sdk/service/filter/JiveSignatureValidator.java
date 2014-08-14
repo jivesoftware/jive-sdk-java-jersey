@@ -22,6 +22,7 @@ import com.jivesoftware.sdk.config.JiveAddOnConfig;
 import com.jivesoftware.sdk.service.instance.action.InstanceRegisterAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -43,7 +44,7 @@ public class JiveSignatureValidator {
 
     private Client client = null;
 
-    @Inject
+    @Autowired
     private JiveAddOnConfig config;
 
     private JiveSignatureValidator() {

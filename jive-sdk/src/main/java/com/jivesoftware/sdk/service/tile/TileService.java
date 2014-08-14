@@ -18,29 +18,22 @@
 
 package com.jivesoftware.sdk.service.tile;
 
-import com.google.common.collect.Maps;
-import com.jivesoftware.sdk.JiveAddOnApplication;
 import com.jivesoftware.sdk.api.entity.JiveInstance;
 import com.jivesoftware.sdk.api.entity.TileInstance;
 import com.jivesoftware.sdk.api.entity.TileInstanceProvider;
-import com.jivesoftware.sdk.event.JiveInstanceEvent;
 import com.jivesoftware.sdk.event.TileInstanceEvent;
-import com.jivesoftware.sdk.event.types.tile.TileRegisterFailed;
-import com.jivesoftware.sdk.event.types.tile.TileRegisterSuccess;
-import com.jivesoftware.sdk.event.types.tile.TileUnregister;
+import com.jivesoftware.sdk.event.TileInstanceEventPublisher;
 import com.jivesoftware.sdk.service.BaseAddOnService;
 import com.jivesoftware.sdk.service.filter.JiveAuthorizationValidation;
 import com.jivesoftware.sdk.service.filter.JiveAuthorizationValidator;
 import com.jivesoftware.sdk.service.tile.action.TileRegisterAction;
 import com.jivesoftware.sdk.service.tile.action.TileUnregisterAction;
 import com.jivesoftware.sdk.utils.JiveSDKUtils;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.node.ObjectNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -49,7 +42,6 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Map;
 
 /**
  * Created by ryan.rutan on 1/15/14.
@@ -60,17 +52,11 @@ import java.util.Map;
 public class TileService extends BaseAddOnService {
     private static final Logger log = LoggerFactory.getLogger(TileService.class);
 
-    @Inject
-    private JiveAddOnApplication jiveAddOnApplication;
+    @Autowired @Qualifier("tileInstanceProvider")
+    private TileInstanceProvider tileInstanceProvider;
 
-    @Inject @TileRegisterSuccess
-    Event<TileInstanceEvent> tileInstanceRegisterSuccess;
-
-    @Inject @TileRegisterFailed
-    Event<TileInstanceEvent> tileInstanceRegisterFailed;
-
-    @Inject @TileUnregister
-    Event<TileInstanceEvent> tileInstanceUnregister;
+    @Autowired @Qualifier("tileInstanceEventPublisher")
+    private TileInstanceEventPublisher tileInstanceEventPublisher;
 
     private void fireTileInstanceEvent(TileInstanceEvent.Type type, TileInstance context, Throwable error) {
         if (log.isTraceEnabled()) { log.trace("fireTileInstanceEvent called..."); }
@@ -80,11 +66,7 @@ public class TileService extends BaseAddOnService {
         if (error != null) {
             event.setError(error);
         } // end if
-        switch (type) {
-            case RegisterSuccess :   { tileInstanceRegisterSuccess.fire(event); break; }
-            case RegisterFailed :    { tileInstanceRegisterFailed.fire(event);  break; }
-            case Unregister :        { tileInstanceUnregister.fire(event);      break; }
-        } // end switch
+        tileInstanceEventPublisher.publishEvent(event);
     } // end fireTileInstanceEvent
 
     @POST
@@ -110,7 +92,7 @@ public class TileService extends BaseAddOnService {
         TileInstance tileInstance = new TileInstance(tileRegisterAction);
 
         try {
-            jiveAddOnApplication.getTileInstanceProvider().update(tileInstance);
+            tileInstanceProvider.update(tileInstance);
             if (log.isDebugEnabled()) { log.debug("Successfully Saved Tile Instance!"); }
         } catch (TileInstanceProvider.TileInstanceProviderException tipe) {
             log.error("Unable to save TileInstance",tipe);
@@ -141,7 +123,7 @@ public class TileService extends BaseAddOnService {
 
         JiveInstance jiveInstance = (JiveInstance)containerRequestContext.getProperty(JiveAuthorizationValidator.JIVE_INSTANCE);
 
-        TileInstance tileInstance = jiveAddOnApplication.getTileInstanceProvider().getTileInstanceByPushURL(tileUnregisterAction.getUrl());
+        TileInstance tileInstance = tileInstanceProvider.getTileInstanceByPushURL(tileUnregisterAction.getUrl());
         if (tileInstance == null) {
             if (log.isWarnEnabled()) { log.warn("Initializing from Unregister Payload, not from provider!"); }
             tileInstance = new TileInstance(tileUnregisterAction);

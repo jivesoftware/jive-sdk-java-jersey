@@ -21,6 +21,7 @@ package com.jivesoftware.sdk.service.filter;
 import com.jivesoftware.sdk.service.BaseContainerRequestFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -35,8 +36,9 @@ import java.io.IOException;
 public class JiveSignedFetchValidationRequestFilter extends BaseContainerRequestFilter {
     private static final Logger log = LoggerFactory.getLogger(JiveSignedFetchValidationRequestFilter.class);
 
-    @Inject
+    @Autowired
     private JiveSignedFetchValidator jiveSignedFetchValidator;
+
     @Override
     public void filter(ContainerRequestContext containerRequestContext) throws IOException {
         if (log.isTraceEnabled()) { log.trace("filter called"); }

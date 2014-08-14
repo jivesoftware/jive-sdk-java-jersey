@@ -16,10 +16,10 @@
  *
  */
 
-package com.jivesoftware.sdk.service.storage.action;
+package com.jivesoftware.addon.example.service.storage.action;
 
 /**
- * Created by rrutan on 1/29/14.
+ * Created by rrutan on 8/14/14.
  */
 public class StorageRegisterAction {
 }
