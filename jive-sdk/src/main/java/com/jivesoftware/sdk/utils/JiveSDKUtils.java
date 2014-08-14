@@ -49,7 +49,7 @@ public class JiveSDKUtils {
             //TODO: LOGGER
             System.err.println("Failed encoding URL using UTF-8 charset" + uee.getMessage());
             //noinspection deprecation
-            return URLEncoder.encode(url);
+            return url;
         }
     }
 
@@ -61,7 +61,7 @@ public class JiveSDKUtils {
             //TODO: LOGGER
             System.err.println("Failed decoding URL using UTF-8 charset" + uee.getMessage());
             //noinspection deprecation
-            return URLDecoder.decode(url);
+            return url;
         }
     }
 
