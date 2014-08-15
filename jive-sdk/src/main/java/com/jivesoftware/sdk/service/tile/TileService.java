@@ -92,13 +92,6 @@ public class TileService extends BaseAddOnService {
 
         TileInstance tileInstance = new TileInstance(tileRegisterAction);
 
-        try {
-            tileInstanceProvider.update(tileInstance);
-            if (log.isDebugEnabled()) { log.debug("Successfully Saved Tile Instance!"); }
-        } catch (TileInstanceProvider.TileInstanceProviderException tipe) {
-            log.error("Unable to save TileInstance",tipe);
-        } // end try/catch
-
         fireTileInstanceEvent(TileInstanceEvent.Type.RegisterSuccess, tileInstance,null);
 
         return Response.noContent().build();

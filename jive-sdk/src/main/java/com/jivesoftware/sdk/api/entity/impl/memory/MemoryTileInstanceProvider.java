@@ -33,7 +33,6 @@ import java.util.Map;
 /**
  * Created by rrutan on 2/3/14.
  */
-@Component
 @Singleton
 public class MemoryTileInstanceProvider implements TileInstanceProvider, TileInstanceEventListener {
     private static final Logger log = LoggerFactory.getLogger(MemoryTileInstanceProvider.class);
@@ -53,7 +52,7 @@ public class MemoryTileInstanceProvider implements TileInstanceProvider, TileIns
 
     @Override
     public boolean accepts(TileInstanceEvent event) {
-        boolean accept = (TileInstanceEvent.Type.Unregister.equals(event.getType()) &&
+        boolean accept = (TileInstanceEvent.Type.Unregister.equals(event.getType()) ||
                 TileInstanceEvent.Type.RegisterSuccess.equals(event.getType()));
         if (log.isTraceEnabled()) { log.trace("accepts event["+event.getType()+"] ..."); }
         return accept;

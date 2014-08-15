@@ -45,8 +45,8 @@ public class JiveOAuthEventListener implements JiveInstanceEventListener {
 
     @Override
     public boolean accepts(JiveInstanceEvent event) {
-        if (log.isTraceEnabled()) { log.trace("accepts [event="+event.getType()+"] ..."); }
         boolean accept = TileInstanceEvent.Type.RegisterSuccess.equals(event.getType());
+        if (log.isTraceEnabled()) { log.trace("accepts [event="+event.getType()+"]["+accept+"]..."); }
         return accept;
     } // end accepts
 

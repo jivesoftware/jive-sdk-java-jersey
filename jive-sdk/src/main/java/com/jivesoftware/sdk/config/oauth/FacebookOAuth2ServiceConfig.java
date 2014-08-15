@@ -29,9 +29,8 @@ import javax.ws.rs.ext.Provider;
 /**
  * Created by rrutan on 2/6/14.
  */
-    @Singleton
     @Component
-    @Provider
+    @Singleton
     public class FacebookOAuth2ServiceConfig extends BaseAddOnConfig {
 
         private String clientID;

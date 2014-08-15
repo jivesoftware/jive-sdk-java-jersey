@@ -25,7 +25,6 @@ import java.util.Map;
 /**
  * Created by rrutan on 2/1/14.
  */
-@Singleton
 public class TileInstanceEvent extends AbstractEvent implements Serializable {
 
     public enum Type {

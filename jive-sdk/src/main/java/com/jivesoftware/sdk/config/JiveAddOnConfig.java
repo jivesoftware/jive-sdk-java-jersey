@@ -34,16 +34,38 @@ public class JiveAddOnConfig extends BaseAddOnConfig {
     private static final Logger log = LoggerFactory.getLogger(JiveAddOnConfig.class);
 
     private boolean development = false;
+    private String clientUrl = "http://localhost";
+    private int port = 8090;
 
     public JiveAddOnConfig() {
         JiveSDKUtils.initBeanFromProperties("jiveclientconfiguration.properties", this);
     } // end constructor
 
+    public String getClientUrl() {
+        return clientUrl;
+    }
+
+    public void setClientUrl(String clientUrl) {
+        this.clientUrl = clientUrl;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
     public boolean isDevelopment() {
         return development;
     }
-
     public void setDevelopment(boolean development) {
         this.development = development;
     }
+
+
+
+
+
 } // end class

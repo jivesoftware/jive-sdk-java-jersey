@@ -78,7 +78,7 @@
             },
             "displayName": "[[jive.addon.tile.gallery.displayName]]",
             "name": "jersey-example-gallery",
-            "description": "[[jive.addon.tile.list.description]]",
+            "description": "[[jive.addon.tile.gallery.description]]",
             "style": "GALLERY",
             "icons": {
                 "16": "[[serviceURL]]/images/extension-16.png",
@@ -127,26 +127,21 @@
         },
         {
             "sampleData": {
-                "title": "[[jive.addon.tile.list.displayName]]",
-                "events" :  [
-                    {
-                        "title": "Example Title",
-                        "location": "Event Location",
-                        "start": "2013-08-12T07:00:00:000Z",
-                        "description": "Event Description",
-                        "action": {
-                            "url": "https://developers.jivesoftware.com"
-                        }
-                    }
-                ],
-                "action": {
-                    "text": "Developers Community",
-                    "url": "https://developers.jivesoftware.com"
-                }
+                "title": "[[jive.addon.tile.calendar.displayName]]",
+                "events" : [ {
+                  "start" : "2014-08-25T11:16:53-05:00",
+                  "duration" : "01:00:00",
+                  "location" : "Somewhere [124]",
+                  "title" : "Event Title",
+                  "description" : "Example Description",
+                  "action" : {
+                    "url" : "https://developers.jivesoftware.com"
+                  }
+                } ]
             },
             "displayName": "[[jive.addon.tile.calendar.displayName]]",
             "name": "jersey-example-calendar",
-            "description": "[[jive.addon.tile.list.description]]",
+            "description": "[[jive.addon.tile.calendar.description]]",
             "style": "CALENDAR",
             "icons": {
                 "16": "[[serviceURL]]/images/extension-16.png",
@@ -185,7 +180,7 @@
     ],
     "templates": [
      {
-         "name": "[[jive.addon.name]] - All Tiles",
+         "name": "defaultTemplate",
          "displayName": "[[jive.addon.name]] - All Tiles",
          "description": "This template has all the add-on tiles",
          "tiles": [

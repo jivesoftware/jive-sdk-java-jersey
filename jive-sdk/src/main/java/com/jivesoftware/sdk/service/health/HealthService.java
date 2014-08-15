@@ -39,7 +39,6 @@ import javax.ws.rs.core.UriInfo;
 /**
  * Created by ryan.rutan on 1/15/14.
  */
-@Component
 @Path("/health")
 @Singleton
 public class HealthService extends BaseAddOnService {

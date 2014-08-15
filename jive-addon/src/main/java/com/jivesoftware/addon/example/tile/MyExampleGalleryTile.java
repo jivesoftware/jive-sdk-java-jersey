@@ -23,12 +23,16 @@ import com.jivesoftware.sdk.api.tile.JiveGalleryTile;
 import com.jivesoftware.sdk.api.tile.data.GalleryImage;
 import com.jivesoftware.sdk.api.tile.data.GalleryTile;
 import com.jivesoftware.sdk.client.JiveClientException;
+import com.jivesoftware.sdk.config.JiveAddOnConfig;
 import com.jivesoftware.sdk.event.TileInstanceEvent;
 import com.jivesoftware.sdk.event.TileInstanceEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Singleton;
+import javax.servlet.ServletContext;
+import javax.ws.rs.core.UriBuilder;
 import java.util.TimerTask;
 
 /**
@@ -40,12 +44,15 @@ public class MyExampleGalleryTile extends JiveGalleryTile implements TileInstanc
 
     public static final String NAME = "jersey-example-gallery";
 
+    @Autowired
+    private JiveAddOnConfig jiveAddOnConfig;
+
     @Override
     public String getName() {   return NAME; }
 
     @Override
     public boolean accepts(TileInstanceEvent event) {
-        boolean accept = (event.getTileName().equals(event) &&
+        boolean accept = (event.getTileName().equals(getName()) &&
                 (
                         TileInstanceEvent.Type.RegisterSuccess.equals(event.getType()) ||
                         TileInstanceEvent.Type.Unregister.equals(event.getType())
@@ -115,15 +122,29 @@ public class MyExampleGalleryTile extends JiveGalleryTile implements TileInstanc
     } // end class
 
     private GalleryTile getBogusPush(TileInstance tileInstance, int index) {
+
         GalleryTile galleryTile = new GalleryTile();
         galleryTile.setTitle("Example Gallery");
 
         String imageIndex = tileInstance.getConfig().get("image_idx");
 
         GalleryImage image = new GalleryImage();
-        image.setImage("http://jivedev.ryanrutan.com:18099/tiles/jersey-example-gallery/images/photo"+index+".png");
-        image.setThumb("http://jivedev.ryanrutan.com:18099/tiles/jersey-example-gallery/images/photo" + index + "-thumb.png");
-        image.setTitle("Image "+index);
+
+        image.setImage(
+            UriBuilder.fromUri(jiveAddOnConfig.getClientUrl())
+                    .port(jiveAddOnConfig.getPort())
+                    .path("/tiles/jersey-example-gallery/images/photo{index}.png")
+                    .build(index).toString()
+        );
+
+        image.setTitle("Photo "+index);
+
+        image.setThumb(
+            UriBuilder.fromUri(jiveAddOnConfig.getClientUrl())
+                    .port(jiveAddOnConfig.getPort())
+                    .path("/tiles/jersey-example-gallery/images/photo{index}-thumb.png")
+                    .build(index).toString()
+        );
 
         galleryTile.addGalleryImage(image);
 

@@ -60,10 +60,10 @@ http://www.springframework.org/schema/util      http://www.springframework.org/s
     <util:list id="oauthEventListeners" list-class="java.util.ArrayList" value-type="com.jivesoftware.sdk.event.OAuthEventListener" />
 
     <!-- CONFIGURE WHICH PROVIDERS YOU WANT TO USE -->
-    <bean id="healthStatusProvider" parent="memoryHealthStatusProvider" />
-    <bean id="jiveInstanceProvider" parent="memoryJiveInstanceProvider" />
-    <bean id="storageInstanceProvider" parent="memoryStorageInstanceProvider" />
-    <bean id="tileInstanceProvider" parent="memoryTileInstanceProvider" />
+    <alias alias="healthStatusProvider" name="memoryHealthStatusProvider"     />
+    <alias alias="jiveInstanceProvider" name="memoryJiveInstanceProvider" />
+    <alias alias="storageInstanceProvider" name="memoryStorageInstanceProvider" />
+    <alias alias="tileInstanceProvider" name="memoryTileInstanceProvider" />
 
     <bean id="tileInstanceEventPublisher" class="com.jivesoftware.sdk.event.TileInstanceEventPublisher" scope="singleton">
         <property name="tileInstanceEventListeners" ref="tileInstanceEventListeners" />

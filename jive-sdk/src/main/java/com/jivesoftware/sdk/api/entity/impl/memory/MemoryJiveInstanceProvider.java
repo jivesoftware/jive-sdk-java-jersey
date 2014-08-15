@@ -34,7 +34,6 @@ import java.util.Map;
  * Created by rrutan on 2/3/14.
  */
 @Component
-@Singleton
 public class MemoryJiveInstanceProvider implements JiveInstanceProvider, JiveInstanceEventListener {
     private static final Logger log = LoggerFactory.getLogger(MemoryJiveInstanceProvider.class);
 
@@ -47,14 +46,15 @@ public class MemoryJiveInstanceProvider implements JiveInstanceProvider, JiveIns
 
     @Override
     public boolean accepts(JiveInstanceEvent event) {
-        boolean accept = (JiveInstanceEvent.Type.Unregister.equals(event.getType()) &&
+        boolean accept = (JiveInstanceEvent.Type.Unregister.equals(event.getType()) ||
                           JiveInstanceEvent.Type.RegisterSuccess.equals(event.getType()));
-        if (log.isTraceEnabled()) { log.trace("accepts event["+event.getType()+"] ..."); }
+        if (log.isTraceEnabled()) { log.trace("accepts event["+event.getType()+"]["+accept+"] ..."); }
         return accept;
     } // end accepts
 
     @Override
     public void process(JiveInstanceEvent event) throws JiveInstanceEventException {
+        if (log.isTraceEnabled()) { log.trace("processing event["+event.getType()+"] ..."); }
         try {
             if (JiveInstanceEvent.Type.RegisterSuccess.equals(event.getType())) {
                 update((JiveInstance) event.getContext());

@@ -46,7 +46,7 @@ public class MyExampleTableTile extends JiveTableTile implements TileInstanceEve
 
     @Override
     public boolean accepts(TileInstanceEvent event) {
-        boolean accept = (event.getTileName().equals(event) &&
+        boolean accept = (event.getTileName().equals(getName()) &&
                 (
                         TileInstanceEvent.Type.RegisterSuccess.equals(event.getType()) ||
                         TileInstanceEvent.Type.Unregister.equals(event.getType())
