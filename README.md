@@ -7,7 +7,8 @@ This document is a work in progress, so please ignore the clutter
 
 1. Install [Git](http://git-scm.com/book/en/Getting-Started-Installing-Git) (needed for cloning and contributing)
 2. Install [Maven 3.0.5](http://maven.apache.org/download.cgi#Maven_3.0.5) - (This [document](https://community.jivesoftware.com/docs/DOC-3528), while outdated may help.)
-3. Install [Java 7](http://java.com/en/download/index.jsp) (see [help center](http://java.com/en/download/help/index_installing.xml) for assistance)
+  * Issue with project build in Maven 3.1+, so recommended to use this version exactly for now.
+3. Install [Java 7 SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html) (see [help center](http://java.com/en/download/help/index_installing.xml) for assistance)
 
 >**Note:** Some users have found issues with Maven 3.1.0, as we look into those reports, please use 3.0.5)
 
