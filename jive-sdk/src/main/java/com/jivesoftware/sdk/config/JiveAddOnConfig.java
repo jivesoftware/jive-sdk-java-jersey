@@ -36,6 +36,7 @@ public class JiveAddOnConfig extends BaseAddOnConfig {
     private boolean development = false;
     private String clientUrl = "http://localhost";
     private int port = 8090;
+    private String appContext = "/example";
 
     public JiveAddOnConfig() {
         JiveSDKUtils.initBeanFromProperties("jiveclientconfiguration.properties", this);
@@ -55,6 +56,14 @@ public class JiveAddOnConfig extends BaseAddOnConfig {
 
     public void setPort(int port) {
         this.port = port;
+    }
+
+    public String getAppContext() {
+        return appContext;
+    }
+
+    public void setAppContext(String appContext) {
+        this.appContext = appContext;
     }
 
     public boolean isDevelopment() {
