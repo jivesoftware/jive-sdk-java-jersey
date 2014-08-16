@@ -19,7 +19,7 @@
 package com.jivesoftware.sdk.api.entity.impl.memory;
 
 import com.google.common.collect.Maps;
-import com.jivesoftware.sdk.api.entity.Webhook;
+import com.jivesoftware.sdk.api.entity.WebhookInstance;
 import com.jivesoftware.sdk.api.entity.WebhookInstanceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ import java.util.Map;
 public class MemoryWebhookInstanceProvider implements WebhookInstanceProvider {
     private static final Logger log = LoggerFactory.getLogger(MemoryWebhookInstanceProvider.class);
 
-    private Map<String,Webhook> memoryStorageInstanceStore;
+    private Map<String,WebhookInstance> memoryStorageInstanceStore;
 
     public MemoryWebhookInstanceProvider() {
         if (log.isTraceEnabled()) { log.trace("constructor called..."); }
@@ -45,20 +45,20 @@ public class MemoryWebhookInstanceProvider implements WebhookInstanceProvider {
     } // end init
 
     @Override
-    public Webhook getWebhookByID(String id) {
+    public WebhookInstance getWebhookByID(String id) {
         if (log.isTraceEnabled()) { log.trace("getWebhookByID called..."); }
         //TODO
         return null;
     } // end getWebhookByID
 
     @Override
-    public void remove(Webhook webhook) throws WebhookInstanceProviderException {
+    public void remove(WebhookInstance webhook) throws WebhookInstanceProviderException {
         if (log.isTraceEnabled()) { log.trace("remove called..."); }
         //TODO
     } // end remove
 
     @Override
-    public void update(Webhook webhook) throws WebhookInstanceProviderException {
+    public void update(WebhookInstance webhook) throws WebhookInstanceProviderException {
         if (log.isTraceEnabled()) { log.trace("update called..."); }
         //TODO
     } // end update

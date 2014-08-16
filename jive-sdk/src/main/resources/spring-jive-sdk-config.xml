@@ -31,17 +31,9 @@ http://www.springframework.org/schema/util      http://www.springframework.org/s
 	<context:component-scan base-package="com.jivesoftware.sdk" />
 
     <!-- MEMORY ONLY BEAN DEFINITIONS -->
-    <bean id="memoryHealthStatusProvider" class="com.jivesoftware.sdk.api.entity.impl.memory.MemoryHealthStatusProvider" scope="singleton" />
     <bean id="memoryJiveInstanceProvider" class="com.jivesoftware.sdk.api.entity.impl.memory.MemoryJiveInstanceProvider" scope="singleton" />
     <bean id="memoryStorageInstanceProvider" class="com.jivesoftware.sdk.api.entity.impl.memory.MemoryStorageInstanceProvider" scope="singleton" />
     <bean id="memoryTileInstanceProvider" class="com.jivesoftware.sdk.api.entity.impl.memory.MemoryTileInstanceProvider" scope="singleton" />
-
-    <!--
-    <bean id="jiveAddOnConfig" class="com.jivesoftware.sdk.config.JiveAddOnConfig" scope="singleton" />
-
-    <bean id="jiveSignatureValidator" class="com.jivesoftware.sdk.service.filter.JiveSignatureValidator" />
-    <bean id="jiveSignedFetchValidator" class="com.jivesoftware.sdk.service.filter.JiveSignedFetchValidator" />
-    <bean id="jiveAuthorizationValidator" class="com.jivesoftware.sdk.service.filter.JiveAuthorizationValidator" />
-    -->
+    <bean id="memoryWebhookInstanceProvider" class="com.jivesoftware.sdk.api.entity.impl.memory.MemoryWebhookInstanceProvider" scope="singleton" />
 
 </beans>

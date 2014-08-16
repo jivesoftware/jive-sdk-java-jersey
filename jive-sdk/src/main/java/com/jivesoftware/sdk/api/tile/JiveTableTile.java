@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class JiveTableTile extends BaseJiveTile implements JiveTile<TableTile>{
 
-    private static final Logger log = LoggerFactory.getLogger(JiveGaugeTile.class);
+    private static final Logger log = LoggerFactory.getLogger(JiveTableTile.class);
 
     @Override
     public TableTile fetchData(TileInstance tileInstance) throws JiveClientException {

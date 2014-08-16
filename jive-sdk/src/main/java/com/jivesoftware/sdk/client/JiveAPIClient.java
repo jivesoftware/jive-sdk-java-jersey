@@ -27,10 +27,9 @@ import javax.ws.rs.client.AsyncInvoker;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Application;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import java.net.URI;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -41,26 +40,23 @@ import java.util.concurrent.Future;
 public class JiveAPIClient extends BaseJiveClient {
     private static final Logger log = LoggerFactory.getLogger(JiveAPIClient.class);
 
-    @Context
-    Application application;
-
     public Object call (HttpMethods method, URI uri, String requestContentType, String responseContentType, Object data,
-                        JiveAuthorizationSupport authorization, JiveRunAs runAs) throws JiveClientException {
-        return call(method,uri,requestContentType,responseContentType,data,authorization,runAs,null);
+                        JiveAuthorizationSupport authorization, Map<String,String> additionalHeaders, JiveRunAs runAs) throws JiveClientException {
+        return call(method,uri,requestContentType,responseContentType,data,authorization,runAs,additionalHeaders,null);
     } // end call
 
     public Object call (HttpMethods method, URI uri, String requestContentType, String responseContentType, Object data,
-                        JiveAuthorizationSupport authorization) throws JiveClientException {
-        return call(method,uri,requestContentType,responseContentType,data,authorization,null,null);
+                        JiveAuthorizationSupport authorization, Map<String,String> additionalHeaders) throws JiveClientException {
+        return call(method,uri,requestContentType,responseContentType,data,authorization,null,additionalHeaders,null);
     } // end call
 
     public Object call (HttpMethods method, URI uri, String requestContentType, String responseContentType, Object data,
-                        JiveAuthorizationSupport authorization, Class clazz) throws JiveClientException {
-        return call(method,uri,requestContentType,responseContentType,data,authorization,null,clazz);
+                        JiveAuthorizationSupport authorization, Map<String,String> additionalHeaders, Class clazz) throws JiveClientException {
+        return call(method,uri,requestContentType,responseContentType,data,authorization,null,additionalHeaders,clazz);
     } // end call
 
     public Object call (HttpMethods method, URI uri, String requestContentType, String responseContentType, Object data,
-                        JiveAuthorizationSupport authorization, JiveRunAs runAs, Class clazz) throws JiveClientException {
+                        JiveAuthorizationSupport authorization, JiveRunAs runAs, Map<String,String> additionalHeaders, Class clazz) throws JiveClientException {
 
         /**** NEED TO MAKE SURE ****/
         if (requestContentType == null) {
@@ -75,7 +71,7 @@ public class JiveAPIClient extends BaseJiveClient {
 
         WebTarget target = client.target(uri);
 
-        AsyncInvoker invoker = getAsyncInvoker(target, requestContentType, authorization, runAs);
+        AsyncInvoker invoker = getAsyncInvoker(target, requestContentType, authorization, runAs,additionalHeaders);
 
         Future<Object> responseFuture = null;
 

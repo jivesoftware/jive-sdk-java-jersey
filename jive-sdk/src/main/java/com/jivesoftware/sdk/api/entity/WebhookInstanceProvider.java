@@ -25,11 +25,11 @@ public interface WebhookInstanceProvider extends BaseProvider {
 
     public void init() throws WebhookInstanceProviderException;
 
-    public Webhook getWebhookByID(String id);
+    public WebhookInstance getWebhookByID(String id);
 
-    public void remove(Webhook webhook) throws WebhookInstanceProviderException;
+    public void remove(WebhookInstance webhook) throws WebhookInstanceProviderException;
 
-    public void update(Webhook webhook) throws WebhookInstanceProviderException;
+    public void update(WebhookInstance webhook) throws WebhookInstanceProviderException;
 
     class WebhookInstanceProviderException extends Exception {
         public WebhookInstanceProviderException() {

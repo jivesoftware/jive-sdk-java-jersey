@@ -18,6 +18,7 @@
 
 package com.jivesoftware.addon.example;
 
+import com.jivesoftware.addon.example.service.health.HealthService;
 import com.jivesoftware.sdk.JiveAddOnApplication;
 import org.springframework.stereotype.Component;
 
@@ -32,5 +33,11 @@ public class MyExampleAddOn extends JiveAddOnApplication {
     /****************************************************************
      *  see: applicationContext.xml for Configuration Instructions
      ****************************************************************/
+    public MyExampleAddOn() {
+        super();
+
+        /*** SCAN PACKAGES FOR SERVICES TO AUTO-WIRE, USING CLASS INSTEAD OF STRING FOR REFACTOR SIMPLICITY ***/
+        packages(true,HealthService.class.getPackage().getName());
+    } // end constructor
 
 } // end class

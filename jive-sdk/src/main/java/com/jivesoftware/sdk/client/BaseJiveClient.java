@@ -55,7 +55,7 @@ public class BaseJiveClient {
     } // end buildClient
 
     protected AsyncInvoker getAsyncInvoker(WebTarget target, String requestContentType,
-                              JiveAuthorizationSupport authorizationSupport, JiveRunAs runAs) {
+                              JiveAuthorizationSupport authorizationSupport, JiveRunAs runAs, Map<String,String> additionalHeaders) {
 
         if (target == null) {
             return null;
@@ -67,6 +67,14 @@ public class BaseJiveClient {
         if (runAs != null) {
             if (log.isDebugEnabled()) { log.trace("Adding "+HEADER_JIVE_RUN_AS+" to Request ..."); }
             builder.header(HEADER_JIVE_RUN_AS,runAs.getKey());
+        } // end if
+
+        if (additionalHeaders != null) {
+            if (log.isDebugEnabled()) { log.debug("Adding Additional Headers ..."); }
+            for (String key : additionalHeaders.keySet()) {
+                if (log.isTraceEnabled()) { log.trace(key+" : "+additionalHeaders.get(key)); }
+                builder.header(key,additionalHeaders.get(key));
+            } // end for
         } // end if
 
         return builder.async();

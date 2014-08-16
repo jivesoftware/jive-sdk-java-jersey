@@ -33,6 +33,8 @@ import java.util.Map;
 public class ListTile extends BaseTile implements Serializable {
     public static final String TYPE = "LIST";
 
+    public enum Styles { contentList, peopleList }
+
     @JsonSerialize(include=JsonSerialize.Inclusion.ALWAYS)
     private String title;
 
@@ -62,11 +64,11 @@ public class ListTile extends BaseTile implements Serializable {
     } // end removeListItem
 
     public void setContentListStyle() {
-        config.put("listStyle","contentList");
+        config.put("listStyle",Styles.contentList.name());
     }
 
     public void setPeopleListStyle() {
-        config.put("listStyle","peopleList");
+        config.put("listStyle",Styles.peopleList.name());
     }
 
     public String getTitle() {

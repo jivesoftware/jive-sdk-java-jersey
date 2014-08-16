@@ -60,7 +60,6 @@ http://www.springframework.org/schema/util      http://www.springframework.org/s
     <util:list id="oauthEventListeners" list-class="java.util.ArrayList" value-type="com.jivesoftware.sdk.event.OAuthEventListener" />
 
     <!-- CONFIGURE WHICH PROVIDERS YOU WANT TO USE -->
-    <alias alias="healthStatusProvider" name="memoryHealthStatusProvider"     />
     <alias alias="jiveInstanceProvider" name="memoryJiveInstanceProvider" />
     <alias alias="storageInstanceProvider" name="memoryStorageInstanceProvider" />
     <alias alias="tileInstanceProvider" name="memoryTileInstanceProvider" />
@@ -76,12 +75,5 @@ http://www.springframework.org/schema/util      http://www.springframework.org/s
     <bean id="oauthEventPublisher" class="com.jivesoftware.sdk.event.OAuthEventPublisher" scope="singleton">
         <property name="oauthEventListeners" ref="oauthEventListeners" />
     </bean>
-
-    <!--
-    <bean id="jiveAnalyticsClient" class="com.jivesoftware.sdk.client.JiveAnalyticsClient" scope="singleton" />
-    <bean id="jiveAPIClient" class="com.jivesoftware.sdk.client.JiveAPIClient" scope="singleton" />
-    <bean id="jiveOAuthClient" class="com.jivesoftware.sdk.client.oauth.JiveOAuthClient" scope="singleton" />
-    <bean id="jiveTileClient" class="com.jivesoftware.sdk.client.JiveTileClient" scope="singleton" />
-    -->
 
 </beans>
