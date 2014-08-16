@@ -37,6 +37,7 @@ public class JiveAddOnConfig extends BaseAddOnConfig {
     private String clientUrl = "http://localhost";
     private int port = 8090;
     private String appContext = "/example";
+    private boolean ignoreSignatureValidation = false;
 
     public JiveAddOnConfig() {
         JiveSDKUtils.initBeanFromProperties("jiveclientconfiguration.properties", this);
@@ -73,8 +74,11 @@ public class JiveAddOnConfig extends BaseAddOnConfig {
         this.development = development;
     }
 
+    public boolean isIgnoreSignatureValidation() {
+        return ignoreSignatureValidation;
+    }
 
-
-
-
+    public void setIgnoreSignatureValidation(boolean ignoreSignatureValidation) {
+        this.ignoreSignatureValidation = ignoreSignatureValidation;
+    }
 } // end class
