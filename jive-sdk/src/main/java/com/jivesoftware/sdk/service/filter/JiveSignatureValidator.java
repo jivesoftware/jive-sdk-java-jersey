@@ -57,6 +57,10 @@ public class JiveSignatureValidator {
     } //end initClient
 
     protected boolean isValidSignature(JiveSignatureValidatable request) {
+        if (config.isDevelopment() && config.isIgnoreSignatureValidation()) {
+            log.debug("ignoreSignatureValidation enabled in jiveclientconfiguraiton.properties ... returning [true]");
+            return true;
+        } // end if
         String signature = request.getJiveSignature();
         String signatureURL = request.getJiveSignatureURL();
         boolean isHttps = signatureURL.toLowerCase().startsWith("https");
