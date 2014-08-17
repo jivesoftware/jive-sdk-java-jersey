@@ -24,10 +24,14 @@ To get started, simply perform the following steps:
 2. **cd jive-sdk-java-jersey; mvn install**
 3. **cd jive-addon; mvn -DclientUrl=http://your.resolvable.host.name -Dport=8090 clean jetty:run**
 
+alternatively, if you wanted to run Tomcat7, you could use the following:
+
+> **cd jive-addon; mvn -DclientUrl=http://your.resolvable.host.name -Dport=8090 clean package install tomcat7:run**
+
 Congrats, your Jive Add-On Service is should now be running!  Now we just need to link a Jive Instance to it!  Here's how you do that!
 
-* **Upload ZIP file** generated for you in **jive-sdk-java-jersey/jive-addon/extension-jive-addon-example.zip** in the Add-On Services > Upload Packages section of your Jive Instance (must have admin privileges)
 * **Note** If you do not want your meta.json and definition.json files re-generated each time you start the service, simply remove **clean** from the goals declaration
+* **Upload ZIP file** generated for you in **jive-sdk-java-jersey/jive-addon/extension-jive-addon-example.zip** (or download it from http://**your.resolvealble.host.name**:**port**/extension.zip), and then upload via the Add-On Services > Upload Packages section of your Jive Instance (must have admin privileges)
 
 At this point, you client service is running with a Jive Instance connected to it.  Be sure to check the [Jive Developer Community](https://community.jivesoftware.com/community/developer) for more updates about this project.  We look forward to your feedback and contributions.
 
