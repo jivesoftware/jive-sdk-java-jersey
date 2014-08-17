@@ -31,7 +31,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Singleton;
-import javax.servlet.ServletContext;
 import javax.ws.rs.core.UriBuilder;
 import java.util.TimerTask;
 
