@@ -90,6 +90,11 @@
             <version>${glassfish-jersey-version}</version>
         </dependency>
         <dependency>
+		    <groupId>org.glassfish.jersey.media</groupId>
+		    <artifactId>jersey-media-multipart</artifactId>
+		    <version>${glassfish-jersey-version}</version>
+		</dependency>
+        <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet</artifactId>
             <version>${glassfish-jersey-version}</version>
