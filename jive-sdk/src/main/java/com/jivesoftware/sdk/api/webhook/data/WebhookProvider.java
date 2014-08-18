@@ -28,5 +28,10 @@ import java.io.Serializable;
 @JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
 public class WebhookProvider implements Serializable {
 
+    private String displayName;
 
-}
+    private String objectType;
+
+    private String url;
+
+} // end class

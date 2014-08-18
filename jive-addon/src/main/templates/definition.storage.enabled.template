@@ -1,0 +1,23 @@
+{
+    "name": "[[UUID10]]",
+    "displayName": "[[jive.addon.storage.displayName]]",
+    "description": "[[jive.addon.storage.description]]",
+    "prefixUrl": "%serviceURL%",
+    "configPlace" : "%serviceURL%/storage/[[serviceContext]]/place/configure.jsp",
+    "configInstance" : "%serviceURL%/storage/[[serviceContext]]/configure.jsp",
+    "resolveResources": "%serviceURL%/[[serviceContext]]/storage/resolveResources",
+    "registerPlace": "%serviceURL%/[[serviceContext]]/storage/workspaces/register",
+    "healthCheckURL": "%serviceURL%/[[serviceContext]]/storage/health/ping",
+    "userMappingOptions": [
+        "EMAIL"
+    ],
+    "supportedResourceNames": [
+        "uploadFile",
+        "downloadFile"
+    ],
+    "icons": {
+        "16": "extension-16.png",
+        "48": "extension-48.png",
+        "128": "extension-128.png"
+    }
+}

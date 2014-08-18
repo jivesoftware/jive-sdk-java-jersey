@@ -16,10 +16,35 @@
  *
  */
 
-package com.jivesoftware.addon.example.service.storage.action;
+package com.jivesoftware.sdk.api.webhook.data;
+
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
- * Created by rrutan on 8/14/14.
+ * Created by rrutan on 8/16/14.
  */
-public class StorageRegisterAction {
-}
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+public class WebhookTarget implements Serializable {
+
+    private String id;
+
+    private String summary;
+
+    private Date updated;
+
+    private List<Map<String, Object>> image;
+
+    private String displayName;
+
+    private Date published;
+
+    private String objectType;
+
+    private String url;
+
+} // end class

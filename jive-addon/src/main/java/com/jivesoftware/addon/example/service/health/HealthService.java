@@ -47,7 +47,7 @@ public class HealthService extends BaseAddOnService {
     @GET
     @Path("/ping")
     @Produces(MediaType.APPLICATION_JSON)
-//  @JiveSignatureValidation - SHOULD THIS BE OPEN?s
+//  @JiveSignatureValidation - SHOULD THIS BE OPEN?s                                                                                                     git
     public Response ping(@Context UriInfo uriInfo, @Context ContainerRequestContext containerRequestContext) {
         if (log.isDebugEnabled()) { log.debug("ping called..."); }
 

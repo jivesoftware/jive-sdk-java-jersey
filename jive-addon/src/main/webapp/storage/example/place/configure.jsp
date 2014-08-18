@@ -35,14 +35,14 @@
                 }
 
                 var json = config || {
-                    "startSequence": "1"
+                    "workspaceId": "1"
                 };
 
                 // prepopulate the sequence input dialog
-                $("#start_sequence").val( json["startSequence"]);
+                $("#workspaceId").val( json["workspaceId"]);
 
                 $("#btn_submit").click( function() {
-                    config["startSequence"] = $("#start_sequence").val();
+                    config["workspaceId"] = $("#workspaceId").val();
                     jive.tile.close(config, {} );
                     gadgets.window.adjustHeight(400);
                 });
@@ -57,9 +57,9 @@
     <h2>Configure - Storage Place</h2>
 
     <p>
-        Sequence Counter Start:
+        Workspace ID:
         <br>
-        <input type="text" id="start_sequence">
+        <input type="text" id="workspaceId">
     </p>
 
     <button id="btn_submit">Submit</button>

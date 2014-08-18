@@ -63,29 +63,30 @@ public class Webhook implements Serializable {
         } // end equals
     } // end enum
 
-    private WebhookJiveObject object;
-
-    private String url;
-
     private String content;
 
     private String title;
 
-    //*** TODO: MAY NEED A DIFFERENT TYPE
-    private WebhookJiveObject actor;
+    private WebhookJiveObject jive;
 
     private String verb;
 
-    private WebhookJiveObject jive;
-
-    private WebhookJiveObject target;
-
-    private Date published;
-
     private Date updated;
+
+    private WebhookTarget target;
 
     private WebhookProvider provider;
 
+    private WebhookContentObject object;
+
+    private Date published;
+
+    private String url;
+
+    //*** TODO: NOT DOCUMENTED HERE - https://community.jivesoftware.com/docs/DOC-97202
+    private WebhookJiveObject actor;
+
+    //*** TODO: NOT DOCUMENTED HERE - https://community.jivesoftware.com/docs/DOC-97202
     private String webhook;
 
-}
+} // end class

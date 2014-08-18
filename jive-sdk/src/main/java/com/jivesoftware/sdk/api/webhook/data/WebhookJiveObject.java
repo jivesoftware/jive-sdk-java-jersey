@@ -21,6 +21,9 @@ package com.jivesoftware.sdk.api.webhook.data;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by rrutan on 8/16/14.
@@ -29,6 +32,23 @@ import java.io.Serializable;
 public class WebhookJiveObject implements Serializable {
 
     //TODO:
+    private String productIcon;
+
+    private String iconCss;
+
+    private int replyCount;
+
+    private long objectID;
+
+    private Date collectionUpdated;
+
+    private String collection;
+
+    private String productName;
+
+    private int objectType;
+
+    private List<Map<String,Object>> onBehalfOf;
 
 
 }

@@ -215,13 +215,13 @@
 
 	],
     "jabCartridges": [
-        {
-            "name": "jersey-example-google",
-            "displayName": "[[jive.addon.cartridge.displayName]]",
-            "patterns": [
-                "drive.google.com"
-            ],
-            "zipFileName": "jive-addon-example-cartridge.zip"
-        }
-    ]
-}
+     {
+         "name": "jersey-example-google",
+         "displayName": "[[jive.addon.cartridge.displayName]]",
+         "patterns": [
+             "drive.google.com"
+         ],
+         "zipFileName": "jive-addon-example-cartridge.zip"
+     }
+    ],
+    "storageDefinitions": [
