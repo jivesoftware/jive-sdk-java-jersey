@@ -68,6 +68,9 @@
         <!-- NOTE: MOST ADD-ONS ARE NOT SIGNED, BUT IF YOU THINK YOU NEED ONE, PLEASE SEE SIGNED ADD-ONS ARE ONLY VALID ON A PER INSTANCE BASIS -->
         <jive.addon.definition.template>unsigned</jive.addon.definition.template>
 
+        <!-- IF YOU WANT TO INCLUDE THE STORAGE EXAMPLE IN YOUR ADD-ON, YOU WILL NEED TO CHANGED TO enabled AND HAVE ADMIN ACCESS TO YOUR JIVE INSTANCE -->
+        <jive.addon.storage.feature>disabled</jive.addon.storage.feature>
+
         <!-- ONLY APPLICABLE FOR definition.signed.template (see above) -->
         <!-- FOLLOW INSTRUCTIONS ON HOW TO OBTAIN A SERVICE SIGNATURE -->
         <!-- SEE: https://community.jivesoftware.com/docs/DOC-110343 -->
@@ -219,6 +222,11 @@
                                         project.setProperty( "jive.random.UUID8" , UUID.randomUUID().toString() );
                                         project.setProperty( "jive.random.UUID9" , UUID.randomUUID().toString() );
                                         project.setProperty( "jive.random.UUID10" , UUID.randomUUID().toString() );
+                                        project.setProperty( "jive.random.UUID11" , UUID.randomUUID().toString() );
+                                        project.setProperty( "jive.random.UUID12" , UUID.randomUUID().toString() );
+                                        project.setProperty( "jive.random.UUID13" , UUID.randomUUID().toString() );
+                                        project.setProperty( "jive.random.UUID14" , UUID.randomUUID().toString() );
+                                        project.setProperty( "jive.random.UUID15" , UUID.randomUUID().toString() );
                                         project.setProperty( "jive.random.seed" , System.currentTimeMillis() );
 
                                         // ADD MORE CUSTOM PROPS / LOGIC IF NECESSARY
@@ -228,7 +236,11 @@
                                 <!-- IF FILE DOESN'T EXIST, CREATE.  DO NOT RE-COPY (THIS IS HOW WE LOCK IDs) -->
                                 <copy file="src/main/templates/definition.${jive.addon.definition.template}.header.template" tofile="src/main/extension/definition.json" overwrite="false" />
                                 <concat destFile="src/main/extension/definition.json" append="true">
-                                    <filelist dir="src/main/templates" files="definition.template"/>
+                                    <filelist dir="src/main/templates">
+                                        <file name="definition.template"/>
+                                        <file name="definition.storage.${jive.addon.storage.feature}.template"/>
+                                        <file name="definition.template.footer"/>
+                                    </filelist>
                                 </concat>
                                 <copy file="src/main/templates/meta.template" tofile="src/main/extension/meta.json" overwrite="false" />
 
