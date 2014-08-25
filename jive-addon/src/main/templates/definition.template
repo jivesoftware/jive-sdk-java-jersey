@@ -176,7 +176,113 @@
             "config": "[[serviceURL]]/tiles/jersey-example-activity/configure.jsp",
             "unregister": "[[serviceURL]]/[[serviceContext]]/tile/unregister",
             "register": "[[serviceURL]]/[[serviceContext]]/tile/register"
-        }
+        },
+        {
+            "sampleData":
+                {
+                  "title": "[[jive.addon.tile.sectionlist.displayName]]",
+                  "content": [
+                      {
+                          "text": "Sample Section",
+                          "items": [
+                              {
+                                  "text": "first item"
+                              },
+                              {
+                                  "text": "second item"
+                              }
+                          ]
+                      },
+                      {
+                          "text": "Sample Section 2",
+                          "items": [
+                              {
+                                  "text": "jive main website",
+                                  "action": {
+                                      "url": "http://www.jivesoftware.com"
+                                  }
+                              },
+                              {
+                                  "text": "jive developer website",
+                                  "action": {
+                                      "url": "http://developer.jivesoftware.com"
+                                  }
+                              }
+                          ]
+                      }
+                  ],
+                  "style": "accordion"
+              },
+            "displayName": "[[jive.addon.tile.sectionlist.displayName]]",
+            "name": "jersey-example-sectionlist",
+            "description": "[[jive.addon.tile.sectionlist.description]]",
+            "style": "SECTIONLIST",
+            "icons": {
+                "16": "[[serviceURL]]/images/extension-16.png",
+                "48": "[[serviceURL]]/images/extension-48.png",
+                "128": "[[serviceURL]]/images/extension-128.png"
+            },
+            "action": "[[serviceURL]]/tiles/jersey-example-sectionlist/action.jsp",
+            "id": "[[UUID12]]",
+            "definitionDirName": "jersey-example-sectionlist",
+            "published": "[[jive.addon.build.timestamp]]",
+            "updated": "[[jive.addon.build.timestamp]]",
+            "config": "[[serviceURL]]/tiles/jersey-example-sectionlist/configure.jsp",
+            "unregister": "[[serviceURL]]/[[serviceContext]]/tile/unregister",
+            "register": "[[serviceURL]]/[[serviceContext]]/tile/register"
+        },
+        {
+             "sampleData":
+                {
+                 "title": "[[jive.addon.tile.carousel.displayName]]",
+                 "contents": [
+                     {
+                        "titleText": "Jive Software - Carousel 1",
+                        "titleLink": "http://developer.jivesoftware.com",
+                        "image": "http://www.easternct.edu/ctreview/connections/stories/images/carousel_1.jpg",
+                        "imageURI": "http://www.easternct.edu/ctreview/connections/stories/images/carousel_1.jpg",
+                        "description": "Carousel Horse"
+                     },
+                     {
+                         "titleText": "Jive Software - Carousel 2",
+                         "titleLink": "https://community.jivesoftware.com/community/developer",
+                         "image": "http://thispublicaddress.com/tPA4/images/06_06/carousel.jpg",
+                         "imageURI": "http://thispublicaddress.com/tPA4/images/06_06/carousel.jpg",
+                         "description": "Old School Carousel"
+                     },
+                     {
+                         "titleText": "Jive Software - Carousel 3",
+                         "titleLink": "https://community.jivesoftware.com/community/developer",
+                         "image": "http://upload.wikimedia.org/wikipedia/en/9/9e/Carousel_1945_Bdwy.jpg",
+                         "imageURI": "http://upload.wikimedia.org/wikipedia/en/9/9e/Carousel_1945_Bdwy.jpg",
+                         "description": "On Broadway"
+                     }
+                 ],
+                 "config": {
+                    "autoplay": true,
+                    "speed": "medium",
+                    "previewPane": true,
+                    "transition": "fade"
+                 }
+             },
+             "displayName": "[[jive.addon.tile.carousel.displayName]]",
+             "name": "jersey-example-carousel",
+             "description": "[[jive.addon.tile.carousel.description]]",
+             "style": "CAROUSEL",
+             "icons": {
+                 "16": "[[serviceURL]]/images/extension-16.png",
+                 "48": "[[serviceURL]]/images/extension-48.png",
+                 "128": "[[serviceURL]]/images/extension-128.png"
+             },
+             "action": "[[serviceURL]]/tiles/jersey-example-carousel/action.jsp",
+             "id": "[[UUID13]]",
+             "definitionDirName": "jersey-example-carousel",
+             "published": "[[jive.addon.build.timestamp]]",
+             "updated": "[[jive.addon.build.timestamp]]",
+             "config": "[[serviceURL]]/tiles/jersey-example-carousel/configure.jsp",
+             "unregister": "[[serviceURL]]/[[serviceContext]]/tile/unregister",
+             "register": "[[serviceURL]]/[[serviceContext]]/tile/register"
+         }
     ],
     "templates": [
      {
@@ -189,7 +295,9 @@
              "jersey-example-gauge",
              "jersey-example-list",
              "jersey-example-table",
-             "jersey-example-activity"
+             "jersey-example-activity",
+             "jersey-example-sectionlist",
+             "jersey-example-carousel"
          ]
      }
     ],

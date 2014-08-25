@@ -116,6 +116,12 @@
         <jive.addon.tile.activity.displayName>Example Jive SDK (Java) Jersey - Activity Tile</jive.addon.tile.activity.displayName>
         <jive.addon.tile.activity.description>An example Activity Tile that pushes external activity updates.</jive.addon.tile.activity.description>
 
+        <jive.addon.tile.carousel.displayName>Example Jive SDK (Java) Jersey - Carousel Tile</jive.addon.tile.carousel.displayName>
+        <jive.addon.tile.carousel.description>An example Carousel Tile that pushes updates for 1 minute after configuration is saved.</jive.addon.tile.carousel.description>
+
+        <jive.addon.tile.sectionlist.displayName>Example Jive SDK (Java) Jersey - SectionList Tile</jive.addon.tile.sectionlist.displayName>
+        <jive.addon.tile.sectionlist.description>An example SectionList Tile that pushes updates for 1 minute after configuration is saved.</jive.addon.tile.sectionlist.description>
+
         <!--
         ############## ADD-ON STORAGE / CARTRIDGE CONFIGURATION ########################################################
         -->
@@ -262,6 +268,8 @@
                                 <replace file="src/main/extension/definition.json" token="[[UUID9]]" value="${jive.random.UUID9}"/>
                                 <replace file="src/main/extension/definition.json" token="[[UUID10]]" value="${jive.random.UUID10}"/>
                                 <replace file="src/main/extension/definition.json" token="[[UUID11]]" value="${jive.random.UUID11}"/>
+                                <replace file="src/main/extension/definition.json" token="[[UUID12]]" value="${jive.random.UUID12}"/>
+                                <replace file="src/main/extension/definition.json" token="[[UUID13]]" value="${jive.random.UUID13}"/>
                                 <replace file="src/main/extension/definition.json" token="[[jive.addon.build.timestamp]]" value="${jive.addon.build.timestamp}"/>
                                 <replace file="src/main/extension/definition.json" token="[[jive.addon.name]]" value="${jive.addon.name}"/>
                                 <replace file="src/main/extension/definition.json" token="[[jive.addon.tile.calendar.displayName]]" value="${jive.addon.tile.calendar.displayName}"/>
@@ -276,6 +284,10 @@
                                 <replace file="src/main/extension/definition.json" token="[[jive.addon.tile.table.description]]" value="${jive.addon.tile.table.description}"/>
                                 <replace file="src/main/extension/definition.json" token="[[jive.addon.tile.activity.displayName]]" value="${jive.addon.tile.activity.displayName}"/>
                                 <replace file="src/main/extension/definition.json" token="[[jive.addon.tile.activity.description]]" value="${jive.addon.tile.activity.description}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.tile.carousel.displayName]]" value="${jive.addon.tile.carousel.displayName}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.tile.carousel.description]]" value="${jive.addon.tile.carousel.description}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.tile.sectionlist.displayName]]" value="${jive.addon.tile.sectionlist.displayName}"/>
+                                <replace file="src/main/extension/definition.json" token="[[jive.addon.tile.sectionlist.description]]" value="${jive.addon.tile.sectionlist.description}"/>
                                 <replace file="src/main/extension/definition.json" token="[[jive.addon.storage.displayName]]" value="${jive.addon.storage.displayName}"/>
                                 <replace file="src/main/extension/definition.json" token="[[jive.addon.storage.description]]" value="${jive.addon.storage.description}"/>
                                 <replace file="src/main/extension/definition.json" token="[[jive.addon.cartridge.displayName]]" value="${jive.addon.cartridge.displayName}"/>

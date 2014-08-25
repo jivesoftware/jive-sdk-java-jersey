@@ -138,7 +138,7 @@ public class MyExampleCalendarTile extends JiveCalendarTile implements TileInsta
 
         TileAction action = new TileAction();
         action.setText("Developers Community");
-        action.setUrl("https://developers.jivesoftware.com");
+        action.setUrl("https://developer.jivesoftware.com");
         event.setAction(action);
 
         events.add(event);
