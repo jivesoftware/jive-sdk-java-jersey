@@ -56,11 +56,13 @@ public abstract class BaseContainerRequestFilter implements ContainerRequestFilt
 
         final StringBuilder b = new StringBuilder();
         try {
-            if (in.available() > 0) {
-                ReaderWriter.writeTo(in, out);
-                containerRequestContext.setEntityStream(new ByteArrayInputStream(out.toByteArray()));
-                body = new String(out.toByteArray());
-            } // end if
+            //REMOVED THE in.available() CHECK AS THIS DOESNT WORK IN TOMCAT WITH JERSEY
+            //SEE: https://java.net/jira/browse/JERSEY-749
+            if (log.isTraceEnabled()) { log.trace("Data Available..."); }
+            ReaderWriter.writeTo(in, out);
+            containerRequestContext.setEntityStream(new ByteArrayInputStream(out.toByteArray()));
+            body = new String(out.toByteArray());
+            if (log.isTraceEnabled()) { log.trace("Data Read:\n["+body+"]"); }
         } catch (IOException ex) {
             throw new ContainerException(ex);
         } // end try/catch
