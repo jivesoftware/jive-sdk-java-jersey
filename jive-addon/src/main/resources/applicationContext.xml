@@ -38,6 +38,13 @@ http://www.springframework.org/schema/util      http://www.springframework.org/s
     <bean id="exampleGaugeTile" class="com.jivesoftware.addon.example.tile.MyExampleGaugeTile" scope="singleton" />
     <bean id="exampleListTile" class="com.jivesoftware.addon.example.tile.MyExampleListTile" scope="singleton" />
     <bean id="exampleTableTile" class="com.jivesoftware.addon.example.tile.MyExampleTableTile" scope="singleton" />
+    
+   <!--  <bean id="attachmentStorageService" class="com.jivesoftware.addon.example.storage.file.services.AttachmentStorageService" scope="singleton" />
+    <bean id="fileStorageService" class="com.jivesoftware.addon.example.storage.file.services.FileStorageService" scope="singleton" />
+    <bean id="storageHealthService" class="com.jivesoftware.addon.example.storage.file.services.HealthService" scope="singleton" />
+    <bean id="placeStorageService" class="com.jivesoftware.addon.example.storage.file.services.PlaceStorageService" scope="singleton" />
+    <bean id="storageService" class="com.jivesoftware.addon.example.storage.file.services.StorageService" scope="singleton" />
+	-->
 
     <util:list id="tileInstanceEventListeners" list-class="java.util.ArrayList" value-type="com.jivesoftware.sdk.event.TileInstanceEventListener">
         <!-- MUST BE FIRST IN CURRENT IMPLEMENTATION -->

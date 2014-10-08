@@ -19,7 +19,10 @@
 package com.jivesoftware.addon.example;
 
 import com.jivesoftware.addon.example.service.health.HealthService;
+import com.jivesoftware.addon.example.storage.file.services.StorageService;
 import com.jivesoftware.sdk.JiveAddOnApplication;
+
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Singleton;
@@ -35,9 +38,12 @@ public class MyExampleAddOn extends JiveAddOnApplication {
      ****************************************************************/
     public MyExampleAddOn() {
         super();
+        
+        this.register(MultiPartFeature.class);
 
         /*** SCAN PACKAGES FOR SERVICES TO AUTO-WIRE, USING CLASS INSTEAD OF STRING FOR REFACTOR SIMPLICITY ***/
         packages(true,HealthService.class.getPackage().getName());
+        packages(true,StorageService.class.getPackage().getName());
     } // end constructor
 
 } // end class

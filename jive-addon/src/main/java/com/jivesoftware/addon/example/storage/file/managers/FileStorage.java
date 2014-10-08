@@ -22,14 +22,15 @@ public class FileStorage {
 	
 	private static final Logger log = LoggerFactory.getLogger(FileStorage.class);
 
-	private static final String FILE_STORE_LOCATION = "./wdfilestore/";
+	private static final String FILE_STORE_LOCATION = "./filestore/";
 	private static final String TRASH_FOLDER = "trash/";
 	private static final String WORKSPACES_FOLDER = "workspaces/";
 	private static final String FILES_FOLDER = "/files/";
 	private static final String ATTACHMENTS_FOLDER = "/attachments/";
 	
-	public static boolean testConnectivity() {
+	public static boolean testConnectivity() {		
 		File f = new File(FILE_STORE_LOCATION + "connectivitytest");
+		log.info("Testing file write access to : " + f.getAbsolutePath());
 		if (f.exists()) {
 			if (!f.delete()) {
 				return false;
