@@ -65,7 +65,9 @@ public class BaseJiveClient {
         } // end if
 
         Invocation.Builder builder = target.request(requestContentType);
-        builder.header(HttpHeaders.AUTHORIZATION, authorizationSupport.getAuthorizationHeader());
+        if (authorizationSupport != null) {
+            builder.header(HttpHeaders.AUTHORIZATION, authorizationSupport.getAuthorizationHeader());
+        } // end if
 
         if (runAs != null) {
             if (log.isDebugEnabled()) { log.trace("Adding "+HEADER_JIVE_RUN_AS+" to Request ..."); }
