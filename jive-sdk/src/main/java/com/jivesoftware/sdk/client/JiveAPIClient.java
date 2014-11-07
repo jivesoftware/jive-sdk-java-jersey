@@ -90,16 +90,16 @@ public class JiveAPIClient extends BaseJiveClient {
 
             //TODO: DETERMINE STATUS CODE??
 
-            if (log.isInfoEnabled()) { log.info("Successful Push ["+uri+"] ..."); }
+            if (log.isInfoEnabled()) { log.info("Successful Called ["+uri+"] ..."); }
             return response;
         } catch (BadRequestException bre) {
-            log.error("Error Pushing Data to Tile [" + uri + "]", bre);
+            log.error("Error Calling API [" + uri + "]", bre);
             throw JiveClientException.buildException("Error Pushing Data to Tile [" + uri + "]",bre,null,data,data.getClass());
         } catch (InterruptedException ie) {
-            log.error("Error Pushing Data to Tile [" + uri + "]", ie);
+            log.error("Error Calling API [" + uri + "]", ie);
             throw JiveClientException.buildException("Error Pushing Data to Tile [" + uri + "]",ie,null,data,data.getClass());
         } catch (ExecutionException ee) {
-            log.error("Error Pushing Data to Tile [" + uri + "]", ee);
+            log.error("Error Calling API [" + uri + "]", ee);
             throw JiveClientException.buildException("Error Pushing Data to Tile [" + uri + "]",ee,null,data,data.getClass());
         } // end try/catch
 

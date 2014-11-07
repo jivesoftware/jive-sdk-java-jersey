@@ -27,7 +27,7 @@ public class JiveRunAs {
     private String key = null;
 
 
-    enum Strategy {
+    public enum Strategy {
         userid, email, uri, username
     } // end enum
 

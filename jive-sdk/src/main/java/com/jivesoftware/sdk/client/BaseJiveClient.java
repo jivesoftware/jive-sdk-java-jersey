@@ -20,6 +20,7 @@ package com.jivesoftware.sdk.client;
 
 import com.google.common.collect.Maps;
 import com.jivesoftware.sdk.client.filter.DebugClientResponseFilter;
+import com.jivesoftware.sdk.client.filter.StripAllowIllegalResourceCallFilter;
 import org.apache.commons.codec.binary.Base64;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -36,7 +37,7 @@ import java.util.Map;
 public class BaseJiveClient {
     private static final Logger log = LoggerFactory.getLogger(BaseJiveClient.class);
 
-    enum HttpMethods {
+    public enum HttpMethods {
         GET, POST, UPDATE, DELETE, PATCH, PUT, HEAD;
     } // end HttpMethods
 
@@ -44,6 +45,8 @@ public class BaseJiveClient {
 
     protected Client buildClient() {
         Client client = ClientBuilder.newClient();
+
+        client.register(StripAllowIllegalResourceCallFilter.class);
 
         if (log.isDebugEnabled()) {
             client.register(DebugClientResponseFilter.class);
