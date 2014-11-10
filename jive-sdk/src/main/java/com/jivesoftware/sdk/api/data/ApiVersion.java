@@ -16,7 +16,7 @@
  *
  */
 
-package data;
+package com.jivesoftware.sdk.api.data;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 

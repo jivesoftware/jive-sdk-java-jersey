@@ -20,9 +20,9 @@ import com.jivesoftware.sdk.client.BaseJiveClient;
 import com.jivesoftware.sdk.client.JiveAPIClient;
 import com.jivesoftware.sdk.client.JiveClientException;
 import com.jivesoftware.sdk.client.JiveRunAs;
-import data.ApiVersion;
-import data.JiveContent;
-import data.JiveContents;
+import com.jivesoftware.sdk.api.data.ApiVersion;
+import com.jivesoftware.sdk.api.data.JiveContent;
+import com.jivesoftware.sdk.api.data.JiveContents;
 
 import java.net.URI;
 
@@ -82,7 +82,7 @@ public class ExampleApiRunner {
 
         System.out.println("Your Jive Content:");
         for (JiveContent contentItem : contents.getList()) {
-            System.out.println("\t"+contentItem.getContentID()+" : "+contentItem.getSubject());
+            System.out.println("\t" + contentItem.getContentID() + " : " + contentItem.getSubject() + " : " + contentItem.getAuthor().getDisplayName() + " : " + contentItem.getResources().get("self").getRef());
         } // end for content
 
     } // end listContents

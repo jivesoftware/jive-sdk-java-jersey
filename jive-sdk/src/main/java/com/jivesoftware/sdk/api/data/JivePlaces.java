@@ -16,7 +16,7 @@
  *
  */
 
-package data;
+package com.jivesoftware.sdk.api.data;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
@@ -27,16 +27,7 @@ import java.util.Map;
  * Created by rrutan on 11/7/14.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class JiveContents {
+public class JivePlaces extends JiveResults<JivePlace> {
 
-    private List<JiveContent> list;
-
-    public List<JiveContent> getList() {
-        return list;
-    }
-
-    public void setList(List<JiveContent> list) {
-        this.list = list;
-    }
 
 } // end class
