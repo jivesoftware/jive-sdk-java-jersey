@@ -36,7 +36,7 @@ public class JiveContent {
     private long likeCount;
     private String published; //TODO: CONVERT TO DATE
     private List<String> tags;
-    private String update; //TODO: CONVERT TO DATE
+    private String updated; //TODO: CONVERT TO DATE
     private String iconCss;
     private Map<String,String> parentPlace;
     private String contentID;
@@ -103,12 +103,12 @@ public class JiveContent {
         this.tags = tags;
     }
 
-    public String getUpdate() {
-        return update;
+    public String getUpdated() {
+        return updated;
     }
 
-    public void setUpdate(String update) {
-        this.update = update;
+    public void setUpdated(String updated) {
+        this.updated = updated;
     }
 
     public String getIconCss() {

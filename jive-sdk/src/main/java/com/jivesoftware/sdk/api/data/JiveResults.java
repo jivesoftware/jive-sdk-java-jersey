@@ -31,6 +31,9 @@ public class JiveResults<T> {
     private List<T> list;
     private int startIndex;
 
+    public String getNext() { return (links != null) ? links.get("next") : null; }
+    public String getPrevious() { return (links != null) ? links.get("previous") : null; }
+
     public int getItemsPerPage() {
         return itemsPerPage;
     }
