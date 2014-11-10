@@ -76,8 +76,7 @@ public class JiveAPIClient extends BaseJiveClient {
         Future<Object> responseFuture = null;
 
         if (data != null) {
-            DataBlock dataBlock = new DataBlock();
-            Entity entity = Entity.entity(dataBlock, MediaType.APPLICATION_JSON_TYPE);
+            Entity entity = Entity.entity(data, MediaType.APPLICATION_JSON_TYPE);
             responseFuture = invoker.method(method.name(),entity,clazz);
         } else {
             responseFuture = invoker.method(method.name(),clazz);

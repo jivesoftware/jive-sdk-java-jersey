@@ -71,7 +71,7 @@ public class BaseJiveClient {
 
         if (runAs != null) {
             if (log.isDebugEnabled()) { log.trace("Adding "+HEADER_JIVE_RUN_AS+" to Request ..."); }
-            builder.header(HEADER_JIVE_RUN_AS,runAs.getKey());
+            builder.header(HEADER_JIVE_RUN_AS,runAs.getStrategy().name() + " " + runAs.getKey());
         } // end if
 
         if (additionalHeaders != null) {
@@ -99,7 +99,7 @@ public class BaseJiveClient {
         @Override
         public String getAuthorizationHeader() {
             StringBuffer sbuf = new StringBuffer(AUTHORIZATION_BASIC_PREFIX);
-            sbuf.append(Base64.encodeBase64((username + ":" + password).getBytes()));
+            sbuf.append(new String(Base64.encodeBase64((username + ":" + password).getBytes())));
             return sbuf.toString();
         } // end getAuthorizationHeader
 
