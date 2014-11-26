@@ -21,6 +21,7 @@ package com.jivesoftware.sdk.api.tile.data;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * Created by rrutan on 2/4/14.
@@ -30,7 +31,7 @@ public class TileAction implements Serializable {
 
     private String text;
     private String url;
-    private String context;
+    private Map<String,String> context;
 
     public TileAction() {
         text = null;
@@ -54,11 +55,11 @@ public class TileAction implements Serializable {
         this.url = url;
     }
 
-    public String getContext() {
+    public Map<String,String> getContext() {
         return context;
     }
 
-    public void setContext(String context) {
+    public void setContext(Map<String,String> context) {
         this.context = context;
     }
 
