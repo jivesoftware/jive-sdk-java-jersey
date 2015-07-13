@@ -31,6 +31,7 @@ public class ActivityEntry {
     private ActivityAction action; // required
     private ActivityActor actor;
     private ActivityObject object; // required
+    private ActivityJive jive;
 
     private String id;
     private ActivityEntryResources resources;
@@ -83,5 +84,13 @@ public class ActivityEntry {
 
     public void setObject(ActivityObject object) {
         this.object = object;
+    }
+
+    public ActivityJive getJive() {
+        return jive;
+    }
+
+    public void setJive(ActivityJive jive) {
+        this.jive = jive;
     }
 }
