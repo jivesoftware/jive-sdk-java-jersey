@@ -16,24 +16,35 @@
  *
  */
 
-package com.jivesoftware.addon.example.service.storage;
+package com.jivesoftware.addon.example.storage.file.services;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import javax.inject.Inject;
 import javax.inject.Singleton;
-import javax.ws.rs.*;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.jivesoftware.sdk.api.entity.StorageInstanceProvider;
+
 /**
  * Created by David Nicholls.
  */
-@Path("/storage")
+@Path("/filestorage")
 @Singleton
 public class StorageService {
     private static final Logger log = LoggerFactory.getLogger(StorageService.class);
+
+    @Inject
+    private StorageInstanceProvider storageInstanceProvider;
+    
 
     @POST
     @Path("/resolveResources")

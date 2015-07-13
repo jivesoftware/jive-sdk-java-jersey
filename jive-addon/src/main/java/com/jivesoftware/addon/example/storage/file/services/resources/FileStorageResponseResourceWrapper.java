@@ -17,7 +17,7 @@ import com.jivesoftware.addon.example.storage.file.storage.models.ResourceDTO;
  */
 public class FileStorageResponseResourceWrapper {
 	
-	public static final String BASE_URL = "/example/storage";
+	public static final String BASE_URL = "/example/filestorage";
 	
 	public static final String HTTP_VERB_GET = "GET";
 	public static final String HTTP_VERB_PUT = "PUT";
