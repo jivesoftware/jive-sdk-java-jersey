@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.jivesoftware.addon.example.service.storage;
+package com.jivesoftware.addon.example.storage.file.services;
 
 import java.io.IOException;
 
@@ -31,7 +31,7 @@ import com.jivesoftware.addon.example.storage.file.storage.models.ExStorageConta
  * @author david.nicholls
  *
  */
-@Path("/storage/workspaces")
+@Path("/filestorage/workspaces")
 @Singleton
 public class PlaceStorageService {
 	private static final Logger log = LoggerFactory.getLogger(PlaceStorageService.class);

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.jivesoftware.addon.example.service.storage;
+package com.jivesoftware.addon.example.storage.file.services;
 
 import java.io.InputStream;
 
@@ -35,7 +35,7 @@ import com.jivesoftware.addon.example.storage.file.storage.models.ExStorageUserE
  * @author david.nicholls
  *
  */
-@Path("/storage/workspaces/{workspaceId}/files")
+@Path("/filestorage/workspaces/{workspaceId}/files")
 @Singleton
 public class FileStorageService {
 	
@@ -58,8 +58,8 @@ public class FileStorageService {
 		metadata.getVersion().setSize(fileSize);
 		
 		metadata = FileStorageResponseResourceWrapper.wrapWithResources(workspaceId, metadata);
-		throw new RuntimeException("Failed to upload file");
-        //return metadata;
+		
+        return metadata;
     }
 
     @POST

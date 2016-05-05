@@ -8,3 +8,7 @@ jive-sdk/target
 *.ipr
 *.iws
 *.zip
+
+.settings/
+.classpath
+.project

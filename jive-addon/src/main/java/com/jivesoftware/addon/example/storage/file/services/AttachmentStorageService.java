@@ -1,29 +1,38 @@
 /**
  * 
  */
-package com.jivesoftware.addon.example.service.storage;
+package com.jivesoftware.addon.example.storage.file.services;
+
+import java.io.InputStream;
+
+import javax.inject.Singleton;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.MediaType;
+
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.jivesoftware.addon.example.storage.file.managers.ExternalDocumentIDGenerator;
 import com.jivesoftware.addon.example.storage.file.managers.FileStorage;
 import com.jivesoftware.addon.example.storage.file.services.resources.FileStorageResponseResourceWrapper;
 import com.jivesoftware.addon.example.storage.file.storage.models.ExStorageStaticItemEntity;
 import com.jivesoftware.addon.example.storage.file.storage.models.ExStorageUserEntity;
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
-import org.glassfish.jersey.media.multipart.FormDataParam;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import javax.inject.Singleton;
-import javax.ws.rs.*;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MediaType;
-import java.io.InputStream;
 
 /**
  * @author david.nicholls
  *
  */
-@Path("/storage/workspaces/{workspaceId}/attachments")
+@Path("/filestorage/workspaces/{workspaceId}/attachments")
 @Singleton
 public class AttachmentStorageService {
 	
@@ -34,12 +43,8 @@ public class AttachmentStorageService {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)    
     public ExStorageStaticItemEntity upload(
-            @HeaderParam(HttpHeaders.AUTHORIZATION) String authorization,
-            @PathParam("workspaceId") String workspaceId,
-            @FormDataParam("file") InputStream uploadedInputStream,
-            @FormDataParam("file") FormDataContentDisposition fileData,
-            @FormDataParam("metadata") ExStorageStaticItemEntity metadata) {
-
+            @HeaderParam(HttpHeaders.AUTHORIZATION) String authorization, @PathParam("workspaceId") String workspaceId, @FormDataParam("file") InputStream uploadedInputStream,
+            @FormDataParam("file") FormDataContentDisposition fileData, @FormDataParam("metadata") ExStorageStaticItemEntity metadata) {
 		
 		String externalId = Long.toString(ExternalDocumentIDGenerator.getNextID());
 		Long fileSize = FileStorage.uploadAttachment(workspaceId, uploadedInputStream, fileData.getFileName(), externalId);

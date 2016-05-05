@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.jivesoftware.addon.example.service.storage;
+package com.jivesoftware.addon.example.storage.file.services;
 
 import javax.inject.Singleton;
 import javax.ws.rs.HeaderParam;
@@ -21,7 +21,7 @@ import com.jivesoftware.addon.example.storage.file.storage.models.ExStorageError
  * @author david.nicholls
  *
  */
-@Path("/storage/health")
+@Path("/filestorage/healthservice")
 @Singleton
 public class HealthService {
 	private static final Logger log = LoggerFactory.getLogger(FileStorageService.class);
